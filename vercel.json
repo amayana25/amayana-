@@ -1,11 +1,4 @@
 {
   "buildCommand": "",
-  "outputDirectory": ".",
-  "public": ".",
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/game-architect-app-8.html"
-    }
-  ]
+  "outputDirectory": "."
 }
