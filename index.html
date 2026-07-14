@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>YORRO Game-architect Studio</title>
+<script src="https://www.paypal.com/sdk/js?client-id=BAA36HWl4FfE_cPg4sZOHzSkBRJOSIY4cYGHtWwwBW5GJgx8yCZUXEc2ll8Ce1GvBh0fwHAEVnEl05mA2g&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#08080f;--bg2:#0f0f1a;--bg3:#171725;--bg4:#1e1e2c;
+  --border:#252535;--border2:#303048;
+  --accent:#7c6dfa;--accent2:#a594ff;--accent3:#4ade80;--accent4:#fb923c;
+  --gold:#f59e0b;--gold2:#fcd34d;
+  --text:#eaeaf5;--text2:#9090aa;--text3:#50506a;--red:#f87171;
+  --font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+  --font-code:'JetBrains Mono',monospace;
+  --radius:12px;--safe-bottom:env(safe-area-inset-bottom,0px);
+  --glow-accent:0 0 20px rgba(124,109,250,.25);
+  --glow-gold:0 0 20px rgba(245,158,11,.2);
+}
+html{height:100%;overflow:hidden}
+body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px}
+.app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+.topbar{display:flex;align-items:center;gap:10px;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));background:linear-gradient(135deg,rgba(13,13,24,.98),rgba(26,10,46,.95));border-bottom:1px solid rgba(124,109,250,.2);flex-shrink:0;z-index:50;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.logo{display:flex;align-items:center;gap:7px;font-family:var(--font-head);font-weight:800}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent4));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.logo-yorro{color:var(--gold);font-size:18px;letter-spacing:.5px}
+.logo-sub{color:var(--text3);font-size:11px;font-weight:500}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.views{flex:1;overflow:hidden;position:relative}
+.view{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column}
+.view.active{display:flex}
+.chat-view{background:var(--bg)}
+.chat-messages{flex:1;padding:12px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;scroll-behavior:smooth;padding-bottom:4px}
+.msg{display:flex;gap:8px;animation:msgIn .18s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse}
+.msg-avatar{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
+.msg.agent .msg-avatar{background:linear-gradient(135deg,var(--accent),var(--accent4))}
+.msg.user .msg-avatar{background:var(--bg4)}
+.msg-body{max-width:84%;display:flex;flex-direction:column}
+.msg.user .msg-body{align-items:flex-end}
+.msg-bubble{padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.55;word-break:break-word}
+.msg.agent .msg-bubble{background:linear-gradient(135deg,rgba(26,26,37,.9),rgba(22,22,33,.95));border:1px solid rgba(124,109,250,.2);border-bottom-left-radius:4px;color:var(--text);box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--accent),rgba(124,109,250,.85));color:#fff;border-bottom-right-radius:4px;box-shadow:0 2px 12px rgba(124,109,250,.3)}
+.chat-input-wrap{padding:10px 12px;padding-bottom:max(12px,calc(var(--safe-bottom) + 8px));background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0}
+.input-row{display:flex;gap:8px;align-items:flex-end;background:var(--bg3);border:1.5px solid var(--border2);border-radius:14px;padding:8px 10px;transition:border-color .15s}
+.input-row:focus-within{border-color:var(--accent)}
+.chat-input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:14px;resize:none;min-height:22px;max-height:110px;line-height:1.5}
+.chat-input::placeholder{color:var(--text3)}
+.send-btn{width:36px;height:36px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent4));color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;box-shadow:0 2px 12px rgba(124,109,250,.4)}
+.send-btn:active{transform:scale(.88);box-shadow:none}
+.notif{position:fixed;top:70px;left:12px;right:12px;z-index:500;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;animation:notifIn .3s ease}
+@keyframes notifIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-icon">🎮</div>
+      <span class="logo-yorro">YORRO</span>
+      <span class="logo-sub">Game-architect</span>
+    </div>
+    <div class="topbar-right">
+      <span style="font-size:12px;color:var(--text2)">Studio Pro</span>
+    </div>
+  </div>
+  
+  <div class="views">
+    <div class="view chat-view active">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg agent">
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-body">
+            <div class="msg-bubble">Bienvenue dans YORRO Game-architect Studio ! 🎮</div>
+            <div class="msg-time">maintenant</div>
+          </div>
+        </div>
+        <div class="msg agent">
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-body">
+            <div class="msg-bubble">Je suis votre assistant IA dédié à la création de jeux vidéo professionnels.</div>
+            <div class="msg-time">maintenant</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chat-input-wrap">
+        <div class="input-row">
+          <input type="text" class="chat-input" id="userInput" placeholder="Décrivez votre idée de jeu...">
+          <button class="send-btn" id="sendBtn">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('sendBtn').addEventListener('click', function() {
+  const input = document.getElementById('userInput');
+  const message = input.value.trim();
+  
+  if (message) {
+    // Ajouter le message utilisateur
+    const chatMessages = document.getElementById('chatMessages');
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg user';
+    userMsg.innerHTML = `
+      <div class="msg-body">
+        <div class="msg-bubble">${message}</div>
+        <div class="msg-time">maintenant</div>
+      </div>
+      <div class="msg-avatar">👤</div>
+    `;
+    chatMessages.appendChild(userMsg);
+    
+    // Répondre automatiquement
+    setTimeout(() => {
+      const agentMsg = document.createElement('div');
+      agentMsg.className = 'msg agent';
+      agentMsg.innerHTML = `
+        <div class="msg-avatar">🤖</div>
+        <div class="msg-body">
+          <div class="msg-bubble">Votre idée "${message}" est intéressante ! 🎯 Nous pouvons commencer à développer votre prototype.</div>
+          <div class="msg-time">maintenant</div>
+        </div>
+      `;
+      chatMessages.appendChild(agentMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 800);
+    
+    input.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+});
+
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    document.getElementById('sendBtn').click();
+  }
+});
+</script>
+</body>
+</html>
