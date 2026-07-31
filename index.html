@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <title>YORRO Game-architect Studio</title>
-<script src="https://www.paypal.com/sdk/js?client-id=BAA36HWl4FfE_cPg4sZOHzSkBRJOSIY4cYGHtWwwBW5GJgx8yCZUXEc2ll8Ce1GvBh0fwHAEVnEl05mA2g&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=BAA36HWl4FfE_cPg4sZOHzSkBRJOSIY4cYGHtWwwBW5GJgx8yCZUXEc2ll8Ce1GvBh0fwHAEVnEl05mA2g&components=buttons&disable-funding=venmo&currency=USD"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -27,7 +27,7 @@ html{height:100%;overflow:hidden}
 body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px}
 
 /* ══ APP SHELL ══ */
-.app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+.app{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
 
 /* ══ TOPBAR ══ */
 .topbar{
@@ -122,9 +122,9 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 }
 
 /* ══ VIEWS ══ */
-.views{flex:1;overflow:hidden;position:relative}
+.views{flex:1;position:relative}
 .view{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column}
-.view.active{display:flex}
+.view.active{display:flex;min-height:calc(100vh - 200px)}
 
 /* ── VIEW: CHAT ── */
 .chat-view{background:var(--bg)}
@@ -147,9 +147,9 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   word-break:break-word;
 }
 .msg.agent .msg-bubble{
-  background:linear-gradient(135deg,rgba(26,26,37,.9),rgba(22,22,33,.95));
-  border:1px solid rgba(124,109,250,.2);border-bottom-left-radius:4px;color:var(--text);
-  box-shadow:0 2px 12px rgba(0,0,0,.2);
+  background:linear-gradient(135deg,rgba(22,22,35,.95),rgba(18,18,28,.98));
+  border:1px solid rgba(124,109,250,.18);border-bottom-left-radius:4px;color:var(--text);
+  box-shadow:0 4px 16px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.03);
 }
 .msg.user .msg-bubble{
   background:linear-gradient(135deg,var(--accent),rgba(124,109,250,.85));
@@ -232,14 +232,19 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .chat-input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:14px;resize:none;min-height:22px;max-height:110px;line-height:1.5}
 .chat-input::placeholder{color:var(--text3)}
 .send-btn{
-  width:36px;height:36px;border-radius:10px;border:none;
+  width:38px;height:38px;border-radius:12px;border:none;
   background:linear-gradient(135deg,var(--accent),var(--accent4));
   color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:all .15s;flex-shrink:0;
-  box-shadow:0 2px 12px rgba(124,109,250,.4);
+  box-shadow:0 4px 16px rgba(124,109,250,.45);
+  animation:sendPulse 3s ease-in-out infinite;
 }
-.send-btn:active{transform:scale(.88);box-shadow:none}
-.send-btn:disabled{background:var(--bg4);color:var(--text3);cursor:default;box-shadow:none}
+@keyframes sendPulse{
+  0%,100%{box-shadow:0 4px 16px rgba(124,109,250,.45)}
+  50%{box-shadow:0 4px 24px rgba(124,109,250,.65)}
+}
+.send-btn:active{transform:scale(.88);box-shadow:none;animation:none}
+.send-btn:disabled{background:var(--bg4);color:var(--text3);cursor:default;box-shadow:none;animation:none}
 
 /* ── VIEW: PROJECTS ── */
 .projects-view{background:var(--bg);padding:0}
@@ -488,6 +493,51 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .notif.error .ni{color:var(--red)}
 .notif.info .ni{color:var(--accent2)}
 .notif.gold .ni{color:var(--gold)}
+
+/* ══ NETWORK CARDS ══ */
+.network-card{
+  display:flex;align-items:center;gap:10px;padding:11px 12px;
+  background:var(--bg2);border:1.5px solid var(--border);
+  border-radius:12px;cursor:pointer;transition:all .15s;
+}
+.network-card:active{transform:scale(.98)}
+.network-card.selected-net{
+  border-color:var(--accent);
+  background:rgba(124,109,250,.08);
+}
+.net-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.net-info{flex:1;min-width:0}
+.net-name{font-size:13px;font-weight:700;font-family:var(--font-head);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.net-desc{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
+.net-tag{padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700;font-family:var(--font-head)}
+.net-tag.free{background:rgba(74,222,128,.15);color:var(--accent3)}
+.net-tag.africa{background:rgba(251,146,60,.15);color:var(--accent4)}
+.net-tag.cheap{background:rgba(245,158,11,.15);color:var(--gold)}
+.net-tag.pro{background:rgba(165,148,255,.15);color:var(--accent2)}
+.net-tag.backup{background:rgba(248,113,113,.15);color:var(--red)}
+.net-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.net-cost{font-family:var(--font-code);font-size:11px;font-weight:700;color:var(--text2)}
+.net-config-btn{font-size:14px;cursor:pointer;padding:2px 5px;border-radius:5px;background:var(--bg3);transition:all .12s}
+.net-config-btn:hover{background:var(--bg4)}
+.net-config-panel{
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;
+  animation:msgIn .15s ease;
+}
+.net-field-label{font-size:11px;font-weight:700;color:var(--text3);font-family:var(--font-head)}
+.net-input{
+  background:var(--bg2);border:1.5px solid var(--border2);border-radius:8px;
+  padding:8px 12px;font-family:var(--font-code);font-size:12px;color:var(--text);
+  outline:none;transition:border-color .15s;width:100%;
+}
+.net-input:focus{border-color:var(--accent)}
+.net-save-btn{
+  padding:9px;border-radius:9px;border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  color:#fff;font-family:var(--font-head);font-size:12px;font-weight:700;cursor:pointer;
+}
+.net-save-btn:active{transform:scale(.97)}
+
 .loading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));z-index:999;transition:width .3s;border-radius:0 3px 3px 0;opacity:0}
 
 /* ══ DOCUMENT VIEW ══ */
@@ -1076,6 +1126,224 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .permission-step-text{font-size:12px;color:var(--text2);line-height:1.5}
 .permission-step-text strong{color:var(--text)}
 
+
+
+/* ══ HERO SECTION ══ */
+.hero-section{
+  position:relative;overflow:hidden;
+  padding:28px 20px 24px;
+  background:linear-gradient(180deg,rgba(13,13,26,.98) 0%,rgba(10,10,18,.95) 100%);
+  border-bottom:1px solid rgba(124,109,250,.15);
+  flex-shrink:0;
+}
+.hero-bg-glow{
+  position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:380px;height:260px;
+  background:radial-gradient(ellipse,rgba(124,109,250,.22) 0%,rgba(245,158,11,.05) 50%,transparent 70%);
+  pointer-events:none;animation:heroPulse 4s ease-in-out infinite;
+}
+@keyframes heroPulse{
+  0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}
+  50%{opacity:1;transform:translateX(-50%) scale(1.05)}
+}
+.hero-content{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;z-index:1}
+.hero-logo{margin-bottom:4px;filter:drop-shadow(0 0 20px rgba(124,109,250,.4))}
+.hero-title{
+  font-family:var(--font-head);font-size:23px;font-weight:800;
+  background:linear-gradient(135deg,#ffffff 0%,var(--accent2) 50%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;letter-spacing:-.3px;line-height:1.2;
+}
+.hero-sub{font-size:13px;color:var(--text2);line-height:1.5}
+.hero-owner{font-size:11px;color:var(--text3);font-family:var(--font-code)}
+.hero-owner strong{color:var(--gold)}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.hero-badge{
+  padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;
+  font-family:var(--font-head);
+}
+.hero-badge.purple{background:rgba(124,109,250,.15);color:var(--accent2);border:1px solid rgba(124,109,250,.3)}
+.hero-badge.gold{background:rgba(245,158,11,.12);color:var(--gold);border:1px solid rgba(245,158,11,.25)}
+.hero-badge.green{background:rgba(74,222,128,.1);color:var(--accent3);border:1px solid rgba(74,222,128,.2)}
+
+/* ══ QUICK STATS ══ */
+.quick-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  padding:14px 14px 0;flex-shrink:0;
+}
+.qs-card{
+  background:linear-gradient(135deg,rgba(17,17,26,.92),rgba(14,14,22,.85));
+  border:1px solid rgba(124,109,250,.14);border-radius:13px;
+  padding:13px 8px;text-align:center;transition:all .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+.qs-card:active{transform:scale(.96);border-color:var(--accent);}
+.qs-val{font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--accent2)}
+.qs-lbl{font-size:9px;color:var(--text3);margin-top:2px;line-height:1.3;text-transform:uppercase;letter-spacing:.5px}
+
+/* ══ FEATURES SECTION ══ */
+.features-section{padding:14px 14px 0;flex-shrink:0}
+.features-title{
+  font-family:var(--font-head);font-size:11px;font-weight:700;
+  color:var(--text3);text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:10px;
+}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.feat-card{
+  background:linear-gradient(135deg,rgba(17,17,26,.92),rgba(14,14,22,.85));
+  border:1px solid rgba(54,54,80,.7);border-radius:14px;
+  padding:14px 10px;cursor:pointer;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.feat-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,109,250,.06),transparent);
+  opacity:0;transition:opacity .2s;border-radius:14px;
+}
+.feat-card:active{transform:scale(.93);}
+.feat-card:active::after{opacity:1;}
+.feat-icon{
+  width:40px;height:40px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:transform .18s;
+}
+.feat-card:active .feat-icon{transform:scale(.9)}
+.feat-name{font-family:var(--font-head);font-size:12px;font-weight:700;line-height:1.2}
+.feat-sub{font-size:10px;color:var(--text3);line-height:1.3}
+
+/* ══ CHAT SECTION LABEL ══ */
+.chat-section-label{
+  padding:14px 16px 6px;
+  font-family:var(--font-head);font-size:11px;font-weight:700;
+  color:var(--text3);text-transform:uppercase;letter-spacing:1px;
+  flex-shrink:0;
+}
+
+/* ══ SCROLLBAR GLOBAL ══ */
+body::-webkit-scrollbar{width:4px}
+body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ══ MENU DRAWER ══ */
+.menu-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;
+  display:none;animation:fadeIn .2s ease;backdrop-filter:blur(4px);
+}
+.menu-overlay.open{display:block}
+.menu-drawer{
+  position:fixed;left:0;top:0;bottom:0;width:82%;max-width:320px;
+  background:linear-gradient(180deg,#0e0e1c 0%,#0a0a14 60%,#08080f 100%);
+  border-right:1px solid rgba(124,109,250,.2);
+  z-index:301;display:flex;flex-direction:column;
+  transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+}
+.menu-drawer.open{transform:translateX(0)}
+
+/* Header du menu */
+.menu-header{
+  padding:20px 20px 16px;
+  background:linear-gradient(135deg,rgba(124,109,250,.12),rgba(245,158,11,.06));
+  border-bottom:1px solid rgba(124,109,250,.15);flex-shrink:0;
+}
+.menu-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.menu-logo-icon{
+  width:44px;height:44px;border-radius:12px;overflow:hidden;flex-shrink:0;
+  background:linear-gradient(135deg,#0d0d18,#1a0a2e);
+}
+.menu-logo-info{flex:1}
+.menu-logo-title{font-family:var(--font-head);font-size:16px;font-weight:800;color:var(--gold);letter-spacing:.5px}
+.menu-logo-sub{font-size:10px;color:var(--text3);margin-top:1px;text-transform:uppercase;letter-spacing:.5px}
+.menu-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .15s}
+.menu-close:active{background:var(--bg3)}
+
+/* Plan badge dans menu */
+.menu-plan-badge{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(251,146,60,.07));
+  border:1px solid rgba(245,158,11,.25);cursor:pointer;transition:all .15s;
+  box-shadow:0 2px 12px rgba(245,158,11,.1);
+}
+.menu-plan-badge:active{transform:scale(.97);background:rgba(245,158,11,.2)}
+.menu-plan-info{flex:1}
+.menu-plan-name{font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--gold)}
+.menu-plan-desc{font-size:10px;color:var(--text3);margin-top:1px}
+.menu-plan-arrow{font-size:12px;color:var(--gold)}
+
+/* Corps du menu */
+.menu-body{flex:1;overflow-y:auto;padding:10px 0}
+.menu-body::-webkit-scrollbar{width:3px}
+.menu-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* Section label */
+.menu-section-label{
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text3);
+  font-family:var(--font-head);
+  padding:14px 20px 6px;
+}
+
+/* Items de menu */
+.menu-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;cursor:pointer;transition:all .15s;
+  position:relative;border-bottom:1px solid rgba(255,255,255,.02);
+}
+.menu-item:active{background:linear-gradient(135deg,rgba(124,109,250,.1),rgba(251,146,60,.04))}
+.menu-item.active-item{background:rgba(124,109,250,.1)}
+.menu-item.active-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),var(--accent4));
+  border-radius:0 3px 3px 0;
+}
+.menu-item-icon{
+  width:40px;height:40px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;transition:all .15s;
+}
+.menu-item-text{flex:1}
+.menu-item-title{font-size:14px;font-weight:600;font-family:var(--font-head)}
+.menu-item-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.menu-item-badge{
+  padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;
+  font-family:var(--font-head);flex-shrink:0;
+}
+.menu-item-arrow{color:var(--text3);font-size:12px;flex-shrink:0}
+.menu-divider{height:1px;background:var(--border);margin:6px 16px}
+
+/* Sélecteur de langue dans menu */
+.lang-selector-wrap{padding:10px 16px 14px}
+.lang-selector-title{
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text3);
+  font-family:var(--font-head);margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.lang-grid-menu{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.lang-btn-menu{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 4px;border-radius:10px;border:1px solid var(--border2);
+  background:var(--bg3);cursor:pointer;transition:all .15s;
+}
+.lang-btn-menu:active{transform:scale(.92)}
+.lang-btn-menu.active-lang{
+  border-color:var(--accent);background:rgba(124,109,250,.12);
+}
+.lang-flag-emoji{font-size:20px;line-height:1}
+.lang-code{font-size:9px;font-weight:700;color:var(--text3);font-family:var(--font-head)}
+.lang-btn-menu.active-lang .lang-code{color:var(--accent2)}
+
+/* Footer menu */
+.menu-footer{
+  padding:14px 20px;border-top:1px solid var(--border);flex-shrink:0;
+  background:rgba(0,0,0,.2);
+}
+.menu-footer-sig{font-size:10px;color:var(--text3);font-family:var(--font-code);text-align:center;line-height:1.6}
+.menu-footer-sig strong{color:var(--gold)}
+.menu-version{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px}
+.menu-ver-badge{padding:2px 8px;border-radius:5px;background:rgba(124,109,250,.15);color:var(--accent2);font-size:10px;font-weight:700;font-family:var(--font-head)}
+
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 /* Admin input hérite du style api-input */
@@ -1155,45 +1423,21 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   <div class="mobile-nav">
     <button class="mobile-nav-btn active" id="nav-chat" onclick="switchView('chat')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Chat IA
+      Accueil
     </button>
-    <button class="mobile-nav-btn" id="nav-projects" onclick="switchView('projects')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      Projets
-      <span class="mobile-nav-badge" id="projects-badge" style="display:none">0</span>
+    <button class="mobile-nav-btn" onclick="openMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Menu
+      <span class="mobile-nav-badge" id="menu-badge" style="display:none">!</span>
     </button>
     <button class="mobile-nav-btn" id="nav-editor" onclick="switchView('editor')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
       Éditeur
       <span class="mobile-nav-badge" id="editor-badge" style="display:none">0</span>
     </button>
-    <button class="mobile-nav-btn" id="nav-stats" onclick="switchView('stats')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Stats
-    </button>
-    <button class="mobile-nav-btn" id="nav-call" onclick="switchView('call')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3-8.63A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6.89 6.9l1.19-1.19a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Appels
-    </button>
-    <button class="mobile-nav-btn" id="nav-docs" onclick="switchView('docs')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Docs
-    </button>
-    <button class="mobile-nav-btn" id="nav-phone" onclick="switchView('phone')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Appels
-    </button>
-    <button class="mobile-nav-btn" id="nav-phone" onclick="switchView('phone')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.5a16 16 0 006.59 6.59l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      Appels
-    </button>
-    <button class="mobile-nav-btn" id="nav-vsurv" onclick="switchView('vsurv')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-      Video IA
-    </button>
-    <button class="mobile-nav-btn" id="nav-legal" onclick="switchView('legal')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Légal
+    <button class="mobile-nav-btn" onclick="openSub()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Pro
     </button>
   </div>
 
@@ -1202,44 +1446,148 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 
     <!-- ── CHAT VIEW ── -->
     <div class="view chat-view active" id="view-chat">
+
+      <!-- ══ HERO SECTION ══ -->
+      <div class="hero-section">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-content">
+          <!-- Logo animé -->
+          <div class="hero-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="80" height="80">
+              <defs>
+                <linearGradient id="hbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0d0d18"/><stop offset="100%" style="stop-color:#1a0a2e"/></linearGradient>
+                <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#7c6dfa"/><stop offset="100%" style="stop-color:#a594ff"/></linearGradient>
+                <linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#fb923c"/></linearGradient>
+                <linearGradient id="hg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4ade80"/><stop offset="100%" style="stop-color:#22c55e"/></linearGradient>
+              </defs>
+              <rect width="400" height="400" rx="90" fill="url(#hbg)"/>
+              <circle cx="200" cy="185" r="140" fill="none" stroke="url(#hg1)" stroke-width="5" stroke-dasharray="650 880" opacity="0.9">
+                <animateTransform attributeName="transform" type="rotate" from="0 200 185" to="360 200 185" dur="10s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="200" cy="185" r="110" fill="none" stroke="url(#hg2)" stroke-width="4" stroke-dasharray="300 400" opacity="0.8">
+                <animateTransform attributeName="transform" type="rotate" from="360 200 185" to="0 200 185" dur="7s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="200" cy="185" r="80" fill="none" stroke="url(#hg3)" stroke-width="3" stroke-dasharray="150 200" opacity="0.7">
+                <animateTransform attributeName="transform" type="rotate" from="0 200 185" to="360 200 185" dur="4s" repeatCount="indefinite"/>
+              </circle>
+              <polygon points="200,110 268,150 268,228 200,268 132,228 132,150" fill="#0d0d18" stroke="url(#hg1)" stroke-width="3"/>
+              <text x="200" y="203" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">Y</text>
+            </svg>
+          </div>
+          <div class="hero-title" data-i18n="welcome_title">YORRO Game-architect</div>
+          <div class="hero-sub" data-i18n="welcome_sub">Votre studio de création de jeux IA</div>
+          <div class="hero-owner">par <strong>Patrick Emessiene Amayna</strong></div>
+
+          <!-- Badges hero -->
+          <div class="hero-badges">
+            <div class="hero-badge purple">🤖 IA Claude</div>
+            <div class="hero-badge gold">✦ Pro</div>
+            <div class="hero-badge green">🌍 10 langues</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STATS RAPIDES ══ -->
+      <div class="quick-stats">
+        <div class="qs-card">
+          <div class="qs-val" id="qs-games">0</div>
+          <div class="qs-lbl">Jeux créés</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-val" id="qs-files">0</div>
+          <div class="qs-lbl">Fichiers</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-val" id="qs-session">1</div>
+          <div class="qs-lbl">Session</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-val" id="qs-trials" style="color:var(--accent4)">--</div>
+          <div class="qs-lbl">Essais restants</div>
+        </div>
+      </div>
+
+      <!-- ══ FONCTIONNALITÉS RAPIDES ══ -->
+      <div class="features-section">
+        <div class="features-title">⚡ Accès rapide</div>
+        <div class="features-grid">
+          <div class="feat-card" onclick="openMenu()">
+            <div class="feat-icon" style="background:rgba(124,109,250,.15)">📋</div>
+            <div class="feat-name">Menu complet</div>
+            <div class="feat-sub">Toutes les fonctions</div>
+          </div>
+          <div class="feat-card" onclick="switchView('editor')">
+            <div class="feat-icon" style="background:rgba(74,222,128,.1)">💻</div>
+            <div class="feat-name" data-i18n="menu_editor">Éditeur</div>
+            <div class="feat-sub" id="feat-files-count">0 fichier ouvert</div>
+          </div>
+          <div class="feat-card" onclick="switchView('docs')">
+            <div class="feat-icon" style="background:rgba(165,148,255,.1)">📄</div>
+            <div class="feat-name" data-i18n="menu_docs">Documents</div>
+            <div class="feat-sub">IA · Traduction</div>
+          </div>
+          <div class="feat-card" onclick="switchView('vsurv')">
+            <div class="feat-icon" style="background:rgba(248,113,113,.1)">📹</div>
+            <div class="feat-name" data-i18n="menu_video">Vidéo IA</div>
+            <div class="feat-sub">Surveillance live</div>
+          </div>
+          <div class="feat-card" onclick="switchView('phone')">
+            <div class="feat-icon" style="background:rgba(34,197,94,.1)">📞</div>
+            <div class="feat-name" data-i18n="menu_phone">Appels</div>
+            <div class="feat-sub">5 réseaux</div>
+          </div>
+          <div class="feat-card" onclick="openSub()">
+            <div class="feat-icon" style="background:rgba(245,158,11,.1)">✦</div>
+            <div class="feat-name" style="color:var(--gold)">Passer Pro</div>
+            <div class="feat-sub">Accès illimité</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ QUOTA BARRE ══ -->
+      <div class="quota-bar" id="quota-bar">
+        <div class="quota-track"><div class="quota-fill" id="quota-fill" style="width:0%"></div></div>
+        <span class="quota-lbl" id="quota-lbl">0/15 essais</span>
+      </div>
+
+      <!-- ══ MESSAGES CHAT ══ -->
+      <div class="chat-section-label">💬 Chat IA — Création de jeux</div>
       <div class="chat-messages" id="chat-messages">
         <div class="msg agent">
-          <div class="msg-avatar">🤖</div>
+          <div class="msg-avatar">🎮</div>
           <div class="msg-body">
             <div class="msg-bubble">
               Bienvenue sur <strong>YORRO Game-architect v2.0</strong> par <strong>Patrick Emessiene Amayna</strong>.<br/><br/>
-              🎁 <strong>3 essais gratuits</strong> par fonctionnalité — aucune configuration requise.<br/>
-              Choisissez un template et commencez immédiatement ! 🚀
+              🎁 <strong>3 essais gratuits</strong> par fonctionnalité. Choisissez un template ou décrivez votre jeu ! 🚀
             </div>
             <div class="msg-time">maintenant</div>
           </div>
         </div>
       </div>
 
-      <!-- Quota bar -->
-      <div class="chat-quota" id="chat-quota">
-        <div class="quota-track"><div class="quota-fill g" id="quota-fill" style="width:0%"></div></div>
-        <span class="quota-lbl" id="quota-lbl">0/9 essais</span>
-        <button class="quota-sub-btn" onclick="openSub()">Pro ✦</button>
-      </div>
-
-      <!-- Templates -->
+      <!-- ══ TEMPLATES ══ -->
       <div class="templates-bar">
         <div class="templates-label">Templates — 3 essais gratuits chacun</div>
         <div class="chips-scroll" id="chips-scroll"></div>
       </div>
 
-      <!-- Input -->
+      <!-- ══ INPUT ══ -->
       <div class="chat-input-wrap">
         <div class="input-row">
-          <textarea class="chat-input" id="chat-input" placeholder="Décrivez votre jeu… (Entrée = envoyer)" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <textarea class="chat-input" id="chat-input"
+            placeholder="Décrivez votre jeu React... (Entrée = envoyer)"
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"></textarea>
           <button class="send-btn" id="send-btn" onclick="sendMsg()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
           </button>
         </div>
       </div>
-    </div>
 
+    </div>
     <!-- ── PROJECTS VIEW ── -->
     <div class="view projects-view" id="view-projects">
       <div class="view-header">
@@ -1883,487 +2231,6 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
       </div>
     </div><!-- /vsurv-view -->
 
-    <!-- ── CALL VIEW ── -->
-    <div class="view call-view" id="view-call">
-
-      <div class="call-header">
-        <div class="call-header-title">📞 Centre d'Appels YORRO</div>
-        <div class="call-header-sub">WebRTC interne + Twilio international — Patrick Emessiene Amayna</div>
-      </div>
-
-      <!-- Tabs -->
-      <div class="call-tabs">
-        <button class="call-tab active" id="ctab-dialer" onclick="setCallTab('dialer')">📞 Clavier</button>
-        <button class="call-tab" id="ctab-contacts" onclick="setCallTab('contacts')">👥 Contacts</button>
-        <button class="call-tab" id="ctab-history" onclick="setCallTab('history')">🕐 Historique</button>
-        <button class="call-tab" id="ctab-settings" onclick="setCallTab('settings')">⚙️ Config</button>
-      </div>
-
-      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch" id="call-scroll">
-
-        <!-- DIALER -->
-        <div id="cpanel-dialer">
-          <!-- Indicateur mode -->
-          <div style="display:flex;gap:8px;margin:12px 14px 8px;align-items:center">
-            <div id="call-mode-badge-yorro" style="flex:1;padding:8px;border-radius:9px;background:rgba(124,109,250,.1);border:1px solid rgba(124,109,250,.25);text-align:center;cursor:pointer;transition:all .15s" onclick="setCallMode('yorro')">
-              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--accent2)">🌐 YORRO Interne</div>
-              <div style="font-size:10px;color:var(--text3);margin-top:2px">WebRTC • Gratuit</div>
-            </div>
-            <div id="call-mode-badge-twilio" style="flex:1;padding:8px;border-radius:9px;background:var(--bg3);border:1px solid var(--border2);text-align:center;cursor:pointer;transition:all .15s" onclick="setCallMode('twilio')">
-              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--accent4)">📱 Numéro réel</div>
-              <div style="font-size:10px;color:var(--text3);margin-top:2px">Twilio • 0.02$/min</div>
-            </div>
-          </div>
-
-          <div class="call-dialer">
-            <div class="call-dialer-display">
-              <div class="call-country-row">
-                <select class="call-country-sel" id="call-country" onchange="updateCountryCode()">
-                  <option value="+237">🇨🇲 +237 Cameroun</option>
-                  <option value="+33">🇫🇷 +33 France</option>
-                  <option value="+1">🇺🇸 +1 USA</option>
-                  <option value="+44">🇬🇧 +44 UK</option>
-                  <option value="+225">🇨🇮 +225 Côte d'Ivoire</option>
-                  <option value="+221">🇸🇳 +221 Sénégal</option>
-                  <option value="+242">🇨🇬 +242 Congo</option>
-                  <option value="+243">🇨🇩 +243 RDC</option>
-                  <option value="+241">🇬🇦 +241 Gabon</option>
-                  <option value="+212">🇲🇦 +212 Maroc</option>
-                  <option value="+216">🇹🇳 +216 Tunisie</option>
-                  <option value="+213">🇩🇿 +213 Algérie</option>
-                  <option value="+32">🇧🇪 +32 Belgique</option>
-                  <option value="+41">🇨🇭 +41 Suisse</option>
-                </select>
-              </div>
-              <div class="call-number-display" id="call-display">__________</div>
-              <div class="call-number-sub" id="call-display-sub">Entrez un numéro ou sélectionnez un contact</div>
-            </div>
-
-            <!-- Keypad -->
-            <div class="call-keypad">
-              <button class="call-key" onclick="dialKey('1')">1<span class="call-key-sub"></span></button>
-              <button class="call-key" onclick="dialKey('2')">2<span class="call-key-sub">ABC</span></button>
-              <button class="call-key" onclick="dialKey('3')">3<span class="call-key-sub">DEF</span></button>
-              <button class="call-key" onclick="dialKey('4')">4<span class="call-key-sub">GHI</span></button>
-              <button class="call-key" onclick="dialKey('5')">5<span class="call-key-sub">JKL</span></button>
-              <button class="call-key" onclick="dialKey('6')">6<span class="call-key-sub">MNO</span></button>
-              <button class="call-key" onclick="dialKey('7')">7<span class="call-key-sub">PQRS</span></button>
-              <button class="call-key" onclick="dialKey('8')">8<span class="call-key-sub">TUV</span></button>
-              <button class="call-key" onclick="dialKey('9')">9<span class="call-key-sub">WXYZ</span></button>
-              <button class="call-key" onclick="dialKey('*')">*</button>
-              <button class="call-key" onclick="dialKey('0')">0<span class="call-key-sub">+</span></button>
-              <button class="call-key" onclick="dialKey('#')">#</button>
-            </div>
-
-            <!-- Actions -->
-            <div class="call-action-row">
-              <button class="call-btn-side" onclick="clearLastDigit()" title="Effacer">⌫</button>
-              <button class="call-btn-main" id="call-main-btn" onclick="initiateCall()">📞</button>
-              <button class="call-btn-side active-side" id="btn-mic" onclick="toggleMic()" title="Micro">🎤</button>
-            </div>
-          </div>
-
-          <!-- WebRTC Room -->
-          <div class="webrtc-room" id="webrtc-room">
-            <div class="webrtc-room-title">🌐 Salle YORRO active — Partagez le lien</div>
-            <div class="webrtc-peers" id="webrtc-peers">
-              <div class="webrtc-peer"><div class="webrtc-peer-icon">👤</div>Vous</div>
-            </div>
-            <button class="webrtc-share-btn" onclick="shareRoomLink()">📤 Partager le lien d'appel YORRO</button>
-          </div>
-
-          <!-- Info box -->
-          <div style="margin:0 14px 14px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:12px;color:var(--text2);line-height:1.6">
-            <div style="font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Comment ça fonctionne</div>
-            <div>🌐 <strong style="color:var(--accent2)">YORRO Interne</strong> — Appel gratuit peer-to-peer via WebRTC entre utilisateurs YORRO. Qualité HD, chiffré.</div>
-            <div style="margin-top:6px">📱 <strong style="color:var(--accent4)">Numéro réel</strong> — Appel vers tout numéro mobile/fixe mondial via Twilio. Configurez vos identifiants dans Paramètres.</div>
-          </div>
-        </div>
-
-        <!-- CONTACTS -->
-        <div id="cpanel-contacts" style="display:none">
-          <div style="padding:12px 14px">
-            <input id="contact-search" type="text" placeholder="Rechercher un contact..." style="width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:13px;color:var(--text);outline:none" oninput="filterContacts(this.value)"/>
-          </div>
-          <div style="padding:0 14px 6px;font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Contacts YORRO (Internes)</div>
-          <div class="call-contacts" id="contacts-yorro"></div>
-          <div style="padding:8px 14px 6px;font-family:var(--font-head);font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Contacts Externes</div>
-          <div class="call-contacts" id="contacts-ext"></div>
-          <button onclick="addContact()" style="margin:0 14px 14px;width:calc(100% - 28px);padding:11px;border-radius:10px;border:1.5px dashed var(--border2);background:transparent;color:var(--text2);font-family:var(--font-head);font-size:13px;cursor:pointer">+ Ajouter un contact</button>
-        </div>
-
-        <!-- HISTORIQUE -->
-        <div id="cpanel-history" style="display:none;padding-top:12px">
-          <div class="call-history" id="call-history-list"></div>
-          <div id="call-history-empty" style="text-align:center;padding:32px;color:var(--text3);font-size:13px">
-            <div style="font-size:36px;opacity:.2;margin-bottom:8px">📋</div>
-            Aucun appel pour l'instant
-          </div>
-        </div>
-
-        <!-- CONFIGURATION -->
-        <div id="cpanel-settings" style="display:none">
-          <!-- Twilio config -->
-          <div class="twilio-setup">
-            <div class="twilio-setup-title">📱 Configuration Twilio (Appels réels)</div>
-            <div class="twilio-setup-desc">
-              Pour appeler de vrais numéros mobiles, créez un compte sur <strong>twilio.com</strong> (15$ gratuits au départ) et renseignez vos identifiants ci-dessous. Vos clés restent sur votre appareil.
-            </div>
-            <input class="twilio-input" type="text" id="tw-account-sid" placeholder="Account SID (ACxxxxxx...)"/>
-            <input class="twilio-input" type="password" id="tw-auth-token" placeholder="Auth Token"/>
-            <input class="twilio-input" type="tel" id="tw-phone-from" placeholder="Votre numéro Twilio (ex: +12015551234)"/>
-            <button class="twilio-save-btn" onclick="saveTwilioConfig()">💾 Enregistrer la configuration Twilio</button>
-            <div class="twilio-status" id="twilio-status">
-              <div class="twilio-dot no" id="twilio-dot"></div>
-              <span id="twilio-status-text">Non configuré — Appels externes indisponibles</span>
-            </div>
-          </div>
-
-          <!-- WebRTC config -->
-          <div style="margin:14px;background:var(--bg2);border:1px solid rgba(74,222,128,.2);border-radius:14px;padding:16px">
-            <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--accent3);margin-bottom:8px">🌐 WebRTC — Appels YORRO Internes</div>
-            <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px">Les appels entre utilisateurs YORRO fonctionnent immédiatement, sans configuration. 100% gratuit, chiffré end-to-end, qualité HD.</div>
-            <div style="padding:10px 12px;background:rgba(74,222,128,.06);border-radius:9px;font-family:var(--font-code);font-size:11px;color:var(--accent3)">
-              ✓ Chiffrement E2E activé<br/>
-              ✓ Codec Opus HD (48kHz)<br/>
-              ✓ Suppression bruit intégrée<br/>
-              ✓ ICE/STUN Google servers
-            </div>
-          </div>
-
-          <!-- Guide Twilio -->
-          <div style="margin:0 14px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px">
-            <div style="font-family:var(--font-head);font-size:13px;font-weight:700;margin-bottom:10px">📖 Guide configuration Twilio</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;gap:10px;align-items:flex-start">
-                <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5">Créez un compte sur <strong style="color:var(--accent2)">twilio.com</strong> — vous recevez 15$ de crédit gratuit</div>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start">
-                <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5">Dans le Dashboard Twilio, copiez votre <strong>Account SID</strong> et <strong>Auth Token</strong></div>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start">
-                <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5">Achetez un numéro Twilio (~1$/mois) pour émettre des appels</div>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start">
-                <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">4</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5">Collez vos identifiants ci-dessus et enregistrez — les appels sont activés</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /call-view -->
-
-    <!-- ÉCRAN APPEL ACTIF (overlay plein écran) -->
-    <div class="call-active-screen" id="call-active-screen">
-      <div style="text-align:center">
-        <div class="call-active-avatar" id="active-avatar">👤</div>
-        <div class="call-active-name" id="active-name">Numéro inconnu</div>
-        <div class="call-active-status" id="active-status">Appel en cours...</div>
-        <div class="call-active-timer" id="active-timer">00:00</div>
-      </div>
-      <div class="call-wave">
-        <div class="call-wave-bar" style="height:8px"></div>
-        <div class="call-wave-bar" style="height:18px"></div>
-        <div class="call-wave-bar" style="height:28px"></div>
-        <div class="call-wave-bar" style="height:36px"></div>
-        <div class="call-wave-bar" style="height:28px"></div>
-        <div class="call-wave-bar" style="height:18px"></div>
-        <div class="call-wave-bar" style="height:8px"></div>
-      </div>
-      <div class="call-active-controls">
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="ctrl-mute" onclick="toggleActiveMic()">🎤</button>
-          <div class="call-ctrl-lbl">Micro</div>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="ctrl-speaker" onclick="toggleSpeaker()">🔊</button>
-          <div class="call-ctrl-lbl">Haut-parleur</div>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" onclick="toggleActiveKeypad()">⌨️</button>
-          <div class="call-ctrl-lbl">Clavier</div>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="ctrl-record" onclick="toggleRecord()">⏺️</button>
-          <div class="call-ctrl-lbl">Enregistrer</div>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" onclick="holdCall()">⏸️</button>
-          <div class="call-ctrl-lbl">Attente</div>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" onclick="transferCall()">↗️</button>
-          <div class="call-ctrl-lbl">Transférer</div>
-        </div>
-      </div>
-      <button class="call-hangup" onclick="hangupCall()">📵</button>
-    </div>
-
-    <!-- ══ TELEPHONIE YORRO ══ -->
-    <div class="view phone-view" id="view-phone">
-
-      <div class="phone-header">
-        <div class="phone-header-title">📞 Téléphonie YORRO</div>
-        <div class="phone-header-sub">WebRTC interne + Twilio vers numéros réels</div>
-      </div>
-
-      <!-- Status bar -->
-      <div class="phone-status-bar">
-        <span class="pstatus-dot ok" id="pstatus-webrtc"></span>
-        <span style="color:var(--text2)">WebRTC:</span>
-        <span id="pstatus-webrtc-lbl" style="color:var(--accent3)">Prêt</span>
-        <span style="color:var(--border2);margin:0 4px">|</span>
-        <span class="pstatus-dot off" id="pstatus-twilio"></span>
-        <span style="color:var(--text2)">Twilio:</span>
-        <span id="pstatus-twilio-lbl" style="color:var(--text3)">Non configuré</span>
-      </div>
-
-      <!-- Tabs -->
-      <div class="phone-tabs">
-        <button class="phone-tab active" id="ptab-dialer" onclick="switchPhoneTab('dialer')">📱 Clavier</button>
-        <button class="phone-tab" id="ptab-webrtc" onclick="switchPhoneTab('webrtc')">🌐 YORRO→YORRO</button>
-        <button class="phone-tab" id="ptab-history" onclick="switchPhoneTab('history')">📋 Historique</button>
-        <button class="phone-tab" id="ptab-config" onclick="switchPhoneTab('config')">⚙️ Config</button>
-      </div>
-
-      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch">
-
-        <!-- ── DIALER (appel vers numéro réel via Twilio) ── -->
-        <div id="phone-panel-dialer">
-          <div class="dialer-wrap">
-
-            <!-- Affichage numéro -->
-            <div class="dialer-display">
-              <div class="dialer-number" id="dialer-number">+</div>
-              <div class="dialer-country" id="dialer-country">Entrez un numéro international</div>
-              <button class="dialer-del" onclick="dialerDelete()" id="dialer-del-btn" style="display:none">⌫</button>
-            </div>
-
-            <!-- Indicateur type d'appel -->
-            <div id="dialer-call-type" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-              <span style="padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--font-head);background:rgba(245,158,11,.1);color:var(--gold);border:1px solid rgba(245,158,11,.2)">
-                📞 Via Twilio → Numéro réel
-              </span>
-            </div>
-
-            <!-- Clavier numérique -->
-            <div class="numpad">
-              <button class="numpad-btn" onclick="dialerPress('1')">
-                <span class="numpad-digit">1</span>
-                <span class="numpad-letters"></span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('2')">
-                <span class="numpad-digit">2</span>
-                <span class="numpad-letters">ABC</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('3')">
-                <span class="numpad-digit">3</span>
-                <span class="numpad-letters">DEF</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('4')">
-                <span class="numpad-digit">4</span>
-                <span class="numpad-letters">GHI</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('5')">
-                <span class="numpad-digit">5</span>
-                <span class="numpad-letters">JKL</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('6')">
-                <span class="numpad-digit">6</span>
-                <span class="numpad-letters">MNO</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('7')">
-                <span class="numpad-digit">7</span>
-                <span class="numpad-letters">PQRS</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('8')">
-                <span class="numpad-digit">8</span>
-                <span class="numpad-letters">TUV</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('9')">
-                <span class="numpad-digit">9</span>
-                <span class="numpad-letters">WXYZ</span>
-              </button>
-              <button class="numpad-btn special" onclick="dialerPress('*')">
-                <span class="numpad-digit">*</span>
-              </button>
-              <button class="numpad-btn" onclick="dialerPress('0')" onlongpress="dialerPress('+')">
-                <span class="numpad-digit">0</span>
-                <span class="numpad-letters">+</span>
-              </button>
-              <button class="numpad-btn special" onclick="dialerPress('#')">
-                <span class="numpad-digit">#</span>
-              </button>
-            </div>
-
-            <!-- Boutons appel -->
-            <div class="call-actions">
-              <button class="call-btn blue small" onclick="openWebRTCQuick()" title="Appel YORRO interne">
-                🌐
-              </button>
-              <button class="call-btn green" onclick="startCall('twilio')" id="main-call-btn">
-                📞
-              </button>
-              <button class="call-btn red small" onclick="dialerClear()" title="Effacer tout">
-                🗑️
-              </button>
-            </div>
-
-            <div style="font-size:11px;color:var(--text3);text-align:center;line-height:1.5;max-width:280px">
-              📞 Vert = Appel Twilio (numéro réel)<br>
-              🌐 Bleu = Appel YORRO interne (gratuit)
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ── WEBRTC INTERNE YORRO→YORRO ── -->
-        <div id="phone-panel-webrtc" style="display:none">
-          <div class="webrtc-panel">
-
-            <!-- Mon ID YORRO -->
-            <div class="webrtc-my-id">
-              <div class="webrtc-my-id-label">🆔 Mon ID YORRO (à partager)</div>
-              <div class="webrtc-id-display" id="my-peer-id">Génération...</div>
-              <button class="webrtc-share-btn" onclick="shareMyId()">
-                📤 Partager mon ID YORRO
-              </button>
-            </div>
-
-            <!-- Appeler un autre utilisateur YORRO -->
-            <div class="webrtc-connect">
-              <div class="webrtc-connect-label">📞 Appeler un utilisateur YORRO</div>
-              <div class="webrtc-input-row">
-                <input class="webrtc-input" type="text" id="peer-id-input"
-                  placeholder="ID YORRO du contact"
-                  maxlength="8" oninput="this.value=this.value.toUpperCase()"/>
-                <button class="webrtc-call-btn" onclick="startWebRTCCall()">📞 Appeler</button>
-              </div>
-              <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5">
-                ✅ Appel vocal gratuit entre utilisateurs YORRO<br>
-                ✅ Chiffré de bout en bout (WebRTC)<br>
-                ✅ Qualité HD — aucun opérateur
-              </div>
-            </div>
-
-            <!-- Vidéo locale/distante -->
-            <div style="display:flex;gap:8px;position:relative">
-              <video id="local-video" autoplay muted playsinline
-                style="flex:1;border-radius:12px;background:#000;max-height:200px;object-fit:cover;display:none"></video>
-              <video id="remote-video" autoplay playsinline
-                style="flex:1;border-radius:12px;background:#111;max-height:200px;object-fit:cover;display:none"></video>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ── HISTORIQUE ── -->
-        <div id="phone-panel-history" style="display:none">
-          <div class="call-history" id="call-history-list">
-            <div style="text-align:center;padding:30px;color:var(--text3);font-size:13px">
-              Aucun appel pour le moment
-            </div>
-          </div>
-        </div>
-
-        <!-- ── CONFIGURATION TWILIO ── -->
-        <div id="phone-panel-config" style="display:none">
-          <div class="twilio-config">
-            <div class="twilio-config-title">
-              🔑 Configuration Twilio (appels réels)
-            </div>
-            <div style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">
-              Créez un compte sur <strong style="color:var(--gold)">twilio.com</strong> (15$ gratuits)<br>
-              et entrez vos identifiants ci-dessous.
-            </div>
-            <input class="twilio-input" type="text" id="twilio-sid" placeholder="Account SID (ACxxxxx...)"/>
-            <input class="twilio-input" type="password" id="twilio-token" placeholder="Auth Token"/>
-            <input class="twilio-input" type="text" id="twilio-number" placeholder="Votre numéro Twilio (+1234...)"/>
-            <button class="twilio-save-btn" onclick="saveTwilioConfig()">💾 Enregistrer la configuration</button>
-            <div style="font-size:10px;color:var(--text3);margin-top:10px;line-height:1.5;text-align:center">
-              🔒 Stocké localement sur votre appareil uniquement<br>
-              ⚠️ Pour la production: utilisez un backend sécurisé<br>
-              © Patrick Emessiene Amayna — YORRO Game-architect Studio
-            </div>
-          </div>
-
-          <!-- Info tarifs -->
-          <div style="margin:0 14px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px">
-            <div style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px">
-              💰 Tarifs Twilio estimés
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px">
-              <span style="color:var(--text2)">Appel sortant (mobile)</span>
-              <span style="color:var(--accent3);font-weight:600">~0,022 $/min</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px">
-              <span style="color:var(--text2)">Appel sortant (fixe)</span>
-              <span style="color:var(--accent3);font-weight:600">~0,013 $/min</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px">
-              <span style="color:var(--text2)">SMS sortant</span>
-              <span style="color:var(--accent3);font-weight:600">~0,0079 $/SMS</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:12px">
-              <span style="color:var(--text2)">Crédits offerts</span>
-              <span style="color:var(--gold);font-weight:700">15 $ (~680 min)</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ══ ÉCRAN APPEL ACTIF ══ -->
-    <div class="active-call-screen" id="active-call-screen">
-      <div style="position:relative">
-        <div class="call-ripple"></div>
-        <div class="call-ripple"></div>
-        <div class="call-ripple"></div>
-        <div class="call-avatar" id="call-avatar">👤</div>
-      </div>
-      <div>
-        <div class="call-contact-name" id="call-contact-name">+000 000 000</div>
-        <div class="call-status" id="call-status-text">Connexion en cours...</div>
-        <div class="call-timer" id="call-timer">00:00</div>
-        <div style="display:flex;justify-content:center;margin-top:8px">
-          <span class="call-type-badge webrtc" id="call-type-badge">🌐 YORRO Interne</span>
-        </div>
-      </div>
-      <div class="call-controls-grid">
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="btn-mute" onclick="toggleMute()">🎤</button>
-          <span class="call-ctrl-label">Micro</span>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="btn-speaker" onclick="toggleSpeaker()">🔊</button>
-          <span class="call-ctrl-label">Haut-parleur</span>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="btn-video" onclick="toggleCallVideo()">📹</button>
-          <span class="call-ctrl-label">Vidéo</span>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" id="btn-hold" onclick="toggleHold()">⏸️</button>
-          <span class="call-ctrl-label">Attente</span>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" onclick="showDialpadInCall()">🔢</button>
-          <span class="call-ctrl-label">Clavier</span>
-        </div>
-        <div class="call-ctrl">
-          <button class="call-ctrl-btn" onclick="recordCall()" id="btn-record">⏺️</button>
-          <span class="call-ctrl-label">Enregistrer</span>
-        </div>
-      </div>
-      <button class="call-end-btn" onclick="endCall()">📵</button>
-    </div>
-
     <!-- ── PHONE VIEW ── -->
     <div class="view phone-view" id="view-phone">
 
@@ -2514,40 +2381,141 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
           </div>
         </div>
 
-        <!-- TWILIO — APPELS MOBILES -->
-        <div class="twilio-section">
-          <div class="twilio-header">
-            <span style="font-size:18px">📱</span>
-            <div class="twilio-title">Appels Mobiles (Twilio)</div>
-            <span class="twilio-badge">Config requise</span>
+        <!-- RÉSEAUX TÉLÉPHONIQUES MULTI-TECHNOLOGIE -->
+        <div style="margin:0 14px 14px">
+
+          <!-- Titre section -->
+          <div style="font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">
+            🌐 Réseaux disponibles — Sélection automatique
           </div>
-          <div class="twilio-body">
-            <div class="twilio-setup-note">
-              <strong>Pour appeler de vrais numéros mobiles :</strong><br/>
-              1. Créez un compte sur <strong>twilio.com</strong> (15$ gratuits)<br/>
-              2. Récupérez votre <strong>Account SID</strong> et <strong>Auth Token</strong><br/>
-              3. Obtenez un <strong>numéro Twilio</strong> (numéro émetteur)<br/>
-              4. Entrez les informations ci-dessous — les appels seront facturés ~0,02$/min sur votre crédit Twilio.
-            </div>
-            <div class="twilio-fields">
-              <div>
-                <div class="twilio-field-label">Account SID</div>
-                <input class="twilio-input" id="twilio-sid" type="password" placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+
+          <!-- Cards réseaux -->
+          <div style="display:flex;flex-direction:column;gap:8px" id="networks-list">
+
+            <!-- LiveKit -->
+            <div class="network-card" id="net-livekit" onclick="selectNetwork('livekit')" style="border-color:rgba(74,222,128,.3)">
+              <div class="net-icon" style="background:rgba(74,222,128,.15)">🌐</div>
+              <div class="net-info">
+                <div class="net-name">LiveKit <span class="net-tag free">GRATUIT</span></div>
+                <div class="net-desc">Appels HD entre utilisateurs YORRO · Crypté E2E · Salles multi-participants</div>
               </div>
-              <div>
-                <div class="twilio-field-label">Auth Token</div>
-                <input class="twilio-input" id="twilio-token" type="password" placeholder="votre_auth_token"/>
-              </div>
-              <div>
-                <div class="twilio-field-label">Votre numéro Twilio (émetteur)</div>
-                <input class="twilio-input" id="twilio-from" type="tel" placeholder="+12025551234"/>
+              <div class="net-status" id="status-livekit">
+                <span class="net-cost">0,00 $/min</span>
               </div>
             </div>
-            <button class="twilio-save-btn" onclick="saveTwilioConfig()">💾 Enregistrer la configuration Twilio</button>
-            <div style="font-size:10px;color:var(--text3);text-align:center;line-height:1.5">
-              Vos identifiants sont stockés localement sur votre appareil.<br/>
-              © Patrick Emessiene Amayna — YORRO Game-architect Studio
+
+            <!-- WebRTC P2P -->
+            <div class="network-card" id="net-webrtc" onclick="selectNetwork('webrtc')" style="border-color:rgba(124,109,250,.3)">
+              <div class="net-icon" style="background:rgba(124,109,250,.15)">📡</div>
+              <div class="net-info">
+                <div class="net-name">WebRTC P2P <span class="net-tag free">GRATUIT</span></div>
+                <div class="net-desc">Connexion directe navigateur-à-navigateur · Sans serveur</div>
+              </div>
+              <div class="net-status">
+                <span class="net-cost">0,00 $/min</span>
+              </div>
             </div>
+
+            <!-- Africa's Talking -->
+            <div class="network-card" id="net-at" onclick="selectNetwork('africastalking')">
+              <div class="net-icon" style="background:rgba(251,146,60,.15)">🌍</div>
+              <div class="net-info">
+                <div class="net-name">Africa's Talking <span class="net-tag africa">AFRIQUE</span></div>
+                <div class="net-desc">Spécialiste Afrique · Cameroun, Nigeria, Kenya... · Qualité opérateur local</div>
+              </div>
+              <div class="net-status">
+                <span class="net-cost">0,004 $/min</span>
+                <div class="net-config-btn" onclick="event.stopPropagation();toggleNetConfig('at')">⚙️</div>
+              </div>
+            </div>
+            <div id="config-at" class="net-config-panel" style="display:none">
+              <div class="net-field-label">Username Africa's Talking</div>
+              <input class="net-input" id="at-username" placeholder="votre_username" type="text"/>
+              <div class="net-field-label">API Key</div>
+              <input class="net-input" id="at-apikey" placeholder="votre_api_key" type="password"/>
+              <div class="net-field-label">Votre numéro émetteur</div>
+              <input class="net-input" id="at-phone" placeholder="+2376XXXXXXXX" type="tel"/>
+              <button class="net-save-btn" onclick="saveNetConfig('at')">💾 Enregistrer Africa's Talking</button>
+            </div>
+
+            <!-- Telnyx -->
+            <div class="network-card" id="net-telnyx" onclick="selectNetwork('telnyx')">
+              <div class="net-icon" style="background:rgba(245,158,11,.15)">⚡</div>
+              <div class="net-info">
+                <div class="net-name">Telnyx <span class="net-tag cheap">LE MOINS CHER</span></div>
+                <div class="net-desc">Mondial · 0,002$/min · Infrastructure propre · API moderne</div>
+              </div>
+              <div class="net-status">
+                <span class="net-cost">0,002 $/min</span>
+                <div class="net-config-btn" onclick="event.stopPropagation();toggleNetConfig('telnyx')">⚙️</div>
+              </div>
+            </div>
+            <div id="config-telnyx" class="net-config-panel" style="display:none">
+              <div class="net-field-label">API Key Telnyx</div>
+              <input class="net-input" id="telnyx-key" placeholder="KEY0123456789_xxx" type="password"/>
+              <div class="net-field-label">Numéro émetteur</div>
+              <input class="net-input" id="telnyx-from" placeholder="+1XXXXXXXXXX" type="tel"/>
+              <button class="net-save-btn" onclick="saveNetConfig('telnyx')">💾 Enregistrer Telnyx</button>
+            </div>
+
+            <!-- SIP / Asterisk -->
+            <div class="network-card" id="net-sip" onclick="selectNetwork('sip')">
+              <div class="net-icon" style="background:rgba(165,148,255,.15)">🏢</div>
+              <div class="net-info">
+                <div class="net-name">SIP / Asterisk <span class="net-tag pro">PRO</span></div>
+                <div class="net-desc">Auto-hébergé · Coût fixe uniquement · Devenez votre propre opérateur</div>
+              </div>
+              <div class="net-status">
+                <span class="net-cost">~0,001 $/min</span>
+                <div class="net-config-btn" onclick="event.stopPropagation();toggleNetConfig('sip')">⚙️</div>
+              </div>
+            </div>
+            <div id="config-sip" class="net-config-panel" style="display:none">
+              <div class="net-field-label">Serveur SIP / Asterisk</div>
+              <input class="net-input" id="sip-server" placeholder="asterisk.votredomaine.com" type="text"/>
+              <div class="net-field-label">Nom d'utilisateur SIP</div>
+              <input class="net-input" id="sip-user" placeholder="yorro-user" type="text"/>
+              <div class="net-field-label">Mot de passe SIP</div>
+              <input class="net-input" id="sip-pass" placeholder="votre_mot_de_passe" type="password"/>
+              <button class="net-save-btn" onclick="saveNetConfig('sip')">💾 Enregistrer SIP</button>
+            </div>
+
+            <!-- Twilio (backup) -->
+            <div class="network-card" id="net-twilio" onclick="selectNetwork('twilio')" style="opacity:.7">
+              <div class="net-icon" style="background:rgba(248,113,113,.1)">🔴</div>
+              <div class="net-info">
+                <div class="net-name">Twilio <span class="net-tag backup">BACKUP</span></div>
+                <div class="net-desc">Option de secours · 0,02$/min · Configurer si les autres ne fonctionnent pas</div>
+              </div>
+              <div class="net-status">
+                <span class="net-cost">0,02 $/min</span>
+                <div class="net-config-btn" onclick="event.stopPropagation();toggleNetConfig('twilio')">⚙️</div>
+              </div>
+            </div>
+            <div id="config-twilio" class="net-config-panel" style="display:none">
+              <div class="net-field-label">Account SID</div>
+              <input class="net-input" id="twilio-sid" placeholder="ACxxxxxxxxx" type="password"/>
+              <div class="net-field-label">Auth Token</div>
+              <input class="net-input" id="twilio-token" placeholder="auth_token" type="password"/>
+              <div class="net-field-label">Numéro émetteur</div>
+              <input class="net-input" id="twilio-from" placeholder="+1XXXXXXXXXX" type="tel"/>
+              <button class="net-save-btn" onclick="saveNetConfig('twilio')">💾 Enregistrer Twilio</button>
+            </div>
+
+          </div>
+
+          <!-- Réseau actif -->
+          <div style="margin-top:10px;padding:10px 12px;background:rgba(124,109,250,.08);border:1px solid rgba(124,109,250,.2);border-radius:10px;font-size:12px;display:flex;align-items:center;gap:8px">
+            <span>🎯 Réseau actif :</span>
+            <strong id="active-network-label" style="color:var(--accent2)">Auto (meilleur disponible)</strong>
+            <span style="margin-left:auto;color:var(--text3)" id="active-network-cost">0,00 $/min</span>
+          </div>
+
+          <!-- Backend requis -->
+          <div id="backend-required-note" style="margin-top:8px;padding:10px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:10px;font-size:11px;color:var(--text2);line-height:1.6">
+            ⚠️ <strong style="color:var(--gold)">Backend requis</strong> pour Africa's Talking, Telnyx et SIP.<br/>
+            Déployez <code style="color:var(--accent2)">yorro-backend/</code> sur Railway pour activer ces réseaux.<br/>
+            LiveKit et WebRTC fonctionnent sans backend.
           </div>
         </div>
 
@@ -2586,6 +2554,207 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
       <button class="gate-btn-sec hidden" id="g-skip" onclick="gateSkip()">Utiliser mon essai gratuit</button>
     </div>
     <div class="gate-legal">YORRO Game-architect · © Patrick Emessiene Amayna · 2026</div>
+  </div>
+</div>
+
+
+<!-- ══ MENU DRAWER ══ -->
+<div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
+<div class="menu-drawer" id="menu-drawer">
+
+  <!-- Header -->
+  <div class="menu-header">
+    <div class="menu-logo-row">
+      <div class="menu-logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="44" height="44">
+          <defs>
+            <linearGradient id="mlbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0d0d18"/><stop offset="100%" style="stop-color:#1a0a2e"/></linearGradient>
+            <linearGradient id="mlg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#7c6dfa"/><stop offset="100%" style="stop-color:#a594ff"/></linearGradient>
+            <linearGradient id="mlg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#fb923c"/></linearGradient>
+          </defs>
+          <rect width="400" height="400" rx="80" fill="url(#mlbg)"/>
+          <circle cx="200" cy="185" r="130" fill="none" stroke="url(#mlg1)" stroke-width="6" stroke-dasharray="600 820" opacity="0.8"><animateTransform attributeName="transform" type="rotate" from="0 200 185" to="360 200 185" dur="10s" repeatCount="indefinite"/></circle>
+          <circle cx="200" cy="185" r="100" fill="none" stroke="url(#mlg2)" stroke-width="5" stroke-dasharray="280 360" opacity="0.9"><animateTransform attributeName="transform" type="rotate" from="360 200 185" to="0 200 185" dur="7s" repeatCount="indefinite"/></circle>
+          <polygon points="200,115 260.6,150 260.6,220 200,255 139.4,220 139.4,150" fill="#0d0d18" stroke="url(#mlg1)" stroke-width="3" opacity="0.95"/>
+          <text x="200" y="200" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">Y</text>
+        </svg>
+      </div>
+      <div class="menu-logo-info">
+        <div class="menu-logo-title">YORRO</div>
+        <div class="menu-logo-sub">Game-architect Studio</div>
+      </div>
+      <button class="menu-close" onclick="closeMenu()">✕</button>
+    </div>
+    <div class="menu-plan-badge" onclick="closeMenu();openSub()">
+      <span style="font-size:20px" id="menu-plan-icon">🆓</span>
+      <div class="menu-plan-info">
+        <div class="menu-plan-name" id="menu-plan-name">Plan Gratuit</div>
+        <div class="menu-plan-desc" id="menu-plan-desc">3 essais par fonctionnalité</div>
+      </div>
+      <span class="menu-plan-arrow">→</span>
+    </div>
+  </div>
+
+  <!-- Corps du menu -->
+  <div class="menu-body">
+
+    <!-- Navigation principale -->
+    <div class="menu-section-label" data-i18n="nav">Navigation</div>
+
+    <div class="menu-item active-item" onclick="menuGo('chat')">
+      <div class="menu-item-icon" style="background:rgba(124,109,250,.15)">💬</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_chat">Chat IA</div>
+        <div class="menu-item-sub" data-i18n="menu_chat_sub">Créer des jeux avec l'IA</div>
+      </div>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('editor')">
+      <div class="menu-item-icon" style="background:rgba(74,222,128,.1)">💻</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_editor">Éditeur de code</div>
+        <div class="menu-item-sub" data-i18n="menu_editor_sub">Voir et modifier les fichiers</div>
+      </div>
+      <span class="mobile-nav-badge" id="menu-editor-badge" style="display:none;margin-left:auto">0</span>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('projects')">
+      <div class="menu-item-icon" style="background:rgba(251,146,60,.1)">🎮</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_projects">Mes Projets</div>
+        <div class="menu-item-sub" data-i18n="menu_projects_sub">Historique de vos jeux</div>
+      </div>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-divider"></div>
+    <div class="menu-section-label" data-i18n="tools">Outils</div>
+
+    <div class="menu-item" onclick="menuGo('docs')">
+      <div class="menu-item-icon" style="background:rgba(165,148,255,.1)">📄</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_docs">Agent Documentaire</div>
+        <div class="menu-item-sub" data-i18n="menu_docs_sub">Traduction · Conversion · Création</div>
+      </div>
+      <span class="menu-item-badge" style="background:rgba(74,222,128,.15);color:var(--accent3)">IA</span>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('vsurv')">
+      <div class="menu-item-icon" style="background:rgba(248,113,113,.1)">📹</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_video">Vidéosurveillance IA</div>
+        <div class="menu-item-sub" data-i18n="menu_video_sub">Détection · Reconnaissance</div>
+      </div>
+      <span class="menu-item-badge" style="background:rgba(248,113,113,.15);color:var(--red)">LIVE</span>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('phone')">
+      <div class="menu-item-icon" style="background:rgba(34,197,94,.1)">📞</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_phone">Téléphonie Multi-réseau</div>
+        <div class="menu-item-sub" data-i18n="menu_phone_sub">LiveKit · Africa's Talking · Telnyx</div>
+      </div>
+      <span class="menu-item-badge" style="background:rgba(34,197,94,.15);color:var(--accent3)">5G</span>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('stats')">
+      <div class="menu-item-icon" style="background:rgba(124,109,250,.1)">📊</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_stats">Statistiques</div>
+        <div class="menu-item-sub" data-i18n="menu_stats_sub">Vos essais et activités</div>
+      </div>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-divider"></div>
+    <div class="menu-section-label" data-i18n="account">Compte</div>
+
+    <div class="menu-item" onclick="closeMenu();openSub()">
+      <div class="menu-item-icon" style="background:rgba(245,158,11,.1)">✦</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_sub" style="color:var(--gold)">S'abonner Pro / Elite</div>
+        <div class="menu-item-sub" data-i18n="menu_sub_sub">Accès illimité à tout</div>
+      </div>
+      <span class="menu-item-badge" style="background:rgba(245,158,11,.15);color:var(--gold)">PRO</span>
+    </div>
+
+    <div class="menu-item" onclick="menuGo('legal')">
+      <div class="menu-item-icon" style="background:rgba(85,85,106,.1)">⚖️</div>
+      <div class="menu-item-text">
+        <div class="menu-item-title" data-i18n="menu_legal">Mentions légales</div>
+        <div class="menu-item-sub" data-i18n="menu_legal_sub">Droits · CGU · Propriété</div>
+      </div>
+      <span class="menu-item-arrow">›</span>
+    </div>
+
+    <div class="menu-divider"></div>
+
+    <!-- SÉLECTEUR DE LANGUE -->
+    <div class="lang-selector-wrap">
+      <div class="lang-selector-title">
+        🌍 <span data-i18n="lang_select">Langue de l'interface</span>
+      </div>
+      <div class="lang-grid-menu" id="lang-grid-menu">
+        <div class="lang-btn-menu active-lang" onclick="setLang('fr')" data-lang="fr">
+          <span class="lang-flag-emoji">🇫🇷</span>
+          <span class="lang-code">FR</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('en')" data-lang="en">
+          <span class="lang-flag-emoji">🇬🇧</span>
+          <span class="lang-code">EN</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('es')" data-lang="es">
+          <span class="lang-flag-emoji">🇪🇸</span>
+          <span class="lang-code">ES</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('pt')" data-lang="pt">
+          <span class="lang-flag-emoji">🇵🇹</span>
+          <span class="lang-code">PT</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('ar')" data-lang="ar">
+          <span class="lang-flag-emoji">🇸🇦</span>
+          <span class="lang-code">AR</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('zh')" data-lang="zh">
+          <span class="lang-flag-emoji">🇨🇳</span>
+          <span class="lang-code">ZH</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('de')" data-lang="de">
+          <span class="lang-flag-emoji">🇩🇪</span>
+          <span class="lang-code">DE</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('it')" data-lang="it">
+          <span class="lang-flag-emoji">🇮🇹</span>
+          <span class="lang-code">IT</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('ru')" data-lang="ru">
+          <span class="lang-flag-emoji">🇷🇺</span>
+          <span class="lang-code">RU</span>
+        </div>
+        <div class="lang-btn-menu" onclick="setLang('sw')" data-lang="sw">
+          <span class="lang-flag-emoji">🌍</span>
+          <span class="lang-code">SW</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="menu-footer">
+    <div class="menu-footer-sig">
+      © 2026 <strong>Patrick Emessiene Amayna</strong><br/>
+      YORRO Game-architect Studio
+    </div>
+    <div class="menu-version">
+      <span class="menu-ver-badge">v2.0</span>
+      <span style="font-size:10px;color:var(--text3)">Tous droits réservés</span>
+    </div>
   </div>
 </div>
 
@@ -2819,6 +2988,8 @@ function init(){
   initDocView();
   initVsurv();
   initPhone();
+  initMultiNetwork();
+  initI18n();
   initCall();
   document.getElementById('s-sessions').textContent=S.stats.sessions;
   document.getElementById('s-games').textContent=S.stats.games||0;
@@ -2849,8 +3020,8 @@ function updateQuota(){
   const pct=totalMax>0?Math.round(totalUsed/totalMax*100):0;
   const cls=pct<50?'g':pct<85?'o':'r';
   const fill=document.getElementById('quota-fill');
-  fill.className='quota-fill '+cls;fill.style.width=pct+'%';
-  document.getElementById('quota-lbl').textContent=totalUsed+'/'+totalMax+' essais';
+  if(fill){fill.className='quota-fill '+cls;fill.style.width=pct+'%';}
+  const ql=document.getElementById('quota-lbl'); if(ql)ql.textContent=totalUsed+'/'+totalMax+' essais';
 }
 
 // ═══════════════════════════════════════
@@ -3020,7 +3191,7 @@ async function sendMsg(){
         'anthropic-dangerous-direct-browser-io':'true'
       },
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-5',
         max_tokens:1500,
         system:SYSTEM,
         messages:S.history
@@ -3161,8 +3332,9 @@ function addFile(){
 function updateEditorBadge(){
   const b=document.getElementById('editor-badge');
   const n=S.openFiles.length;
-  b.style.display=n>0?'flex':'none';
-  b.textContent=n;
+  if(b){b.style.display=n>0?'flex':'none';b.textContent=n;}
+  const mb=document.getElementById('menu-editor-badge');
+  if(mb){mb.style.display=n>0?'flex':'none';mb.textContent=n;}
 }
 
 function hlCode(code){
@@ -3181,8 +3353,7 @@ function hlCode(code){
 function renderProjects(){
   const grid=document.getElementById('project-grid');
   const badge=document.getElementById('projects-badge');
-  badge.style.display=S.projects.length>0?'flex':'none';
-  badge.textContent=S.projects.length;
+  if(badge){badge.style.display=S.projects.length>0?'flex':'none';badge.textContent=S.projects.length;}
   if(!S.projects.length){
     grid.innerHTML=`<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px;line-height:1.6">Aucun projet.<br/>Générez du code via le Chat IA !</div>`;
     return;
@@ -3243,17 +3414,17 @@ function detectIcon(f){
 function updateStats(){
   S.stats.files=S.openFiles.length;
   S.stats.lines=S.openFiles.reduce((s,f)=>s+f.code.split('\n').length,0);
-  document.getElementById('s-games').textContent=S.stats.games||0;
-  document.getElementById('s-files').textContent=S.stats.files||0;
-  document.getElementById('s-lines').textContent=S.stats.lines>999?Math.round(S.stats.lines/1000)+'k':S.stats.lines||0;
+  const sg=document.getElementById('s-games'); if(sg)sg.textContent=S.stats.games||0;
+  const sf=document.getElementById('s-files'); if(sf)sf.textContent=S.stats.files||0;
+  const sl=document.getElementById('s-lines'); if(sl)sl.textContent=S.stats.lines>999?Math.round(S.stats.lines/1000)+'k':S.stats.lines||0;
   saveStats();
 }
 function saveStats(){localStorage.setItem('ga_stats',JSON.stringify(S.stats))}
 
 function updateStatsView(){
-  document.getElementById('s-games').textContent=S.stats.games||0;
-  document.getElementById('s-files').textContent=S.stats.files||0;
-  document.getElementById('s-lines').textContent=S.stats.lines>999?Math.round(S.stats.lines/1000)+'k':S.stats.lines||0;
+  const sg=document.getElementById('s-games'); if(sg)sg.textContent=S.stats.games||0;
+  const sf=document.getElementById('s-files'); if(sf)sf.textContent=S.stats.files||0;
+  const sl=document.getElementById('s-lines'); if(sl)sl.textContent=S.stats.lines>999?Math.round(S.stats.lines/1000)+'k':S.stats.lines||0;
 }
 
 function renderTrialsList(){
@@ -3287,6 +3458,7 @@ function updatePlanUI(){
   const t=document.getElementById('pcb-title');
   const d=document.getElementById('pcb-desc');
   const b=document.getElementById('pcb-btn');
+  if(!chip)return;
   if(S.plan==='pro'){
     chip.className='plan-chip pro';chip.textContent='Pro ✦';
     if(t)t.textContent='⚡ Plan Pro actif';
@@ -3329,7 +3501,7 @@ function showSubStep(s){
 
 function selectPlan(pid){
   if(pid==='free'){closeSub();showNotif('info','ℹ️','Vous êtes sur le plan Gratuit');return;}
-  S.selectedPlan={id:pid,name:pid==='pro'?'Pro':'Elite',price:pid==='pro'?'9,99':'24,99'};
+  S.selectedPlan={id:pid,name:pid==='pro'?'Pro':'Elite',price:pid==='pro'?'9,99':'24,99',priceNum:pid==='pro'?9.99:24.99};
   const icons={pro:'⚡',elite:'👑'};
   document.getElementById('sel-badge').innerHTML=`
     <span style="font-size:20px">${icons[pid]}</span>
@@ -3339,22 +3511,44 @@ function selectPlan(pid){
     </div>`;
   if(pid==='elite')switchPP('elite');else switchPP('pro');
   showSubStep('paypal');
+  ppRendered=false; // le plan (donc le prix) a change -> il faut re-render le bouton
+  document.getElementById('paypal-container-SSL4HT7SAL7WE').innerHTML=
+    '<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">⏳ Chargement PayPal...</div>';
   setTimeout(initPP,150);
 }
 
 function switchPP(p){
   document.getElementById('pst-pro').className='pst'+(p==='pro'?' ap':'');
   document.getElementById('pst-elite').className='pst'+(p==='elite'?' ae':'');
-  S.selectedPlan={id:p,name:p==='pro'?'Pro':'Elite',price:p==='pro'?'9,99':'24,99'};
+  S.selectedPlan={id:p,name:p==='pro'?'Pro':'Elite',price:p==='pro'?'9,99':'24,99',priceNum:p==='pro'?9.99:24.99};
 }
 
 function initPP(){
   if(ppRendered)return;
   if(typeof paypal==='undefined'){setTimeout(initPP,500);return;}
   try{
-    paypal.HostedButtons({
-      hostedButtonId:'SSL4HT7SAL7WE',
-      onApprove:function(data){onPPSuccess(data);}
+    document.getElementById('paypal-container-SSL4HT7SAL7WE').innerHTML='';
+    paypal.Buttons({
+      style:{ layout:'vertical', color:'gold', shape:'pill', label:'pay' },
+      // Montant dynamique = vrai prix du plan choisi (Pro 9,99$ / Elite 24,99$)
+      createOrder: function(data, actions){
+        const plan = S.selectedPlan || {id:'pro', priceNum:9.99};
+        return actions.order.create({
+          purchase_units: [{
+            description: 'YORRO Game-architect Studio — Abonnement ' + (plan.id==='elite'?'Elite':'Pro'),
+            amount: { value: plan.priceNum.toFixed(2), currency_code: 'USD' }
+          }]
+        });
+      },
+      onApprove: function(data, actions){
+        return actions.order.capture().then(function(){
+          onPPSuccess(data);
+        });
+      },
+      onError: function(err){
+        console.error('PayPal error:', err);
+        showNotif('error','❌','Erreur PayPal — réessayez');
+      }
     }).render('#paypal-container-SSL4HT7SAL7WE');
     ppRendered=true;
   }catch(e){
@@ -3363,17 +3557,50 @@ function initPP(){
   }
 }
 
-function onPPSuccess(data){
-  const plan=S.selectedPlan||{id:'pro',name:'Pro'};
-  S.plan=plan.id;localStorage.setItem('ga_plan',plan.id);
-  updatePlanUI();
-  const d={
-    pro:`Votre plan <strong>Pro</strong> est actif !<br/>Messages illimités · Tous les templates · Export ZIP<br/>Paiement viré à <strong>Patrick Emessiene Amayna</strong>. 🚀`,
-    elite:`Votre plan <strong>Elite 👑</strong> est actif !<br/>Opus · Support 24h · Bêta exclusif<br/>Paiement viré à <strong>Patrick Emessiene Amayna</strong>. 🏆`
-  };
-  document.getElementById('success-desc').innerHTML=d[plan.id]||d.pro;
-  showSubStep('success');
-  showNotif('gold','💰',`Plan ${plan.name} activé  -  Bienvenue !`);
+// Après le paiement PayPal (onApprove/capture), on revérifie AUPRÈS DU SERVEUR
+// avant de débloquer réellement le plan. Sans ça, n'importe qui pourrait
+// débloquer Pro/Elite gratuitement depuis la console du navigateur.
+async function onPPSuccess(data){
+  const plan = S.selectedPlan || {id:'pro', name:'Pro'};
+  const backendUrl = localStorage.getItem('yorro_backend_url');
+  const orderID = data.orderID;
+
+  if(!backendUrl){
+    showNotif('error','⚙️','Backend non configuré — impossible de vérifier le paiement. Configurez-le puis contactez le support avec votre référence PayPal: ' + orderID);
+    return;
+  }
+
+  const container = document.getElementById('paypal-container-SSL4HT7SAL7WE');
+  if(container) container.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">⏳ Vérification du paiement...</div>';
+
+  try{
+    const yorroId = generateMyId(); // identifiant YORRO persistant de l'utilisateur
+    const res = await fetch(backendUrl + '/api/paypal/verify-order', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ orderID, planId: plan.id, yorroId })
+    });
+    const result = await res.json();
+
+    if(!res.ok || !result.verified){
+      showNotif('error','❌','Paiement non vérifié: ' + (result.error || 'erreur inconnue') + '. Réf: ' + orderID);
+      if(container) container.innerHTML = '<div style="color:var(--red);text-align:center;font-size:12px;padding:12px">Vérification échouée — rechargez la page et réessayez, ou contactez le support avec la référence ' + orderID + '</div>';
+      return;
+    }
+
+    // Paiement confirmé par le serveur -> on peut débloquer le plan
+    S.plan=plan.id; localStorage.setItem('ga_plan',plan.id);
+    updatePlanUI();
+    const d={
+      pro:`Votre plan <strong>Pro</strong> est actif !<br/>Messages illimités · Tous les templates · Export ZIP<br/>Paiement viré à <strong>Patrick Emessiene Amayna</strong>. 🚀`,
+      elite:`Votre plan <strong>Elite 👑</strong> est actif !<br/>Opus · Support 24h · Bêta exclusif<br/>Paiement viré à <strong>Patrick Emessiene Amayna</strong>. 🏆`
+    };
+    document.getElementById('success-desc').innerHTML=d[plan.id]||d.pro;
+    showSubStep('success');
+    showNotif('gold','💰',`Plan ${plan.name} activé  -  Bienvenue !`);
+  }catch(err){
+    showNotif('error','❌','Erreur de vérification: ' + err.message + '. Réf PayPal: ' + orderID);
+  }
 }
 
 // ═══════════════════════════════════════
@@ -3680,7 +3907,7 @@ async function processDocument(){
         'anthropic-dangerous-direct-browser-io':'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-5',
         max_tokens: 4000,
         system: prompts.system,
         messages:[{role:'user', content: prompts.user}]
@@ -3905,16 +4132,24 @@ function toggleFeature(key, btn) {
 }
 
 // ── BOUCLE DE DETECTION ──
+const VS_AI_ANALYSIS_INTERVAL_MS = 8000; // vraie analyse IA au plus toutes les 8s (coût API)
+
 function startDetectionLoop() {
   if (VS.animId) cancelAnimationFrame(VS.animId);
+  VS.lastAiAnalysis = 0;
   function loop() {
     if (!VS.cameraActive) return;
     drawFrame();
     VS.frameCount++;
-    // Analyse toutes les 10 frames
-    if (VS.frameCount % 10 === 0 && VS.aiEnabled) {
+    // Detection de mouvement: calcul reel sur les pixels, peu couteux -> frequent
+    if (VS.frameCount % 10 === 0) {
       detectMotion();
-      simulatePersonDetection();
+    }
+    // Detection personnes/objets: vraie analyse Claude Vision, throttee (appel API reel)
+    if (VS.aiEnabled && VS.features.person && !VS.analyzing &&
+        Date.now() - VS.lastAiAnalysis > VS_AI_ANALYSIS_INTERVAL_MS) {
+      VS.lastAiAnalysis = Date.now();
+      realDetectPersons();
     }
     VS.animId = requestAnimationFrame(loop);
   }
@@ -4021,43 +4256,88 @@ function drawMotionAlert() {
   }, 500);
 }
 
-// ── SIMULATION DETECTION PERSONNES/OBJETS ──
-function simulatePersonDetection() {
-  if (!VS.features.person) return;
-  // Simulation basee sur l analyse Claude (appel reel via analyzeWithClaude)
-  // Pour le temps reel, on simule avec variation aleatoire
-  const base = VS.cameraActive ? 1 : 0;
-  const variation = Math.random() > 0.7 ? 1 : 0;
-  VS.stats.persons = base + variation;
-  VS.stats.objects = VS.features.object ? Math.floor(Math.random() * 4) : 0;
-  document.getElementById('stat-persons').textContent = VS.stats.persons;
-  document.getElementById('stat-objects').textContent = VS.stats.objects;
-
-  if (VS.features.person && VS.stats.persons > 0) {
-    drawPersonBox();
+// ── DETECTION PERSONNES/OBJETS — vraie analyse Claude Vision ──
+async function realDetectPersons() {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    // Pas de cle API: on ne peut pas faire d analyse reelle. On l indique clairement
+    // plutot que d inventer des chiffres.
+    document.getElementById('stat-persons').textContent = '—';
+    document.getElementById('stat-objects').textContent = '—';
+    return;
   }
+  if (!VS.canvasEl || VS.canvasEl.width === 0) return;
+
+  VS.analyzing = true;
+  try {
+    const imageData = VS.canvasEl.toDataURL('image/jpeg', 0.55).split(',')[1];
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-io': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5',
+        max_tokens: 200,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageData } },
+            { type: 'text', text: 'Analyse cette image de videosurveillance. Reponds UNIQUEMENT avec un objet JSON valide, sans texte autour, au format exact: {"persons": <nombre entier>, "objects": <nombre entier d objets notables hors personnes>, "risk": "faible"|"moyen"|"eleve", "note": "<observation courte en francais, max 15 mots>"}' }
+          ]
+        }]
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'Erreur API');
+    const text = data.content?.map(b => b.text || '').join('') || '{}';
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    const parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : {};
+
+    VS.stats.persons = Number.isFinite(parsed.persons) ? parsed.persons : 0;
+    VS.stats.objects = VS.features.object ? (Number.isFinite(parsed.objects) ? parsed.objects : 0) : 0;
+    document.getElementById('stat-persons').textContent = VS.stats.persons;
+    document.getElementById('stat-objects').textContent = VS.stats.objects;
+
+    if (VS.stats.persons > 0) {
+      drawPersonBox(VS.stats.persons, parsed.note || '');
+      if (parsed.risk === 'eleve' || parsed.risk === 'moyen') {
+        addVAlert('danger', 'danger', `${VS.stats.persons} personne(s) detectee(s) — risque ${parsed.risk}${parsed.note ? ' — ' + parsed.note : ''}`);
+        if (parsed.risk === 'eleve') playAlertSound();
+      }
+    } else {
+      const dctx = VS.dctx;
+      if (dctx && VS.detectEl) dctx.clearRect(0, 0, VS.detectEl.width, VS.detectEl.height);
+    }
+  } catch (err) {
+    console.warn('[vsurv] Analyse Claude Vision echouee:', err.message);
+    // On n invente pas de chiffres en cas d erreur — on affiche juste que l analyse a echoue
+  }
+  VS.analyzing = false;
 }
 
-function drawPersonBox() {
+function drawPersonBox(count, note) {
   const dctx = VS.dctx;
   const W = VS.detectEl.width;
   const H = VS.detectEl.height;
   if (!dctx || !W) return;
-  // Dessiner une boite de detection simulee
-  const x = W * 0.25 + Math.random() * W * 0.1;
-  const y = H * 0.1;
-  const w = W * 0.25;
-  const h = H * 0.75;
-
+  // NB: Claude Vision renvoie un comptage, pas de coordonnees precises —
+  // on affiche donc un cadre general d'alerte (pas une fausse boite de tracking).
   dctx.clearRect(0, 0, W, H);
   dctx.strokeStyle = '#4ade80';
   dctx.lineWidth = 2;
-  dctx.strokeRect(x, y, w, h);
-  dctx.fillStyle = 'rgba(74,222,128,0.8)';
-  dctx.fillRect(x, y - 18, 80, 18);
+  dctx.setLineDash([6, 3]);
+  dctx.strokeRect(6, 6, W - 12, H - 12);
+  dctx.setLineDash([]);
+  const label = count + (count > 1 ? ' personnes detectees' : ' personne detectee');
+  dctx.fillStyle = 'rgba(74,222,128,0.85)';
+  dctx.fillRect(6, 6, Math.min(W - 12, 18 + label.length * 6.2), 18);
   dctx.fillStyle = '#000';
   dctx.font = 'bold 10px monospace';
-  dctx.fillText('Personne 95%', x + 4, y - 5);
+  dctx.fillText(label, 10, 19);
 }
 
 function updateVStat(id, val, cls) {
@@ -4168,7 +4448,7 @@ async function analyzeWithClaude() {
         'anthropic-dangerous-direct-browser-io': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-5',
         max_tokens: 800,
         messages: messages
       })
@@ -4209,585 +4489,6 @@ function addVAlert(type, cssClass, message) {
   // Garder max 15 alertes
   while (list.children.length > 15) list.removeChild(list.lastChild);
 }
-
-
-// ════════════════════════════════════════════
-// MODULE APPELS YORRO — WebRTC + Twilio
-// Appels internes gratuits + vrais numéros
-// (c) Patrick Emessiene Amayna — YORRO Game-architect Studio
-// ════════════════════════════════════════════
-
-const CALL = {
-  mode: 'yorro',          // 'yorro' | 'twilio'
-  number: '',
-  activeTab: 'dialer',
-  isInCall: false,
-  isMuted: false,
-  isSpeaker: false,
-  isRecording: false,
-  callStartTime: null,
-  callTimer: null,
-  peerConn: null,
-  localStream: null,
-  remoteStream: null,
-  roomId: null,
-  contacts: JSON.parse(localStorage.getItem('yorro_contacts') || '[]'),
-  history: JSON.parse(localStorage.getItem('yorro_call_history') || '[]'),
-  twilio: JSON.parse(localStorage.getItem('yorro_twilio') || '{}'),
-};
-
-// STUN servers pour WebRTC
-const ICE_SERVERS = {
-  iceServers: [
-    { urls: 'stun:stun.l.google.com:19302' },
-    { urls: 'stun:stun1.l.google.com:19302' },
-    { urls: 'stun:stun2.l.google.com:19302' },
-  ]
-};
-
-// ── INIT ──
-function initCall() {
-  renderContacts();
-  renderCallHistory();
-  loadTwilioConfig();
-  // Pré-remplir contacts démo
-  if (CALL.contacts.length === 0) {
-    CALL.contacts = [
-      { id: 'u1', name: 'Alice YORRO', number: 'yorro:alice', type: 'yorro', avatar: '👩', color: '#7c6dfa' },
-      { id: 'u2', name: 'Bob YORRO', number: 'yorro:bob', type: 'yorro', avatar: '👨', color: '#4ade80' },
-      { id: 'u3', name: 'Support YORRO', number: 'yorro:support', type: 'yorro', avatar: '🎮', color: '#f59e0b' },
-    ];
-    saveContacts();
-    renderContacts();
-  }
-  checkTwilioStatus();
-}
-
-// ── TABS ──
-function setCallTab(tab) {
-  CALL.activeTab = tab;
-  ['dialer','contacts','history','settings'].forEach(t => {
-    document.getElementById('ctab-' + t).classList.toggle('active', t === tab);
-    const panel = document.getElementById('cpanel-' + t);
-    if (panel) panel.style.display = t === tab ? 'block' : 'none';
-  });
-}
-
-// ── MODE (YORRO / TWILIO) ──
-function setCallMode(mode) {
-  CALL.mode = mode;
-  const yB = document.getElementById('call-mode-badge-yorro');
-  const tB = document.getElementById('call-mode-badge-twilio');
-  if (mode === 'yorro') {
-    yB.style.background = 'rgba(124,109,250,.15)';
-    yB.style.borderColor = 'rgba(124,109,250,.4)';
-    tB.style.background = 'var(--bg3)';
-    tB.style.borderColor = 'var(--border2)';
-    document.getElementById('call-display-sub').textContent = 'Appel YORRO interne (gratuit)';
-  } else {
-    // Vérifier Twilio configuré
-    if (!CALL.twilio.accountSid) {
-      showNotif('error','⚙️','Configurez Twilio dans Parametres');
-      setCallTab('settings');
-      return;
-    }
-    tB.style.background = 'rgba(251,146,60,.12)';
-    tB.style.borderColor = 'rgba(251,146,60,.35)';
-    yB.style.background = 'var(--bg3)';
-    yB.style.borderColor = 'var(--border2)';
-    document.getElementById('call-display-sub').textContent = 'Appel vers numéro réel via Twilio';
-  }
-}
-
-// ── PAVÉ NUMÉRIQUE ──
-function dialKey(key) {
-  if (CALL.number.length >= 15) return;
-  // Vibration légère
-  if (navigator.vibrate) navigator.vibrate(20);
-  CALL.number += key;
-  updateDialerDisplay();
-  playDialTone(key);
-}
-
-function clearLastDigit() {
-  if (CALL.number.length > 0) {
-    CALL.number = CALL.number.slice(0, -1);
-    updateDialerDisplay();
-  }
-}
-
-function updateDialerDisplay() {
-  const display = document.getElementById('call-display');
-  if (!display) return;
-  if (CALL.number === '') {
-    display.textContent = '__________';
-    display.style.color = 'var(--text3)';
-  } else {
-    // Formater le numéro
-    const formatted = formatPhoneNumber(CALL.number);
-    display.textContent = formatted;
-    display.style.color = 'var(--text)';
-  }
-}
-
-function formatPhoneNumber(num) {
-  if (num.length <= 3) return num;
-  if (num.length <= 6) return num.slice(0,3) + ' ' + num.slice(3);
-  if (num.length <= 9) return num.slice(0,3) + ' ' + num.slice(3,6) + ' ' + num.slice(6);
-  return num.slice(0,3) + ' ' + num.slice(3,6) + ' ' + num.slice(6,9) + ' ' + num.slice(9);
-}
-
-function updateCountryCode() {
-  const sel = document.getElementById('call-country');
-  const code = sel.value;
-  // Si le numéro commence par un vieux code, le remplacer
-  showNotif('info','🌍','Indicatif: ' + code);
-}
-
-// ── SONS ──
-function playDialTone(key) {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const tones = {
-      '1':[697,1209],'2':[697,1336],'3':[697,1477],
-      '4':[770,1209],'5':[770,1336],'6':[770,1477],
-      '7':[852,1209],'8':[852,1336],'9':[852,1477],
-      '*':[941,1209],'0':[941,1336],'#':[941,1477]
-    };
-    const freq = tones[key] || [697,1209];
-    freq.forEach(f => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value = f;
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.12);
-    });
-  } catch(e) {}
-}
-
-function playRingTone() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    let t = ctx.currentTime;
-    for (let i = 0; i < 3; i++) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value = 440;
-      osc.type = 'sine';
-      gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.3, t + 0.05);
-      gain.gain.linearRampToValueAtTime(0, t + 0.4);
-      osc.start(t); osc.stop(t + 0.4);
-      t += 0.6;
-    }
-  } catch(e) {}
-}
-
-// ── INITIER UN APPEL ──
-async function initiateCall() {
-  const num = CALL.number.trim();
-  if (!num && CALL.mode !== 'yorro') {
-    showNotif('error','⚠️','Entrez un numéro');
-    return;
-  }
-
-  const country = document.getElementById('call-country').value;
-  const fullNumber = num ? country + num : num;
-  const contact = findContactByNumber(fullNumber) || { name: fullNumber || 'YORRO User', avatar: '👤', type: CALL.mode };
-
-  if (CALL.mode === 'yorro') {
-    await startWebRTCCall(contact, fullNumber);
-  } else {
-    await startTwilioCall(contact, fullNumber);
-  }
-}
-
-// ── WEBRTC CALL ──
-async function startWebRTCCall(contact, number) {
-  try {
-    // Demander accès micro
-    CALL.localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    CALL.isMuted = false;
-
-    // Créer peer connection
-    CALL.peerConn = new RTCPeerConnection(ICE_SERVERS);
-    CALL.localStream.getTracks().forEach(t => CALL.peerConn.addTrack(t, CALL.localStream));
-
-    // Gérer stream remote
-    CALL.peerConn.ontrack = (e) => {
-      CALL.remoteStream = e.streams[0];
-      const audio = document.getElementById('call-remote-audio');
-      if (audio) audio.srcObject = CALL.remoteStream;
-    };
-
-    // Générer room ID
-    CALL.roomId = 'yorro_' + Math.random().toString(36).slice(2, 9).toUpperCase();
-
-    showActiveCallScreen(contact, 'YORRO Interne • WebRTC HD');
-    startCallTimer();
-    showWebRTCRoom();
-    addCallHistory({ name: contact.name, number: number || 'YORRO', type: 'yorro', direction: 'out', duration: 0 });
-    showNotif('success','📞','Appel WebRTC YORRO démarré !');
-
-  } catch (err) {
-    if (err.name === 'NotAllowedError') {
-      showNotif('error','🎤','Autorisation micro refusée. Activez le micro dans les paramètres du navigateur.');
-    } else {
-      showNotif('error','❌', err.message.substring(0,60));
-    }
-  }
-}
-
-// ── TWILIO CALL ──
-async function startTwilioCall(contact, number) {
-  const tw = CALL.twilio;
-  if (!tw.accountSid || !tw.authToken) {
-    showNotif('error','⚙️','Twilio non configuré — allez dans Paramètres');
-    setCallTab('settings');
-    return;
-  }
-  if (!number) { showNotif('error','⚠️','Entrez un numéro'); return; }
-
-  showNotif('info','📱','Connexion Twilio...');
-  showActiveCallScreen(contact, 'Appel en cours via Twilio...');
-  startCallTimer();
-
-  try {
-    // Appel Twilio via API REST
-    const formData = new URLSearchParams();
-    formData.append('To', number);
-    formData.append('From', tw.fromNumber || '');
-    formData.append('Url', 'http://demo.twilio.com/docs/voice.xml');
-
-    const response = await fetch(
-      `https://api.twilio.com/2010-04-01/Accounts/${tw.accountSid}/Calls.json`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Basic ' + btoa(tw.accountSid + ':' + tw.authToken),
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData
-      }
-    );
-
-    const data = await response.json();
-    if (data.sid) {
-      document.getElementById('active-status').textContent = 'Appel Twilio • SID: ' + data.sid.slice(0,12) + '...';
-      addCallHistory({ name: contact.name, number: number, type: 'twilio', direction: 'out', duration: 0, sid: data.sid });
-      showNotif('success','📱','Appel Twilio initié !');
-    } else {
-      throw new Error(data.message || 'Erreur Twilio');
-    }
-  } catch (err) {
-    hangupCall();
-    let msg = err.message || 'Erreur';
-    if (msg.includes('401')) msg = 'Identifiants Twilio invalides';
-    else if (msg.includes('fetch')) msg = 'Note: Twilio nécessite un backend HTTPS pour les appels directs';
-    showNotif('error','❌', msg.substring(0,70));
-    // Explication claire
-    showTwilioNote();
-  }
-}
-
-function showTwilioNote() {
-  const body = document.getElementById('cpanel-settings');
-  if (!body) return;
-  const note = document.createElement('div');
-  note.style.cssText = 'margin:0 14px 14px;padding:14px;background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.25);border-radius:12px;font-size:12px;color:var(--text2);line-height:1.6';
-  note.innerHTML = '<strong style="color:var(--accent4)">⚠️ Note technique</strong><br/>Les appels Twilio depuis un navigateur nécessitent le SDK Twilio.js ou un backend proxy pour des raisons de sécurité CORS. Pour une intégration complète, YORRO Game-architect Studio peut générer le backend Node.js correspondant. Tapez dans le Chat IA : "Génère le backend Twilio pour YORRO".';
-  body.insertBefore(note, body.firstChild);
-}
-
-// ── ÉCRAN APPEL ACTIF ──
-function showActiveCallScreen(contact, status) {
-  CALL.isInCall = true;
-  document.getElementById('call-active-screen').classList.add('show');
-  document.getElementById('active-avatar').textContent = contact.avatar || '👤';
-  document.getElementById('active-name').textContent = contact.name || 'Inconnu';
-  document.getElementById('active-status').textContent = status || 'Appel en cours...';
-  document.getElementById('call-main-btn').classList.add('calling');
-  document.getElementById('call-main-btn').textContent = '📵';
-  document.getElementById('call-main-btn').onclick = hangupCall;
-}
-
-function hangupCall() {
-  CALL.isInCall = false;
-  clearInterval(CALL.callTimer);
-
-  // Arrêter les streams
-  if (CALL.localStream) {
-    CALL.localStream.getTracks().forEach(t => t.stop());
-    CALL.localStream = null;
-  }
-  if (CALL.peerConn) {
-    CALL.peerConn.close();
-    CALL.peerConn = null;
-  }
-
-  document.getElementById('call-active-screen').classList.remove('show');
-  document.getElementById('call-main-btn').classList.remove('calling');
-  document.getElementById('call-main-btn').textContent = '📞';
-  document.getElementById('call-main-btn').onclick = initiateCall;
-  document.getElementById('active-timer').textContent = '00:00';
-
-  // Mettre à jour historique
-  const lastCall = CALL.history[0];
-  if (lastCall) {
-    lastCall.duration = CALL.callStartTime ? Math.floor((Date.now() - CALL.callStartTime) / 1000) : 0;
-    saveCallHistory();
-    renderCallHistory();
-  }
-
-  CALL.callStartTime = null;
-  showNotif('info','📵','Appel terminé');
-}
-
-// ── TIMER ──
-function startCallTimer() {
-  CALL.callStartTime = Date.now();
-  clearInterval(CALL.callTimer);
-  CALL.callTimer = setInterval(() => {
-    if (!CALL.callStartTime) return;
-    const elapsed = Math.floor((Date.now() - CALL.callStartTime) / 1000);
-    const m = Math.floor(elapsed / 60).toString().padStart(2,'0');
-    const s = (elapsed % 60).toString().padStart(2,'0');
-    const el = document.getElementById('active-timer');
-    if (el) el.textContent = m + ':' + s;
-  }, 1000);
-}
-
-// ── CONTRÔLES APPEL ACTIF ──
-function toggleActiveMic() {
-  CALL.isMuted = !CALL.isMuted;
-  if (CALL.localStream) {
-    CALL.localStream.getAudioTracks().forEach(t => t.enabled = !CALL.isMuted);
-  }
-  const btn = document.getElementById('ctrl-mute');
-  if (btn) {
-    btn.textContent = CALL.isMuted ? '🔇' : '🎤';
-    btn.classList.toggle('muted', CALL.isMuted);
-  }
-  showNotif('info', CALL.isMuted ? '🔇' : '🎤', CALL.isMuted ? 'Micro coupé' : 'Micro activé');
-}
-
-function toggleMic() {
-  const btn = document.getElementById('btn-mic');
-  if (btn) btn.classList.toggle('active-side');
-  showNotif('info','🎤','Micro prêt');
-}
-
-function toggleSpeaker() {
-  CALL.isSpeaker = !CALL.isSpeaker;
-  const btn = document.getElementById('ctrl-speaker');
-  if (btn) btn.classList.toggle('active-ctrl', CALL.isSpeaker);
-  showNotif('info', CALL.isSpeaker ? '🔊' : '🔉', CALL.isSpeaker ? 'Haut-parleur ON' : 'Haut-parleur OFF');
-}
-
-function toggleRecord() {
-  CALL.isRecording = !CALL.isRecording;
-  const btn = document.getElementById('ctrl-record');
-  if (btn) {
-    btn.classList.toggle('active-ctrl', CALL.isRecording);
-    btn.textContent = CALL.isRecording ? '⏹️' : '⏺️';
-  }
-  showNotif('info', CALL.isRecording ? '⏺️' : '⏹️', CALL.isRecording ? 'Enregistrement démarré' : 'Enregistrement arrêté');
-}
-
-function toggleActiveKeypad() {
-  hangupCall();
-  showNotif('info','⌨️','Clavier affiché');
-}
-
-function holdCall() {
-  showNotif('info','⏸️','Appel mis en attente');
-  document.getElementById('active-status').textContent = '⏸️ En attente...';
-}
-
-function transferCall() {
-  const dest = prompt('Transférer vers (numéro ou utilisateur YORRO):');
-  if (dest) showNotif('info','↗️','Transfert vers ' + dest + '...');
-}
-
-// ── WEBRTC ROOM ──
-function showWebRTCRoom() {
-  const room = document.getElementById('webrtc-room');
-  if (room) room.classList.add('show');
-}
-
-function shareRoomLink() {
-  const link = window.location.href.split('?')[0] + '?room=' + CALL.roomId;
-  if (navigator.share) {
-    navigator.share({
-      title: 'Rejoignez mon appel YORRO',
-      text: 'Patrick Emessiene Amayna vous invite à rejoindre un appel YORRO Game-architect',
-      url: link
-    });
-  } else {
-    navigator.clipboard.writeText(link).then(() => {
-      showNotif('success','📤','Lien copié: ' + CALL.roomId);
-    });
-  }
-}
-
-// ── CONTACTS ──
-function renderContacts(filter) {
-  const yorroList = document.getElementById('contacts-yorro');
-  const extList = document.getElementById('contacts-ext');
-  if (!yorroList || !extList) return;
-
-  const filtered = filter
-    ? CALL.contacts.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()) || c.number.includes(filter))
-    : CALL.contacts;
-
-  const yorro = filtered.filter(c => c.type === 'yorro');
-  const ext = filtered.filter(c => c.type !== 'yorro');
-
-  yorroList.innerHTML = yorro.map(c => `
-    <div class="call-contact-item" onclick="callContact('${c.id}')">
-      <div class="call-contact-avatar" style="background:${c.color || 'var(--bg4)'}20;color:${c.color || 'var(--accent2)'}">${c.avatar || '👤'}</div>
-      <div class="call-contact-info">
-        <div class="call-contact-name">${c.name}</div>
-        <div class="call-contact-num">${c.number}</div>
-      </div>
-      <span class="call-contact-type yorro">YORRO</span>
-    </div>`).join('') || '<div style="padding:12px 14px;color:var(--text3);font-size:12px">Aucun contact YORRO</div>';
-
-  extList.innerHTML = ext.map(c => `
-    <div class="call-contact-item" onclick="callContact('${c.id}')">
-      <div class="call-contact-avatar" style="background:rgba(251,146,60,.1);color:var(--accent4)">${c.avatar || '👤'}</div>
-      <div class="call-contact-info">
-        <div class="call-contact-name">${c.name}</div>
-        <div class="call-contact-num">${c.number}</div>
-      </div>
-      <span class="call-contact-type ext">Externe</span>
-    </div>`).join('') || '<div style="padding:12px 14px;color:var(--text3);font-size:12px">Aucun contact externe</div>';
-}
-
-function filterContacts(val) { renderContacts(val); }
-
-function callContact(id) {
-  const c = CALL.contacts.find(x => x.id === id);
-  if (!c) return;
-  CALL.number = c.number.replace('yorro:','');
-  updateDialerDisplay();
-  setCallMode(c.type === 'yorro' ? 'yorro' : 'twilio');
-  setCallTab('dialer');
-  setTimeout(() => initiateCall(), 300);
-}
-
-function findContactByNumber(num) {
-  return CALL.contacts.find(c => c.number === num || c.number.includes(num));
-}
-
-function addContact() {
-  const name = prompt('Nom du contact:');
-  if (!name) return;
-  const number = prompt('Numéro ou ID YORRO:');
-  if (!number) return;
-  const type = number.startsWith('yorro:') || !number.match(/^\+?\d/) ? 'yorro' : 'ext';
-  const colors = ['#7c6dfa','#4ade80','#fb923c','#f59e0b','#f87171','#38bdf8'];
-  const avatars = ['👤','👩','👨','🧑','👱','🧔'];
-  const c = {
-    id: Date.now().toString(),
-    name, number, type,
-    avatar: avatars[Math.floor(Math.random()*avatars.length)],
-    color: colors[Math.floor(Math.random()*colors.length)]
-  };
-  CALL.contacts.push(c);
-  saveContacts();
-  renderContacts();
-  showNotif('success','👤', name + ' ajouté !');
-}
-
-function saveContacts() { localStorage.setItem('yorro_contacts', JSON.stringify(CALL.contacts)); }
-
-// ── HISTORIQUE ──
-function addCallHistory(entry) {
-  entry.timestamp = Date.now();
-  CALL.history.unshift(entry);
-  if (CALL.history.length > 50) CALL.history.pop();
-  saveCallHistory();
-}
-function saveCallHistory() { localStorage.setItem('yorro_call_history', JSON.stringify(CALL.history)); }
-
-function renderCallHistory() {
-  const list = document.getElementById('call-history-list');
-  const empty = document.getElementById('call-history-empty');
-  if (!list) return;
-  if (CALL.history.length === 0) {
-    if (empty) empty.style.display = 'block';
-    list.innerHTML = '';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-  list.innerHTML = CALL.history.map(h => {
-    const d = new Date(h.timestamp);
-    const timeStr = d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-    const dateStr = d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-    const durStr = h.duration ? Math.floor(h.duration/60) + 'min ' + (h.duration%60) + 's' : 'Non répondu';
-    const icon = h.direction === 'out' ? '📤' : '📥';
-    const typeColor = h.type === 'yorro' ? 'var(--accent2)' : 'var(--accent4)';
-    return `<div class="call-hist-item">
-      <div class="call-hist-icon">${icon}</div>
-      <div class="call-hist-info">
-        <div class="call-hist-name">${h.name}</div>
-        <div class="call-hist-meta" style="color:${typeColor}">${h.number} • ${dateStr} ${timeStr} • ${durStr}</div>
-      </div>
-      <button class="call-hist-action" onclick="CALL.number='${h.number.replace(/'/g,'')}'.replace('yorro:','');updateDialerDisplay();setCallTab('dialer')">Rappeler</button>
-    </div>`;
-  }).join('');
-}
-
-// ── TWILIO CONFIG ──
-function saveTwilioConfig() {
-  const sid = document.getElementById('tw-account-sid').value.trim();
-  const token = document.getElementById('tw-auth-token').value.trim();
-  const from = document.getElementById('tw-phone-from').value.trim();
-  if (!sid || !token) { showNotif('error','⚠️','Remplissez Account SID et Auth Token'); return; }
-  CALL.twilio = { accountSid: sid, authToken: token, fromNumber: from };
-  localStorage.setItem('yorro_twilio', JSON.stringify(CALL.twilio));
-  checkTwilioStatus();
-  showNotif('success','✅','Twilio configuré !');
-}
-
-function loadTwilioConfig() {
-  const tw = CALL.twilio;
-  if (tw.accountSid) document.getElementById('tw-account-sid').value = tw.accountSid;
-  if (tw.authToken) document.getElementById('tw-auth-token').value = tw.authToken;
-  if (tw.fromNumber) document.getElementById('tw-phone-from').value = tw.fromNumber;
-}
-
-function checkTwilioStatus() {
-  const tw = CALL.twilio;
-  const dot = document.getElementById('twilio-dot');
-  const txt = document.getElementById('twilio-status-text');
-  if (!dot || !txt) return;
-  if (tw.accountSid && tw.authToken) {
-    dot.className = 'twilio-dot ok';
-    txt.textContent = 'Twilio configuré — Appels externes disponibles';
-    txt.style.color = 'var(--accent3)';
-  } else {
-    dot.className = 'twilio-dot no';
-    txt.textContent = 'Non configuré — Appels externes indisponibles';
-    txt.style.color = 'var(--red)';
-  }
-}
-
-// Ajouter audio element pour le son remote
-document.addEventListener('DOMContentLoaded', () => {
-  if (!document.getElementById('call-remote-audio')) {
-    const audio = document.createElement('audio');
-    audio.id = 'call-remote-audio';
-    audio.autoplay = true;
-    audio.style.display = 'none';
-    document.body.appendChild(audio);
-  }
-});
 
 
 // ════════════════════════════════════════════
@@ -4833,6 +4534,7 @@ function initPhone() {
   if (PHONE.twilio.from) document.getElementById('twilio-from').value = PHONE.twilio.from;
   renderRecentCalls();
   checkHTTPS();
+  connectSignaling();
 }
 
 function checkHTTPS() {
@@ -4952,44 +4654,159 @@ function startPhoneCall() {
 }
 
 // ── WEBRTC — APPELS YORRO ──
+// ════════════════════════════════════════════
+// SIGNALISATION WEBRTC — WebSocket réel
+// Remplace l'ancienne simulation (simulateWebRTCConnect).
+// Nécessite le backend YORRO déployé (signaling.js).
+// ════════════════════════════════════════════
+const SIGNAL = {
+  ws: null,
+  connected: false,
+  peerId: null,        // avec qui on est en appel (sortant ou entrant)
+  pendingOffer: null,  // offre reçue en attente d'acceptation
+  pendingIce: [],       // candidats ICE reçus avant setRemoteDescription
+};
+
+const RTC_CONFIG = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun.cloudflare.com:3478' }
+  ]
+};
+
+function connectSignaling() {
+  const backendUrl = localStorage.getItem('yorro_backend_url');
+  if (!backendUrl) {
+    updateWebRTCStatus('offline', 'Backend non configuré');
+    return;
+  }
+  const wsUrl = backendUrl.replace(/^http/, 'ws') + '/ws/signaling';
+  try {
+    SIGNAL.ws = new WebSocket(wsUrl);
+  } catch (err) {
+    updateWebRTCStatus('offline', 'Erreur connexion signalisation');
+    return;
+  }
+
+  SIGNAL.ws.onopen = () => {
+    SIGNAL.ws.send(JSON.stringify({ type: 'register', id: PHONE.myId }));
+  };
+  SIGNAL.ws.onmessage = (evt) => {
+    let msg;
+    try { msg = JSON.parse(evt.data); } catch { return; }
+    handleSignalMessage(msg);
+  };
+  SIGNAL.ws.onclose = () => {
+    SIGNAL.connected = false;
+    updateWebRTCStatus('offline', 'Déconnecté du serveur');
+    // Reconnexion automatique après 3s
+    setTimeout(connectSignaling, 3000);
+  };
+  SIGNAL.ws.onerror = () => {};
+}
+
+function sendSignal(msg) {
+  if (SIGNAL.ws && SIGNAL.ws.readyState === WebSocket.OPEN) {
+    SIGNAL.ws.send(JSON.stringify(msg));
+    return true;
+  }
+  showNotif('error', '📡', 'Non connecté au serveur de signalisation');
+  return false;
+}
+
+async function handleSignalMessage(msg) {
+  switch (msg.type) {
+    case 'registered':
+      SIGNAL.connected = true;
+      updateWebRTCStatus('ready', 'Prêt à appeler');
+      break;
+
+    case 'call': // offre entrante
+      SIGNAL.pendingOffer = msg.offer;
+      SIGNAL.peerId = msg.from;
+      simulateIncomingCall(msg.from, msg.from); // affiche l'overlay d'appel entrant (nom = ID YORRO)
+      break;
+
+    case 'answer': // réponse à notre offre
+      if (PHONE.peerConnection) {
+        await PHONE.peerConnection.setRemoteDescription(new RTCSessionDescription(msg.answer));
+        for (const c of SIGNAL.pendingIce) await PHONE.peerConnection.addIceCandidate(c);
+        SIGNAL.pendingIce = [];
+      }
+      break;
+
+    case 'ice':
+      if (msg.candidate) {
+        const cand = new RTCIceCandidate(msg.candidate);
+        if (PHONE.peerConnection && PHONE.peerConnection.remoteDescription) {
+          await PHONE.peerConnection.addIceCandidate(cand);
+        } else {
+          SIGNAL.pendingIce.push(cand);
+        }
+      }
+      break;
+
+    case 'hangup':
+      endWebRTCCall(false); // false = ne pas renvoyer de hangup (déjà reçu)
+      showNotif('info', '📵', (msg.from || 'L\'autre utilisateur') + ' a raccroché');
+      break;
+
+    case 'error':
+      showNotif('error', '❌', msg.message || 'Erreur de signalisation');
+      break;
+  }
+}
+
+function updateWebRTCStatus(state, label) {
+  const el = document.getElementById('webrtc-status');
+  if (!el) return;
+  el.textContent = label;
+  el.className = 'webrtc-status ' + (state === 'ready' ? 'connected' : state === 'connected' ? 'connected' : 'disconnected');
+}
+
+function createPeerConnection() {
+  const pc = new RTCPeerConnection(RTC_CONFIG);
+  pc.onicecandidate = (e) => {
+    if (e.candidate && SIGNAL.peerId) {
+      sendSignal({ type: 'ice', to: SIGNAL.peerId, from: PHONE.myId, candidate: e.candidate });
+    }
+  };
+  pc.ontrack = (event) => {
+    const audio = document.getElementById('remote-audio');
+    if (audio) audio.srcObject = event.streams[0];
+    document.getElementById('webrtc-audio-wrap').classList.add('show');
+    updateWebRTCStatus('connected', 'Connecté');
+  };
+  pc.onconnectionstatechange = () => {
+    if (['disconnected', 'failed', 'closed'].includes(pc.connectionState)) {
+      updateWebRTCStatus('offline', pc.connectionState === 'failed' ? 'Échec de connexion' : 'Déconnecté');
+    }
+  };
+  return pc;
+}
+
 async function startWebRTCCall() {
   const peerId = document.getElementById('peer-id-input').value.trim();
   if (!peerId) { showNotif('error', '⚠️', 'Entrez ID utilisateur YORRO'); return; }
   if (peerId === PHONE.myId) { showNotif('error', '⚠️', 'Vous ne pouvez pas vous appeler vous-même'); return; }
+  if (!SIGNAL.connected) { showNotif('error', '📡', 'Serveur de signalisation non connecté — configurez le backend'); return; }
 
   try {
-    // Demander accès micro
     PHONE.localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    // Créer la connexion WebRTC
-    const config = {
-      iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' },
-        { urls: 'stun:stun.cloudflare.com:3478' }
-      ]
-    };
-    PHONE.peerConnection = new RTCPeerConnection(config);
-    // Ajouter le flux audio local
-    PHONE.localStream.getTracks().forEach(track => {
-      PHONE.peerConnection.addTrack(track, PHONE.localStream);
-    });
-    // Recevoir audio distant
-    PHONE.peerConnection.ontrack = (event) => {
-      const audio = document.getElementById('remote-audio');
-      if (audio) audio.srcObject = event.streams[0];
-      document.getElementById('webrtc-audio-wrap').classList.add('show');
-      document.getElementById('webrtc-status').textContent = 'Connecté';
-      document.getElementById('webrtc-status').className = 'webrtc-status connected';
-    };
-    // Créer offre SDP
+    PHONE.peerConnection = createPeerConnection();
+    PHONE.localStream.getTracks().forEach(track => PHONE.peerConnection.addTrack(track, PHONE.localStream));
+
+    SIGNAL.peerId = peerId;
     const offer = await PHONE.peerConnection.createOffer();
     await PHONE.peerConnection.setLocalDescription(offer);
-    // Simuler connexion (en prod: utiliser un serveur de signalisation)
+
+    const sent = sendSignal({ type: 'call', to: peerId, from: PHONE.myId, offer });
+    if (!sent) return;
+
     showCallUI(peerId, peerId, 'WebRTC YORRO');
     addRecentCall(peerId, peerId, 'webrtc', 'outgoing');
-    showNotif('success', '🌐', 'Appel YORRO lancé vers ' + peerId);
-    // Note: en production, l'offre SDP serait envoyée via WebSocket/Firebase
-    simulateWebRTCConnect(peerId);
+    showNotif('success', '🌐', 'Appel envoyé à ' + peerId + ' — en attente de réponse...');
   } catch(err) {
     if (err.name === 'NotAllowedError') {
       showNotif('error', '🎤', 'Accès micro refusé — autorisez le micro dans votre navigateur');
@@ -4999,17 +4816,10 @@ async function startWebRTCCall() {
   }
 }
 
-function simulateWebRTCConnect(peerId) {
-  // Simulation de connexion (remplacer par vraie signalisation en prod)
-  setTimeout(() => {
-    const status = document.getElementById('call-status');
-    if (status) status.textContent = 'Appel en cours — YORRO';
-    document.getElementById('webrtc-status').textContent = 'Connecté';
-    document.getElementById('webrtc-status').className = 'webrtc-status connected';
-  }, 2000);
-}
-
-async function endWebRTCCall() {
+async function endWebRTCCall(notifyPeer = true) {
+  if (notifyPeer && SIGNAL.peerId) {
+    sendSignal({ type: 'hangup', to: SIGNAL.peerId, from: PHONE.myId });
+  }
   if (PHONE.peerConnection) {
     PHONE.peerConnection.close();
     PHONE.peerConnection = null;
@@ -5018,9 +4828,11 @@ async function endWebRTCCall() {
     PHONE.localStream.getTracks().forEach(t => t.stop());
     PHONE.localStream = null;
   }
+  SIGNAL.peerId = null;
+  SIGNAL.pendingOffer = null;
+  SIGNAL.pendingIce = [];
   document.getElementById('webrtc-audio-wrap').classList.remove('show');
-  document.getElementById('webrtc-status').textContent = 'Déconnecté';
-  document.getElementById('webrtc-status').className = 'webrtc-status disconnected';
+  updateWebRTCStatus('ready', SIGNAL.connected ? 'Prêt à appeler' : 'Déconnecté');
   hideCallUI();
   showNotif('info', '📵', 'Appel WebRTC terminé');
 }
@@ -5183,7 +4995,7 @@ function transferCall() {
   }
 }
 
-// ── APPEL ENTRANT (simulation) ──
+// ── APPEL ENTRANT (réel — déclenché par un message 'call' reçu via la signalisation) ──
 function simulateIncomingCall(fromName, fromNumber) {
   document.getElementById('incoming-name').textContent = fromName;
   document.getElementById('incoming-sub').textContent = fromNumber + ' — Appel entrant';
@@ -5191,18 +5003,49 @@ function simulateIncomingCall(fromName, fromNumber) {
   playRingTone();
 }
 
-function acceptCall() {
+async function acceptCall() {
   document.getElementById('incoming-call').classList.remove('show');
   stopRingTone();
-  const name = document.getElementById('incoming-name').textContent;
-  const sub = document.getElementById('incoming-sub').textContent.split(' — ')[0];
-  showCallUI(name, sub, 'WebRTC YORRO');
-  showNotif('success', '📞', 'Appel accepté');
+
+  if (!SIGNAL.pendingOffer || !SIGNAL.peerId) {
+    showNotif('error', '❌', 'Offre d\'appel introuvable');
+    return;
+  }
+
+  try {
+    PHONE.localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    PHONE.peerConnection = createPeerConnection();
+    PHONE.localStream.getTracks().forEach(track => PHONE.peerConnection.addTrack(track, PHONE.localStream));
+
+    await PHONE.peerConnection.setRemoteDescription(new RTCSessionDescription(SIGNAL.pendingOffer));
+    for (const c of SIGNAL.pendingIce) await PHONE.peerConnection.addIceCandidate(c);
+    SIGNAL.pendingIce = [];
+
+    const answer = await PHONE.peerConnection.createAnswer();
+    await PHONE.peerConnection.setLocalDescription(answer);
+    sendSignal({ type: 'answer', to: SIGNAL.peerId, from: PHONE.myId, answer });
+
+    showCallUI(SIGNAL.peerId, SIGNAL.peerId, 'WebRTC YORRO');
+    addRecentCall(SIGNAL.peerId, SIGNAL.peerId, 'webrtc', 'incoming');
+    showNotif('success', '📞', 'Appel accepté');
+  } catch (err) {
+    if (err.name === 'NotAllowedError') {
+      showNotif('error', '🎤', 'Accès micro refusé — impossible d\'accepter l\'appel');
+    } else {
+      showNotif('error', '❌', 'Erreur: ' + err.message);
+    }
+  }
 }
 
 function declineCall() {
   document.getElementById('incoming-call').classList.remove('show');
   stopRingTone();
+  if (SIGNAL.peerId) {
+    sendSignal({ type: 'hangup', to: SIGNAL.peerId, from: PHONE.myId });
+  }
+  SIGNAL.pendingOffer = null;
+  SIGNAL.peerId = null;
+  SIGNAL.pendingIce = [];
   showNotif('info', '📵', 'Appel décliné');
 }
 
@@ -5274,6 +5117,517 @@ function callBack(number) {
   setTimeout(() => startPhoneCall(), 300);
 }
 
+
+// ══ MULTI-RÉSEAU TÉLÉPHONIE ══
+const NET_CONFIG_KEY = 'yorro_net_config';
+
+function loadNetConfig(){
+  return JSON.parse(localStorage.getItem(NET_CONFIG_KEY) || '{}');
+}
+
+function saveNetConfig(network){
+  const cfg = loadNetConfig();
+  const inputs = {
+    at:     {username:'at-username', apikey:'at-apikey', phone:'at-phone'},
+    telnyx: {key:'telnyx-key', from:'telnyx-from'},
+    sip:    {server:'sip-server', user:'sip-user', pass:'sip-pass'},
+    twilio: {sid:'twilio-sid', token:'twilio-token', from:'twilio-from'},
+  };
+  const fields = inputs[network];
+  if(!fields) return;
+  cfg[network] = {};
+  Object.entries(fields).forEach(([k,id])=>{
+    const el = document.getElementById(id);
+    if(el) cfg[network][k] = el.value.trim();
+  });
+  localStorage.setItem(NET_CONFIG_KEY, JSON.stringify(cfg));
+  // Sauvegarder aussi dans PHONE.twilio pour compatibilité
+  if(network==='twilio') PHONE.twilio = cfg.twilio;
+  showNotif('success','✅', network + ' configuré et sauvegardé !');
+  toggleNetConfig(network);
+  updateActiveNetworkDisplay();
+}
+
+function toggleNetConfig(network){
+  const panel = document.getElementById('config-'+network);
+  if(!panel) return;
+  const isOpen = panel.style.display !== 'none';
+  // Fermer tous
+  ['at','telnyx','sip','twilio'].forEach(n=>{
+    const p=document.getElementById('config-'+n);
+    if(p) p.style.display='none';
+  });
+  if(!isOpen) panel.style.display='flex';
+}
+
+let selectedNet = 'auto';
+const NET_COSTS = {
+  auto:'0,00', livekit:'0,00', webrtc:'0,00',
+  africastalking:'0,004', telnyx:'0,002', sip:'0,001', twilio:'0,02'
+};
+const NET_LABELS = {
+  auto:'Auto (meilleur disponible)', livekit:'LiveKit HD', webrtc:'WebRTC P2P',
+  africastalking:"Africa's Talking", telnyx:'Telnyx', sip:'SIP / Asterisk', twilio:'Twilio'
+};
+
+function selectNetwork(network){
+  selectedNet = network;
+  document.querySelectorAll('.network-card').forEach(c=>c.classList.remove('selected-net'));
+  document.getElementById('net-'+network.replace("'s Talking",'').replace("africastalking","at").toLowerCase())?.classList.add('selected-net');
+  updateActiveNetworkDisplay();
+  showNotif('info','🎯', 'Réseau sélectionné: ' + NET_LABELS[network]);
+}
+
+function updateActiveNetworkDisplay(){
+  const label = document.getElementById('active-network-label');
+  const cost  = document.getElementById('active-network-cost');
+  if(label) label.textContent = NET_LABELS[selectedNet] || selectedNet;
+  if(cost)  cost.textContent  = NET_COSTS[selectedNet] + ' $/min';
+}
+
+// Override startPhoneCall pour utiliser le réseau sélectionné
+const _origStartPhoneCall = startPhoneCall;
+function startPhoneCall(){
+  if(!PHONE.number || PHONE.number.length < 3){
+    showNotif('error','⚠️','Entrez un numéro valide');
+    return;
+  }
+  const backendUrl = localStorage.getItem('yorro_backend_url');
+  if(selectedNet === 'webrtc' || selectedNet === 'livekit'){
+    // Appel interne — pas besoin de backend
+    if(selectedNet === 'livekit') startLiveKitCall(PHONE.number);
+    else startWebRTCCall();
+    return;
+  }
+  if(!backendUrl){
+    showNotif("info","⚠️","Configurez URL du backend pour les appels mobiles");
+    promptBackendUrl();
+    return;
+  }
+  // Appel via backend smart-call
+  makeSmartCall(PHONE.number, backendUrl);
+}
+
+function promptBackendUrl(){
+  const url = prompt('URL de votre backend Railway (ex: https://yorro.railway.app):');
+  if(url && url.startsWith('https://')){
+    localStorage.setItem('yorro_backend_url', url);
+    showNotif('success','✅','Backend configuré !');
+  }
+}
+
+async function makeSmartCall(to, backendUrl){
+  try{
+    showCallUI(to, to, NET_LABELS[selectedNet]);
+    const res = await fetch(backendUrl + '/api/phone/smart-call', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ to, preferredNetwork: selectedNet, yorroId: PHONE.myId })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error);
+    const status = document.getElementById('call-status');
+    if(status) status.textContent = 'Connecté via ' + data.selectedNetwork + ' · ' + data.routing?.costPerMin + '$/min';
+    showNotif('success','📞', 'Appel via ' + data.selectedNetwork);
+    addRecentCall(to, to, data.selectedNetwork, 'outgoing');
+  }catch(err){
+    hideCallUI();
+    showNotif('error','❌', err.message.substring(0,60));
+  }
+}
+
+async function startLiveKitCall(roomName){
+  const backendUrl = localStorage.getItem('yorro_backend_url');
+  if(!backendUrl){ showNotif('info','💡','Configurez le backend pour LiveKit'); return; }
+  try{
+    const res = await fetch(backendUrl + '/api/phone/livekit/token', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ roomName: roomName||'yorro-'+Date.now(), participantName: PHONE.myId, participantId: PHONE.myId })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error);
+    showCallUI(roomName, data.token.substring(0,20)+'...', 'LiveKit HD');
+    showNotif('success','🌐','Salle LiveKit créée — Token reçu');
+    addRecentCall(roomName, roomName, 'livekit', 'outgoing');
+  }catch(err){
+    showNotif('error','❌', 'LiveKit: ' + err.message);
+    // Fallback WebRTC
+    startWebRTCCall();
+  }
+}
+
+// Charger la config existante au démarrage
+function initMultiNetwork(){
+  const cfg = loadNetConfig();
+  if(cfg.at){
+    const u=document.getElementById('at-username'); if(u)u.value=cfg.at.username||'';
+    const k=document.getElementById('at-apikey');   if(k)k.value=cfg.at.apikey||'';
+  }
+  if(cfg.telnyx){
+    const k=document.getElementById('telnyx-key');  if(k)k.value=cfg.telnyx.key||'';
+    const f=document.getElementById('telnyx-from'); if(f)f.value=cfg.telnyx.from||'';
+  }
+  if(cfg.sip){
+    const s=document.getElementById('sip-server'); if(s)s.value=cfg.sip.server||'';
+    const u=document.getElementById('sip-user');   if(u)u.value=cfg.sip.user||'';
+  }
+  if(cfg.twilio){
+    PHONE.twilio = cfg.twilio;
+    const s=document.getElementById('twilio-sid');   if(s)s.value=cfg.twilio.sid||'';
+    const f=document.getElementById('twilio-from');  if(f)f.value=cfg.twilio.from||'';
+  }
+  updateActiveNetworkDisplay();
+}
+
+
+// ════════════════════════════════════════════════
+// MENU DRAWER + INTERNATIONALISATION (i18n)
+// 10 langues: FR EN ES PT AR ZH DE IT RU SW
+// © Patrick Emessiene Amayna — YORRO Studio
+// ════════════════════════════════════════════════
+
+// ── Traductions ──
+const I18N = {
+  fr: {
+    nav:"Navigation", tools:"Outils", account:"Compte",
+    menu_chat:"Chat IA", menu_chat_sub:"Créer des jeux avec l'IA",
+    menu_editor:"Éditeur de code", menu_editor_sub:"Voir et modifier les fichiers",
+    menu_projects:"Mes Projets", menu_projects_sub:"Historique de vos jeux",
+    menu_docs:"Agent Documentaire", menu_docs_sub:"Traduction · Conversion · Création",
+    menu_video:"Vidéosurveillance IA", menu_video_sub:"Détection · Reconnaissance",
+    menu_phone:"Téléphonie Multi-réseau", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Statistiques", menu_stats_sub:"Vos essais et activités",
+    menu_sub:"S'abonner Pro / Elite", menu_sub_sub:"Accès illimité à tout",
+    menu_legal:"Mentions légales", menu_legal_sub:"Droits · CGU · Propriété",
+    lang_select:"Langue de l'interface",
+    welcome_title:"Bienvenue sur YORRO Game-architect",
+    welcome_sub:"Votre studio de création de jeux IA",
+    welcome_chat:"Chat IA",
+    welcome_desc:"Décrivez votre jeu et l'IA le génère pour vous",
+    free_trials:"3 essais gratuits par fonctionnalité",
+    menu_btn:"Menu",
+    home_btn:"Accueil",
+    pro_btn:"Pro",
+  },
+  en: {
+    nav:"Navigation", tools:"Tools", account:"Account",
+    menu_chat:"AI Chat", menu_chat_sub:"Create games with AI",
+    menu_editor:"Code Editor", menu_editor_sub:"View and edit files",
+    menu_projects:"My Projects", menu_projects_sub:"Your game history",
+    menu_docs:"Document Agent", menu_docs_sub:"Translation · Conversion · Creation",
+    menu_video:"AI Video Surveillance", menu_video_sub:"Detection · Recognition",
+    menu_phone:"Multi-network Telephony", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Statistics", menu_stats_sub:"Your trials and activity",
+    menu_sub:"Subscribe Pro / Elite", menu_sub_sub:"Unlimited access to everything",
+    menu_legal:"Legal notices", menu_legal_sub:"Rights · TOS · Property",
+    lang_select:"Interface language",
+    welcome_title:"Welcome to YORRO Game-architect",
+    welcome_sub:"Your AI game creation studio",
+    welcome_chat:"AI Chat",
+    welcome_desc:"Describe your game and AI generates it for you",
+    free_trials:"3 free trials per feature",
+    menu_btn:"Menu",
+    home_btn:"Home",
+    pro_btn:"Pro",
+  },
+  es: {
+    nav:"Navegación", tools:"Herramientas", account:"Cuenta",
+    menu_chat:"Chat IA", menu_chat_sub:"Crear juegos con IA",
+    menu_editor:"Editor de código", menu_editor_sub:"Ver y editar archivos",
+    menu_projects:"Mis Proyectos", menu_projects_sub:"Historial de tus juegos",
+    menu_docs:"Agente Documental", menu_docs_sub:"Traducción · Conversión · Creación",
+    menu_video:"Videovigilancia IA", menu_video_sub:"Detección · Reconocimiento",
+    menu_phone:"Telefonía Multi-red", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Estadísticas", menu_stats_sub:"Tus pruebas y actividades",
+    menu_sub:"Suscribirse Pro / Elite", menu_sub_sub:"Acceso ilimitado a todo",
+    menu_legal:"Avisos legales", menu_legal_sub:"Derechos · TOS · Propiedad",
+    lang_select:"Idioma de la interfaz",
+    welcome_title:"Bienvenido a YORRO Game-architect",
+    welcome_sub:"Tu estudio de creación de juegos IA",
+    welcome_chat:"Chat IA",
+    welcome_desc:"Describe tu juego y la IA lo genera para ti",
+    free_trials:"3 pruebas gratuitas por función",
+    menu_btn:"Menú",
+    home_btn:"Inicio",
+    pro_btn:"Pro",
+  },
+  pt: {
+    nav:"Navegação", tools:"Ferramentas", account:"Conta",
+    menu_chat:"Chat IA", menu_chat_sub:"Criar jogos com IA",
+    menu_editor:"Editor de código", menu_editor_sub:"Ver e editar arquivos",
+    menu_projects:"Meus Projetos", menu_projects_sub:"Histórico dos seus jogos",
+    menu_docs:"Agente Documental", menu_docs_sub:"Tradução · Conversão · Criação",
+    menu_video:"Videovigilância IA", menu_video_sub:"Detecção · Reconhecimento",
+    menu_phone:"Telefonia Multi-rede", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Estatísticas", menu_stats_sub:"Seus testes e atividades",
+    menu_sub:"Assinar Pro / Elite", menu_sub_sub:"Acesso ilimitado a tudo",
+    menu_legal:"Avisos legais", menu_legal_sub:"Direitos · TOS · Propriedade",
+    lang_select:"Idioma da interface",
+    welcome_title:"Bem-vindo ao YORRO Game-architect",
+    welcome_sub:"Seu estúdio de criação de jogos IA",
+    welcome_chat:"Chat IA",
+    welcome_desc:"Descreva seu jogo e a IA gera para você",
+    free_trials:"3 tentativas gratuitas por recurso",
+    menu_btn:"Menu",
+    home_btn:"Início",
+    pro_btn:"Pro",
+  },
+  ar: {
+    nav:"التنقل", tools:"الأدوات", account:"الحساب",
+    menu_chat:"دردشة الذكاء الاصطناعي", menu_chat_sub:"إنشاء الألعاب بالذكاء الاصطناعي",
+    menu_editor:"محرر الكود", menu_editor_sub:"عرض وتعديل الملفات",
+    menu_projects:"مشاريعي", menu_projects_sub:"تاريخ ألعابك",
+    menu_docs:"وكيل المستندات", menu_docs_sub:"ترجمة · تحويل · إنشاء",
+    menu_video:"مراقبة الفيديو الذكية", menu_video_sub:"الكشف · التعرف",
+    menu_phone:"الاتصال متعدد الشبكات", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"الإحصائيات", menu_stats_sub:"تجاربك وأنشطتك",
+    menu_sub:"الاشتراك Pro / Elite", menu_sub_sub:"وصول غير محدود لكل شيء",
+    menu_legal:"الإشعارات القانونية", menu_legal_sub:"الحقوق · الشروط · الملكية",
+    lang_select:"لغة الواجهة",
+    welcome_title:"مرحباً في YORRO Game-architect",
+    welcome_sub:"استوديو إنشاء الألعاب بالذكاء الاصطناعي",
+    welcome_chat:"دردشة الذكاء الاصطناعي",
+    welcome_desc:"صف لعبتك وسيولد الذكاء الاصطناعي لك",
+    free_trials:"3 تجارب مجانية لكل ميزة",
+    menu_btn:"القائمة",
+    home_btn:"الرئيسية",
+    pro_btn:"برو",
+  },
+  zh: {
+    nav:"导航", tools:"工具", account:"账户",
+    menu_chat:"AI聊天", menu_chat_sub:"用AI创建游戏",
+    menu_editor:"代码编辑器", menu_editor_sub:"查看和编辑文件",
+    menu_projects:"我的项目", menu_projects_sub:"您的游戏历史",
+    menu_docs:"文档助手", menu_docs_sub:"翻译 · 转换 · 创建",
+    menu_video:"AI视频监控", menu_video_sub:"检测 · 识别",
+    menu_phone:"多网络电话", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"统计", menu_stats_sub:"您的试用和活动",
+    menu_sub:"订阅Pro / Elite", menu_sub_sub:"无限访问一切",
+    menu_legal:"法律声明", menu_legal_sub:"权利 · 条款 · 财产",
+    lang_select:"界面语言",
+    welcome_title:"欢迎来到YORRO游戏架构师",
+    welcome_sub:"您的AI游戏创作工作室",
+    welcome_chat:"AI聊天",
+    welcome_desc:"描述您的游戏，AI为您生成",
+    free_trials:"每个功能3次免费试用",
+    menu_btn:"菜单",
+    home_btn:"首页",
+    pro_btn:"专业版",
+  },
+  de: {
+    nav:"Navigation", tools:"Werkzeuge", account:"Konto",
+    menu_chat:"KI-Chat", menu_chat_sub:"Spiele mit KI erstellen",
+    menu_editor:"Code-Editor", menu_editor_sub:"Dateien anzeigen und bearbeiten",
+    menu_projects:"Meine Projekte", menu_projects_sub:"Ihre Spielhistorie",
+    menu_docs:"Dokumenten-Agent", menu_docs_sub:"Übersetzung · Konvertierung · Erstellung",
+    menu_video:"KI-Videoüberwachung", menu_video_sub:"Erkennung · Identifikation",
+    menu_phone:"Multi-Netzwerk-Telefonie", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Statistiken", menu_stats_sub:"Ihre Tests und Aktivitäten",
+    menu_sub:"Pro / Elite abonnieren", menu_sub_sub:"Unbegrenzter Zugang zu allem",
+    menu_legal:"Rechtliche Hinweise", menu_legal_sub:"Rechte · AGB · Eigentum",
+    lang_select:"Schnittstellensprache",
+    welcome_title:"Willkommen bei YORRO Game-architect",
+    welcome_sub:"Ihr KI-Spielentwicklungsstudio",
+    welcome_chat:"KI-Chat",
+    welcome_desc:"Beschreiben Sie Ihr Spiel und die KI generiert es",
+    free_trials:"3 kostenlose Tests pro Funktion",
+    menu_btn:"Menü",
+    home_btn:"Startseite",
+    pro_btn:"Pro",
+  },
+  it: {
+    nav:"Navigazione", tools:"Strumenti", account:"Account",
+    menu_chat:"Chat IA", menu_chat_sub:"Crea giochi con l'IA",
+    menu_editor:"Editor di codice", menu_editor_sub:"Visualizza e modifica i file",
+    menu_projects:"I miei progetti", menu_projects_sub:"Cronologia dei tuoi giochi",
+    menu_docs:"Agente Documentale", menu_docs_sub:"Traduzione · Conversione · Creazione",
+    menu_video:"Videosorveglianza IA", menu_video_sub:"Rilevamento · Riconoscimento",
+    menu_phone:"Telefonia Multi-rete", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Statistiche", menu_stats_sub:"I tuoi test e attività",
+    menu_sub:"Abbonati Pro / Elite", menu_sub_sub:"Accesso illimitato a tutto",
+    menu_legal:"Note legali", menu_legal_sub:"Diritti · TOS · Proprietà",
+    lang_select:"Lingua dell'interfaccia",
+    welcome_title:"Benvenuto in YORRO Game-architect",
+    welcome_sub:"Il tuo studio di creazione giochi IA",
+    welcome_chat:"Chat IA",
+    welcome_desc:"Descrivi il tuo gioco e l'IA lo genera per te",
+    free_trials:"3 prove gratuite per funzione",
+    menu_btn:"Menu",
+    home_btn:"Home",
+    pro_btn:"Pro",
+  },
+  ru: {
+    nav:"Навигация", tools:"Инструменты", account:"Аккаунт",
+    menu_chat:"ИИ-Чат", menu_chat_sub:"Создавайте игры с ИИ",
+    menu_editor:"Редактор кода", menu_editor_sub:"Просмотр и редактирование файлов",
+    menu_projects:"Мои проекты", menu_projects_sub:"История ваших игр",
+    menu_docs:"Документальный агент", menu_docs_sub:"Перевод · Конвертация · Создание",
+    menu_video:"ИИ-видеонаблюдение", menu_video_sub:"Обнаружение · Распознавание",
+    menu_phone:"Многосетевая телефония", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Статистика", menu_stats_sub:"Ваши пробные версии и активность",
+    menu_sub:"Подписаться Pro / Elite", menu_sub_sub:"Неограниченный доступ ко всему",
+    menu_legal:"Юридические уведомления", menu_legal_sub:"Права · Условия · Собственность",
+    lang_select:"Язык интерфейса",
+    welcome_title:"Добро пожаловать в YORRO Game-architect",
+    welcome_sub:"Ваша студия создания игр с ИИ",
+    welcome_chat:"ИИ-Чат",
+    welcome_desc:"Опишите игру и ИИ создаст её для вас",
+    free_trials:"3 бесплатные пробные версии на функцию",
+    menu_btn:"Меню",
+    home_btn:"Главная",
+    pro_btn:"Про",
+  },
+  sw: {
+    nav:"Urambazaji", tools:"Zana", account:"Akaunti",
+    menu_chat:"Mazungumzo ya AI", menu_chat_sub:"Unda michezo na AI",
+    menu_editor:"Mhariri wa Msimbo", menu_editor_sub:"Angalia na hariri faili",
+    menu_projects:"Miradi Yangu", menu_projects_sub:"Historia ya michezo yako",
+    menu_docs:"Wakala wa Hati", menu_docs_sub:"Tafsiri · Ubadilishaji · Uundaji",
+    menu_video:"Ufuatiliaji wa Video AI", menu_video_sub:"Ugunduzi · Utambuzi",
+    menu_phone:"Simu ya Mitandao Mingi", menu_phone_sub:"LiveKit · Telnyx · Africa's Talking",
+    menu_stats:"Takwimu", menu_stats_sub:"Majaribio na shughuli zako",
+    menu_sub:"Jisajili Pro / Elite", menu_sub_sub:"Ufikiaji usio na kikomo kwa kila kitu",
+    menu_legal:"Arifa za Kisheria", menu_legal_sub:"Haki · Masharti · Mali",
+    lang_select:"Lugha ya kiolesura",
+    welcome_title:"Karibu YORRO Game-architect",
+    welcome_sub:"Studio yako ya uundaji michezo ya AI",
+    welcome_chat:"Mazungumzo ya AI",
+    welcome_desc:"Elezea mchezo wako na AI itakuunda",
+    free_trials:"Majaribio 3 ya bure kwa kipengele",
+    menu_btn:"Menyu",
+    home_btn:"Nyumbani",
+    pro_btn:"Pro",
+  },
+};
+
+// ── Langue courante ──
+let currentLang = localStorage.getItem('yorro_lang') || 'fr';
+
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || (I18N['fr'] && I18N['fr'][key]) || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('yorro_lang', lang);
+  // Mettre à jour tous les éléments i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  // Mettre à jour les boutons de langue
+  document.querySelectorAll('.lang-btn-menu').forEach(btn => {
+    btn.classList.toggle('active-lang', btn.dataset.lang === lang);
+  });
+  // RTL pour l'arabe
+  document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+  // Mettre à jour le placeholder du chat
+  const inp = document.getElementById('chat-input');
+  if (inp) inp.placeholder = t('welcome_desc') + '...';
+  showNotif('info', '🌍', (I18N[lang] && I18N[lang]['lang_select']) || 'Language changed');
+}
+
+// ── Ouvrir / Fermer le menu ──
+function openMenu() {
+  document.getElementById('menu-overlay').classList.add('open');
+  document.getElementById('menu-drawer').classList.add('open');
+  // Mettre à jour les infos plan dans le menu
+  updateMenuPlanInfo();
+}
+
+function closeMenu() {
+  document.getElementById('menu-overlay').classList.remove('open');
+  document.getElementById('menu-drawer').classList.remove('open');
+}
+
+function menuGo(view) {
+  closeMenu();
+  setTimeout(() => switchView(view), 200);
+  // Mettre à jour l'item actif dans le menu
+  document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active-item'));
+}
+
+function updateMenuPlanInfo() {
+  const icons = { free:'🆓', pro:'⚡', elite:'👑' };
+  const names = { free: t('nav'), pro:'Plan Pro', elite:'Plan Elite' };
+  const descs = {
+    free:  t('free_trials'),
+    pro:   'Messages illimités · Tous les templates',
+    elite: 'Opus · Support 24h · Bêta exclusif',
+  };
+  const planIcon = document.getElementById('menu-plan-icon');
+  const planName = document.getElementById('menu-plan-name');
+  const planDesc = document.getElementById('menu-plan-desc');
+  if(planIcon) planIcon.textContent = icons[S.plan] || '🆓';
+  if(planName) planName.textContent = S.plan === 'free' ? 'Plan Gratuit' : S.plan === 'pro' ? 'Plan Pro ⚡' : 'Plan Elite 👑';
+  if(planDesc) planDesc.textContent = descs[S.plan] || descs.free;
+  // Sync badge editor
+  const meb = document.getElementById('menu-editor-badge');
+  if(meb) {
+    const n = S.openFiles.length;
+    meb.style.display = n > 0 ? 'flex' : 'none';
+    meb.textContent = n;
+  }
+}
+
+// ── Init i18n ──
+function initI18n() {
+  // Appliquer la langue sauvegardée
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  // Marquer le bouton actif
+  document.querySelectorAll('.lang-btn-menu').forEach(btn => {
+    btn.classList.toggle('active-lang', btn.dataset.lang === currentLang);
+  });
+  // RTL si arabe
+  if(currentLang === 'ar') document.body.style.direction = 'rtl';
+}
+
+
+// ── Quick Stats accueil ──
+function updateQuickStats(){
+  const qg=document.getElementById('qs-games');
+  const qf=document.getElementById('qs-files');
+  const qs=document.getElementById('qs-session');
+  const qt=document.getElementById('qs-trials');
+  const fc=document.getElementById('feat-files-count');
+  if(qg) qg.textContent=S.stats.games||0;
+  if(qf) qf.textContent=S.stats.files||0;
+  if(qs) qs.textContent=S.stats.sessions||1;
+  // Essais restants
+  if(S.plan!=='free'){
+    if(qt){qt.textContent='∞';qt.style.color='var(--accent3)';}
+  } else {
+    const freeKeys=Object.keys(FEATURES).filter(k=>!FEATURES[k].proOnly&&FEATURES[k].max>0);
+    const totalMax=freeKeys.reduce((s,k)=>s+FEATURES[k].max,0);
+    const totalUsed=freeKeys.reduce((s,k)=>s+Math.min(usedCount(k),FEATURES[k].max),0);
+    const left=totalMax-totalUsed;
+    if(qt){
+      qt.textContent=left;
+      qt.style.color=left>5?'var(--accent3)':left>2?'var(--accent4)':'var(--red)';
+    }
+  }
+  if(fc){
+    const n=S.openFiles.length;
+    fc.textContent=n===0?'Aucun fichier':n+' fichier'+(n>1?'s':'');
+  }
+}
+
+
+// ── Switch Phone Tabs ──
+function switchPhoneTab(tab) {
+  const tabs = ['dialer','webrtc','history','config'];
+  tabs.forEach(t => {
+    const btn = document.getElementById('ptab-' + t);
+    const panel = document.getElementById('phone-panel-' + t);
+    if(btn) btn.classList.toggle('active', t === tab);
+    if(panel) panel.style.display = t === tab ? 'block' : 'none';
+  });
+}
+
 // ═══════════════════════════════════════
 // LEGAL
 // ═══════════════════════════════════════
@@ -5293,6 +5647,14 @@ function contactOwner(){
 // START
 // ═══════════════════════════════════════
 init();
+</script>
+<script>
+// Service Worker uniquement activé en production (pas sur claudeusercontent)
+if('serviceWorker' in navigator && location.protocol === 'https:' && !location.hostname.includes('claudeusercontent')) {
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js').catch(e=>console.log('SW:',e));
+  });
+}
 </script>
 </body>
 </html>
