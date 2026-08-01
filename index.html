@@ -2990,7 +2990,6 @@ function init(){
   initPhone();
   initMultiNetwork();
   initI18n();
-  initCall();
   document.getElementById('s-sessions').textContent=S.stats.sessions;
   document.getElementById('s-games').textContent=S.stats.games||0;
 }
@@ -3010,10 +3009,12 @@ function switchView(v){
 // QUOTA BAR
 // ═══════════════════════════════════════
 function updateQuota(){
+  const wrap=document.getElementById('chat-quota');
   if(S.plan!=='free'){
-    document.getElementById('chat-quota').className='chat-quota hidden';return;
+    if(wrap) wrap.className='chat-quota hidden';
+    return;
   }
-  document.getElementById('chat-quota').className='chat-quota';
+  if(wrap) wrap.className='chat-quota';
   const freeKeys=Object.keys(FEATURES).filter(k=>!FEATURES[k].proOnly);
   const totalMax=freeKeys.reduce((s,k)=>s+FEATURES[k].max,0);
   const totalUsed=freeKeys.reduce((s,k)=>s+Math.min(usedCount(k),FEATURES[k].max),0);
@@ -4088,9 +4089,22 @@ async function startCamera() {
     addVAlert('info', 'info', 'Camera activee  -  Detection IA active');
     showNotif('success', '📷', 'Camera activee !');
   } catch (err) {
-    showNotif('error', '📷', 'Camera bloquee — hebergez sur HTTPS (Netlify) pour activer la camera');
-    addVAlert('warning', 'warning', 'HTTPS requis pour la camera. Hebergez sur netlify.com gratuitement.');
-    addVAlert('danger', 'danger', 'Erreur camera: ' + err.message);
+    let msg;
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+      msg = 'Camera bloquee — hebergez sur HTTPS (Netlify) pour activer la camera';
+    } else if (err.name === 'NotAllowedError') {
+      msg = 'Acces camera refuse — autorisez la camera pour ce site dans les reglages du navigateur';
+    } else if (err.name === 'NotFoundError') {
+      msg = 'Aucune camera detectee sur cet appareil';
+    } else if (err.name === 'NotReadableError') {
+      msg = 'Camera deja utilisee par une autre application ou un autre onglet';
+    } else if (err.name === 'SecurityError') {
+      msg = 'Acces camera bloque par la politique de securite du site (Permissions-Policy)';
+    } else {
+      msg = 'Erreur camera: ' + err.message;
+    }
+    showNotif('error', '📷', msg);
+    addVAlert('danger', 'danger', msg);
   }
 }
 
