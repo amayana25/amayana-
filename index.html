@@ -8,7 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <title>YORRO Game-architect Studio</title>
 <script src="https://www.paypal.com/sdk/js?client-id=BAA36HWl4FfE_cPg4sZOHzSkBRJOSIY4cYGHtWwwBW5GJgx8yCZUXEc2ll8Ce1GvBh0fwHAEVnEl05mA2g&components=buttons&disable-funding=venmo&currency=USD"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -1354,39 +1353,6 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 <body>
 <div id="loading-bar" class="loading-bar"></div>
 
-<!-- ÉCRAN DE CONNEXION — affiché tant que l'utilisateur n'est pas authentifié -->
-<div id="auth-screen" style="position:fixed;inset:0;z-index:10000;background:var(--bg1,#0a0a0f);display:flex;align-items:center;justify-content:center;padding:20px">
-  <div style="width:100%;max-width:360px">
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--gold,#f59e0b)">YORRO Studio</div>
-      <div style="font-size:12px;color:var(--text3,#8a8a99);margin-top:4px">Créez des jeux avec l'IA</div>
-    </div>
-
-    <div id="auth-error" style="display:none;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171;font-size:12px;padding:10px 12px;border-radius:10px;margin-bottom:14px"></div>
-
-    <input id="auth-name-input" type="text" placeholder="Votre nom" class="api-input" style="width:100%;margin-bottom:10px;display:none"/>
-    <input id="auth-email-input" type="email" placeholder="Email" class="api-input" style="width:100%;margin-bottom:10px" autocomplete="username"/>
-    <input id="auth-password-input" type="password" placeholder="Mot de passe" class="api-input" style="width:100%;margin-bottom:14px" autocomplete="current-password"/>
-
-    <button id="auth-submit-btn" onclick="handleAuthSubmit()" style="width:100%;padding:12px;border:none;border-radius:12px;background:var(--gold,#f59e0b);color:#0a0a0f;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:10px">
-      Se connecter
-    </button>
-
-    <div style="text-align:center;font-size:12px;color:var(--text3,#8a8a99);margin-bottom:16px">
-      <span id="auth-toggle-text">Pas encore de compte ?</span>
-      <a href="#" onclick="toggleAuthMode();return false;" style="color:var(--accent2,#7c6dfa);text-decoration:none;font-weight:600" id="auth-toggle-link">S'inscrire</a>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <div style="flex:1;height:1px;background:rgba(255,255,255,.1)"></div>
-      <span style="font-size:11px;color:var(--text3,#8a8a99)">ou</span>
-      <div style="flex:1;height:1px;background:rgba(255,255,255,.1)"></div>
-    </div>
-
-    <div id="google-signin-btn" style="display:flex;justify-content:center"></div>
-  </div>
-</div>
-
 <div class="app">
 
   <!-- TOPBAR -->
@@ -1605,18 +1571,6 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
         <div class="chips-scroll" id="chips-scroll"></div>
       </div>
 
-      <!-- ══ SÉLECTEUR DE MODÈLE ══ -->
-      <div style="display:flex;gap:6px;padding:0 12px 8px;font-size:11px">
-        <button class="model-pick active" id="model-pick-anthropic" onclick="setAiProvider('anthropic')"
-          style="flex:1;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(124,109,250,.15);color:var(--text2,#c8c8d4);cursor:pointer">
-          🟣 Claude
-        </button>
-        <button class="model-pick" id="model-pick-nvidia" onclick="setAiProvider('nvidia')"
-          style="flex:1;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--text3,#8a8a99);cursor:pointer">
-          🟢 MiniMax (NVIDIA)
-        </button>
-      </div>
-
       <!-- ══ INPUT ══ -->
       <div class="chat-input-wrap">
         <div class="input-row">
@@ -1676,9 +1630,6 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
         <div class="stat-card"><div class="stat-card-val" id="s-lines">0</div><div class="stat-card-lbl">Lignes de code</div></div>
         <div class="stat-card"><div class="stat-card-val" id="s-sessions">1</div><div class="stat-card-lbl">Sessions</div></div>
       </div>
-      <button onclick="logout()" style="width:100%;margin:12px 0;padding:12px;border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.08);color:#f87171;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer">
-        🚪 Se déconnecter
-      </button>
       <div class="plan-card-big" id="plan-card-big">
         <div class="plan-card-big-title" id="pcb-title">✦ Plan Gratuit</div>
         <div class="plan-card-big-desc" id="pcb-desc">3 essais gratuits par fonctionnalité. Passez à Pro pour un accès illimité à toutes les fonctionnalités.</div>
@@ -3005,154 +2956,8 @@ function isAIReady(){
 }
 
 // Compatibilité ancienne clé utilisateur (migration)
-// ═══════════════════════════════════════
-// AUTHENTIFICATION & PROXY IA (backend YORRO)
-// ═══════════════════════════════════════
-// URL fixe de votre backend — les utilisateurs n'ont RIEN à configurer.
-// Remplacez cette valeur par l'URL réelle de votre service Render/Railway.
-const YORRO_BACKEND = 'https://yorro-backend-production.up.railway.app';
-const GOOGLE_CLIENT_ID = ''; // à remplir avec votre Client ID depuis console.cloud.google.com
-
-let authMode = 'login'; // 'login' | 'register'
-
-function getAuthToken(){ return localStorage.getItem('yorro_jwt') || ''; }
-function isLoggedIn(){ return !!getAuthToken(); }
-
-let aiProvider = localStorage.getItem('yorro_ai_provider') || 'anthropic';
-function setAiProvider(p){
-  aiProvider = p;
-  localStorage.setItem('yorro_ai_provider', p);
-  document.getElementById('model-pick-anthropic').classList.toggle('active', p==='anthropic');
-  document.getElementById('model-pick-nvidia').classList.toggle('active', p==='nvidia');
-  document.getElementById('model-pick-anthropic').style.background = p==='anthropic' ? 'rgba(124,109,250,.15)' : 'transparent';
-  document.getElementById('model-pick-nvidia').style.background = p==='nvidia' ? 'rgba(74,222,128,.15)' : 'transparent';
-  document.getElementById('model-pick-anthropic').style.color = p==='anthropic' ? 'var(--text2,#c8c8d4)' : 'var(--text3,#8a8a99)';
-  document.getElementById('model-pick-nvidia').style.color = p==='nvidia' ? 'var(--text2,#c8c8d4)' : 'var(--text3,#8a8a99)';
-}
-
-function showAuthScreen(){
-  document.getElementById('auth-screen').style.display = 'flex';
-  document.querySelector('.app').style.display = 'none';
-  if (GOOGLE_CLIENT_ID && typeof google !== 'undefined') {
-    try {
-      google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
-      google.accounts.id.renderButton(document.getElementById('google-signin-btn'), { theme: 'filled_black', size: 'large', shape: 'pill' });
-    } catch(e) { /* SDK pas encore chargé, on ignore silencieusement */ }
-  } else {
-    document.getElementById('google-signin-btn').innerHTML = '<div style="font-size:11px;color:var(--text3)">Connexion Google non configurée</div>';
-  }
-}
-
-function hideAuthScreen(){
-  document.getElementById('auth-screen').style.display = 'none';
-  document.querySelector('.app').style.display = '';
-}
-
-function toggleAuthMode(){
-  authMode = authMode === 'login' ? 'register' : 'login';
-  const isRegister = authMode === 'register';
-  document.getElementById('auth-name-input').style.display = isRegister ? 'block' : 'none';
-  document.getElementById('auth-submit-btn').textContent = isRegister ? "S'inscrire" : 'Se connecter';
-  document.getElementById('auth-toggle-text').textContent = isRegister ? 'Déjà un compte ?' : 'Pas encore de compte ?';
-  document.getElementById('auth-toggle-link').textContent = isRegister ? 'Se connecter' : "S'inscrire";
-  document.getElementById('auth-error').style.display = 'none';
-}
-
-function showAuthError(msg){
-  const el = document.getElementById('auth-error');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-
-async function handleAuthSubmit(){
-  const email = document.getElementById('auth-email-input').value.trim();
-  const password = document.getElementById('auth-password-input').value;
-  const displayName = document.getElementById('auth-name-input').value.trim();
-
-  if (!email || !password) { showAuthError('Email et mot de passe requis'); return; }
-
-  const btn = document.getElementById('auth-submit-btn');
-  btn.disabled = true; btn.textContent = '⏳ ...';
-
-  try {
-    const endpoint = authMode === 'register' ? '/api/auth/register' : '/api/auth/login';
-    const res = await fetch(YORRO_BACKEND + endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, displayName }),
-    });
-    const data = await res.json();
-    if (!res.ok) { showAuthError(data.error || 'Erreur de connexion'); return; }
-
-    onAuthSuccess(data.token, data.user);
-  } catch (err) {
-    showAuthError('Impossible de joindre le serveur. Réessayez plus tard.');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = authMode === 'register' ? "S'inscrire" : 'Se connecter';
-  }
-}
-
-async function handleGoogleCredential(response){
-  try {
-    const res = await fetch(YORRO_BACKEND + '/api/auth/google', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ idToken: response.credential }),
-    });
-    const data = await res.json();
-    if (!res.ok) { showAuthError(data.error || 'Connexion Google échouée'); return; }
-    onAuthSuccess(data.token, data.user);
-  } catch (err) {
-    showAuthError('Impossible de joindre le serveur.');
-  }
-}
-
-function onAuthSuccess(token, user){
-  localStorage.setItem('yorro_jwt', token);
-  localStorage.setItem('yorro_peer_id', user.yorroId); // reutilise le meme ID pour appels/paiements
-  S.plan = user.plan || 'free';
-  localStorage.setItem('ga_plan', S.plan);
-  hideAuthScreen();
-  init();
-}
-
-function logout(){
-  localStorage.removeItem('yorro_jwt');
-  showNotif('info', '👋', 'Déconnecté');
-  location.reload();
-}
-
-// Appel générique au proxy chat (remplace les appels directs a api.anthropic.com)
-async function callYorroAI({ messages, system, max_tokens, provider }){
-  const res = await fetch(YORRO_BACKEND + '/api/ai/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getAuthToken(),
-    },
-    body: JSON.stringify({ messages, system, max_tokens, provider: provider || aiProvider }),
-  });
-  const data = await res.json();
-  if (res.status === 401) { logout(); throw new Error('Session expirée — reconnectez-vous'); }
-  if (!res.ok) throw new Error(data.error || `Erreur HTTP ${res.status}`);
-  return data;
-}
-
-// Appel générique au proxy vision (analyse d'image)
-async function callYorroVision({ image, mediaType, prompt, max_tokens }){
-  const res = await fetch(YORRO_BACKEND + '/api/ai/vision', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getAuthToken(),
-    },
-    body: JSON.stringify({ image, mediaType, prompt, max_tokens }),
-  });
-  const data = await res.json();
-  if (res.status === 401) { logout(); throw new Error('Session expirée — reconnectez-vous'); }
-  if (!res.ok) throw new Error(data.error || `Erreur HTTP ${res.status}`);
-  return data;
+function getApiKey(){
+  return getOwnerKey() || localStorage.getItem('ga_apikey') || '';
 }
 
 const SYSTEM = `Tu es YORRO Game-architect v2.0 by YORRO (Patrick Emessiene Amayna). Réponds toujours en français.
@@ -3166,6 +2971,14 @@ Ne jamais écrire TODO. Sépare moteur (Engine) et UI (Component). Code producti
 function init(){
   S.stats.sessions=(S.stats.sessions||0)+1;
   saveStats();
+  // L'IA est gérée par la clé propriétaire YORRO
+  // Aucune configuration requise pour les utilisateurs
+  const ownerKey = getOwnerKey();
+  applyApiStatus(!!ownerKey);
+  // Si pas de clé admin encore, afficher un rappel discret
+  if(!ownerKey){
+    console.log('%c⚙️ YORRO Admin: Tapez 5x sur le logo pour configurer votre clé API', 'color:#f59e0b;font-weight:bold;font-size:13px');
+  }
   updatePlanUI();
   renderChips();
   updateQuota();
@@ -3177,7 +2990,7 @@ function init(){
   initPhone();
   initMultiNetwork();
   initI18n();
-  setAiProvider(aiProvider);
+  initCall();
   document.getElementById('s-sessions').textContent=S.stats.sessions;
   document.getElementById('s-games').textContent=S.stats.games||0;
 }
@@ -3197,12 +3010,10 @@ function switchView(v){
 // QUOTA BAR
 // ═══════════════════════════════════════
 function updateQuota(){
-  const wrap=document.getElementById('chat-quota');
   if(S.plan!=='free'){
-    if(wrap) wrap.className='chat-quota hidden';
-    return;
+    document.getElementById('chat-quota').className='chat-quota hidden';return;
   }
-  if(wrap) wrap.className='chat-quota';
+  document.getElementById('chat-quota').className='chat-quota';
   const freeKeys=Object.keys(FEATURES).filter(k=>!FEATURES[k].proOnly);
   const totalMax=freeKeys.reduce((s,k)=>s+FEATURES[k].max,0);
   const totalUsed=freeKeys.reduce((s,k)=>s+Math.min(usedCount(k),FEATURES[k].max),0);
@@ -3351,9 +3162,15 @@ async function sendMsg(){
   const text=inp.value.trim();
   if(!text||S.isGen)return;
 
-  if(!isLoggedIn()){ showAuthScreen(); return; }
+  // Clé API propriétaire YORRO (invisible pour l'utilisateur)
+  const apiKey = getApiKey();
+  if(!apiKey){
+    // Panneau admin pour Patrick Emessiene Amayna
+    showNotif('error','⚙️','Clé API non configurée  -  Admin : tapez 5x sur le logo YORRO');
+    return;
+  }
 
-  // Check trial local (nudge cote client — la vraie limite est appliquee par le serveur)
+  // Check trial
   if(!canUse('chat')){triggerGate('chat',null);return;}
   if(S.plan==='free')consume('chat');
 
@@ -3364,8 +3181,28 @@ async function sendMsg(){
 
   try{
     setBar(50);
-    const data = await callYorroAI({ messages: S.history, system: SYSTEM, max_tokens: 1500 });
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        // CORS fix: utiliser le header correct
+        'anthropic-dangerous-direct-browser-io':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-5',
+        max_tokens:1500,
+        system:SYSTEM,
+        messages:S.history
+      })
+    });
     setBar(80);
+    if(!res.ok){
+      const err=await res.json().catch(()=>({}));
+      throw new Error(err.error?.message||`Erreur HTTP ${res.status}`);
+    }
+    const data=await res.json();
     const reply=data.content?.map(b=>b.text||'').join('')||'Réponse vide.';
     removeTyping();setBar(95);
     S.history.push({role:'assistant',content:reply});
@@ -3379,10 +3216,12 @@ async function sendMsg(){
   }catch(err){
     removeTyping();setBar(0);
     let errMsg=err.message||'Erreur inconnue';
-    if(errMsg.includes('Quota'))errMsg=err.message; // message clair deja fourni par le serveur
+    // Messages d'erreur clairs
+    if(errMsg.includes('401'))errMsg='Clé API invalide ou expirée. Vérifiez votre clé.';
+    else if(errMsg.includes('429'))errMsg='Trop de requêtes  -  réessayez dans quelques secondes.';
     else if(errMsg.includes('fetch')||errMsg.includes('Failed'))errMsg='Erreur réseau. Vérifiez votre connexion internet.';
     addMsg('agent','❌ '+errMsg);
-    showNotif('error','❌',errMsg.substring(0,80));
+    showNotif('error','❌',errMsg.substring(0,60));
   }
   setGen(false);
 }
@@ -3723,7 +3562,7 @@ function initPP(){
 // débloquer Pro/Elite gratuitement depuis la console du navigateur.
 async function onPPSuccess(data){
   const plan = S.selectedPlan || {id:'pro', name:'Pro'};
-  const backendUrl = YORRO_BACKEND;
+  const backendUrl = localStorage.getItem('yorro_backend_url');
   const orderID = data.orderID;
 
   if(!backendUrl){
@@ -4028,7 +3867,11 @@ ${content}`;
 // ── TRAITEMENT PRINCIPAL ──
 async function processDocument(){
   if(DOC_STATE.isProcessing) return;
-  if(!isLoggedIn()){ showAuthScreen(); return; }
+  const apiKey = getApiKey();
+  if(!apiKey){
+    showNotif('error','⚙️','Clé API non configurée  -  tapez 5x sur le logo');
+    return;
+  }
   // Guard freemium
   if(!canUse('doc')){triggerGate('doc', null);return;}
   if(S.plan==='free') consume('doc');
@@ -4055,12 +3898,27 @@ async function processDocument(){
 
   try{
     setBar(50);
-    const data = await callYorroAI({
-      messages: [{ role:'user', content: prompts.user }],
-      system: prompts.system,
-      max_tokens: 4000,
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-io':'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5',
+        max_tokens: 4000,
+        system: prompts.system,
+        messages:[{role:'user', content: prompts.user}]
+      })
     });
     setBar(80);
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      throw new Error(err.error?.message || `Erreur HTTP ${res.status}`);
+    }
+    const data = await res.json();
     let reply = data.content?.map(b=>b.text||'').join('') || '';
 
     // Extraire le contenu entre ---RESULT--- et ---END---
@@ -4073,7 +3931,10 @@ async function processDocument(){
     showNotif('success', DOC_MODES[DOC_STATE.mode].icon, 'Document traité avec succès !');
 
   } catch(err){
-    showNotif('error','❌', (err.message||'Erreur inconnue').substring(0,80));
+    let msg = err.message || 'Erreur inconnue';
+    if(msg.includes('401')) msg = 'Clé API invalide.';
+    else if(msg.includes('429')) msg = 'Trop de requêtes  -  attendez.';
+    showNotif('error','❌', msg.substring(0,60));
     setBar(0);
   }
 
@@ -4227,22 +4088,9 @@ async function startCamera() {
     addVAlert('info', 'info', 'Camera activee  -  Detection IA active');
     showNotif('success', '📷', 'Camera activee !');
   } catch (err) {
-    let msg;
-    if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
-      msg = 'Camera bloquee — hebergez sur HTTPS (Netlify) pour activer la camera';
-    } else if (err.name === 'NotAllowedError') {
-      msg = 'Acces camera refuse — autorisez la camera pour ce site dans les reglages du navigateur';
-    } else if (err.name === 'NotFoundError') {
-      msg = 'Aucune camera detectee sur cet appareil';
-    } else if (err.name === 'NotReadableError') {
-      msg = 'Camera deja utilisee par une autre application ou un autre onglet';
-    } else if (err.name === 'SecurityError') {
-      msg = 'Acces camera bloque par la politique de securite du site (Permissions-Policy)';
-    } else {
-      msg = 'Erreur camera: ' + err.message;
-    }
-    showNotif('error', '📷', msg);
-    addVAlert('danger', 'danger', msg);
+    showNotif('error', '📷', 'Camera bloquee — hebergez sur HTTPS (Netlify) pour activer la camera');
+    addVAlert('warning', 'warning', 'HTTPS requis pour la camera. Hebergez sur netlify.com gratuitement.');
+    addVAlert('danger', 'danger', 'Erreur camera: ' + err.message);
   }
 }
 
@@ -4410,7 +4258,10 @@ function drawMotionAlert() {
 
 // ── DETECTION PERSONNES/OBJETS — vraie analyse Claude Vision ──
 async function realDetectPersons() {
-  if (!isLoggedIn()) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    // Pas de cle API: on ne peut pas faire d analyse reelle. On l indique clairement
+    // plutot que d inventer des chiffres.
     document.getElementById('stat-persons').textContent = '—';
     document.getElementById('stat-objects').textContent = '—';
     return;
@@ -4420,8 +4271,28 @@ async function realDetectPersons() {
   VS.analyzing = true;
   try {
     const imageData = VS.canvasEl.toDataURL('image/jpeg', 0.55).split(',')[1];
-    const prompt = 'Analyse cette image de videosurveillance. Reponds UNIQUEMENT avec un objet JSON valide, sans texte autour, au format exact: {"persons": <nombre entier>, "objects": <nombre entier d objets notables hors personnes>, "risk": "faible"|"moyen"|"eleve", "note": "<observation courte en francais, max 15 mots>"}';
-    const data = await callYorroVision({ image: imageData, mediaType: 'image/jpeg', prompt, max_tokens: 200 });
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-io': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5',
+        max_tokens: 200,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageData } },
+            { type: 'text', text: 'Analyse cette image de videosurveillance. Reponds UNIQUEMENT avec un objet JSON valide, sans texte autour, au format exact: {"persons": <nombre entier>, "objects": <nombre entier d objets notables hors personnes>, "risk": "faible"|"moyen"|"eleve", "note": "<observation courte en francais, max 15 mots>"}' }
+          ]
+        }]
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'Erreur API');
     const text = data.content?.map(b => b.text || '').join('') || '{}';
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     const parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : {};
@@ -4524,7 +4395,11 @@ function connectStream() {
 
 // ── ANALYSE IA CLAUDE ──
 async function analyzeWithClaude() {
-  if (!isLoggedIn()) { showAuthScreen(); return; }
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    showNotif('error','⚙️','Cle API non configuree - tapez 5x sur le logo');
+    return;
+  }
   if (!VS.cameraActive && !VS.canvasEl) {
     showNotif('error','⚠️','Activez la camera dabord');
     return;
@@ -4564,7 +4439,23 @@ async function analyzeWithClaude() {
       }
     ];
 
-    const data = await callYorroAI({ messages, max_tokens: 800 });
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-io': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-5',
+        max_tokens: 800,
+        messages: messages
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'Erreur API');
     const report = data.content?.map(b => b.text||'').join('') || 'Analyse indisponible.';
 
     document.getElementById('vsurv-ai-body').textContent = report;
@@ -4574,7 +4465,7 @@ async function analyzeWithClaude() {
   } catch(err) {
     const msg = err.message || 'Erreur';
     document.getElementById('vsurv-ai-body').textContent = 'Erreur analyse: ' + msg;
-    showNotif('error','❌', msg.substring(0,80));
+    showNotif('error','❌', msg.substring(0,50));
   }
 
   VS.analyzing = false;
@@ -4785,7 +4676,7 @@ const RTC_CONFIG = {
 };
 
 function connectSignaling() {
-  const backendUrl = YORRO_BACKEND;
+  const backendUrl = localStorage.getItem('yorro_backend_url');
   if (!backendUrl) {
     updateWebRTCStatus('offline', 'Backend non configuré');
     return;
@@ -5301,7 +5192,7 @@ function startPhoneCall(){
     showNotif('error','⚠️','Entrez un numéro valide');
     return;
   }
-  const backendUrl = YORRO_BACKEND;
+  const backendUrl = localStorage.getItem('yorro_backend_url');
   if(selectedNet === 'webrtc' || selectedNet === 'livekit'){
     // Appel interne — pas besoin de backend
     if(selectedNet === 'livekit') startLiveKitCall(PHONE.number);
@@ -5309,11 +5200,20 @@ function startPhoneCall(){
     return;
   }
   if(!backendUrl){
-    showNotif("error","⚠️","Backend YORRO indisponible — réessayez plus tard");
+    showNotif("info","⚠️","Configurez URL du backend pour les appels mobiles");
+    promptBackendUrl();
     return;
   }
   // Appel via backend smart-call
   makeSmartCall(PHONE.number, backendUrl);
+}
+
+function promptBackendUrl(){
+  const url = prompt('URL de votre backend Railway (ex: https://yorro.railway.app):');
+  if(url && url.startsWith('https://')){
+    localStorage.setItem('yorro_backend_url', url);
+    showNotif('success','✅','Backend configuré !');
+  }
 }
 
 async function makeSmartCall(to, backendUrl){
@@ -5337,7 +5237,7 @@ async function makeSmartCall(to, backendUrl){
 }
 
 async function startLiveKitCall(roomName){
-  const backendUrl = YORRO_BACKEND;
+  const backendUrl = localStorage.getItem('yorro_backend_url');
   if(!backendUrl){ showNotif('info','💡','Configurez le backend pour LiveKit'); return; }
   try{
     const res = await fetch(backendUrl + '/api/phone/livekit/token', {
@@ -5746,12 +5646,7 @@ function contactOwner(){
 // ═══════════════════════════════════════
 // START
 // ═══════════════════════════════════════
-if (isLoggedIn()) {
-  hideAuthScreen();
-  init();
-} else {
-  showAuthScreen();
-}
+init();
 </script>
 <script>
 // Service Worker uniquement activé en production (pas sur claudeusercontent)
