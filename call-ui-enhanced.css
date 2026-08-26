@@ -1,0 +1,1248 @@
+/* ════════════════════════════════════════════════════════════
+   YORRO PHONE UI — Enhanced Design System v2.0
+   © Patrick Emessiene Amayna — Tous droits réservés
+   
+   AMÉLIORATIONS:
+   ✅ Palette de couleurs moderne et cohérente
+   ✅ Design Glass Morphism
+   ✅ Animations fluides et microinteractions
+   ✅ Accessibilité améliorée (WCAG 2.1)
+   ✅ Responsive design parfait
+   ✅ Effets visuels sophistiqués
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── COULEURS PRIMAIRES ── */
+  --color-primary: #7c6dfa;           /* Violet principal */
+  --color-primary-dark: #5d52d4;      /* Violet foncé */
+  --color-primary-light: #a89dff;     /* Violet clair */
+  --color-primary-softer: #ede9fe;    /* Violet très clair */
+
+  /* ── COULEURS SECONDAIRES ── */
+  --color-success: #10b981;           /* Vert succès */
+  --color-success-light: #d1fae5;     /* Vert clair */
+  --color-warning: #f59e0b;           /* Orange avertissement */
+  --color-warning-light: #fef3c7;     /* Orange clair */
+  --color-danger: #ef4444;            /* Rouge danger */
+  --color-danger-light: #fee2e2;      /* Rouge clair */
+  --color-info: #06b6d4;              /* Cyan info */
+  --color-info-light: #cffafe;        /* Cyan clair */
+
+  /* ── COULEURS DE FOND ── */
+  --bg-0: #ffffff;                    /* Blanc pur */
+  --bg-1: #f9fafb;                    /* Gris très clair */
+  --bg-2: #f3f4f6;                    /* Gris clair */
+  --bg-3: #e5e7eb;                    /* Gris moyen */
+  --bg-4: #d1d5db;                    /* Gris foncé */
+
+  /* ── MODE SOMBRE ── */
+  --dark-bg-0: #0f172a;               /* Bleu très foncé */
+  --dark-bg-1: #1e293b;               /* Bleu foncé */
+  --dark-bg-2: #334155;               /* Bleu gris */
+  --dark-bg-3: #475569;               /* Bleu gris clair */
+  --dark-bg-4: #64748b;               /* Bleu gris très clair */
+
+  /* ── TEXTE ── */
+  --text-primary: #0f172a;            /* Noir bleuté */
+  --text-secondary: #475569;          /* Gris foncé */
+  --text-tertiary: #94a3b8;           /* Gris */
+  --text-disabled: #cbd5e1;           /* Gris clair */
+
+  /* ── TEXTE MODE SOMBRE ── */
+  --dark-text-primary: #f1f5f9;       /* Blanc légèrement bleuté */
+  --dark-text-secondary: #cbd5e1;     /* Gris clair */
+  --dark-text-tertiary: #94a3b8;      /* Gris moyen */
+  --dark-text-disabled: #64748b;      /* Gris foncé */
+
+  /* ── BORDURES ── */
+  --border-light: #e2e8f0;            /* Bordure légère */
+  --border-medium: #cbd5e1;           /* Bordure moyenne */
+  --border-dark: #94a3b8;             /* Bordure foncée */
+
+  /* ── SHADOWS ── */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* ── GLASSMORPHISM ── */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 20px;
+
+  /* ── TYPOGRAPHIE ── */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* ── TRANSITION ── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── BORDER RADIUS ── */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --text-tertiary: var(--dark-text-tertiary);
+    --text-disabled: var(--dark-text-disabled);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODULE TÉLÉPHONIQUE — STYLES PRINCIPAUX
+   ════════════════════════════════════════════════════════════ */
+
+.phone-view {
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: var(--font-family-sans);
+  color: var(--text-primary);
+}
+
+/* ── HEADER ── */
+.phone-header {
+  padding: 20px 24px;
+  background: var(--bg-0);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.phone-header-title {
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.phone-header-icon {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.phone-header-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* ── TABS INTERNES ── */
+.phone-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.phone-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.phone-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.phone-tabs::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: var(--radius-full);
+}
+
+.phone-tab {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 16px;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-medium);
+  background: var(--bg-0);
+  color: var(--text-secondary);
+  font-family: var(--font-family-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.phone-tab.active {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(124, 109, 250, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+  color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(124, 109, 250, 0.2);
+}
+
+.phone-tab:hover:not(.active) {
+  border-color: var(--color-primary);
+  background: var(--bg-1);
+}
+
+.phone-tab:active {
+  transform: scale(0.98);
+}
+
+/* ═════════════��══════════════════════════════════════════════
+   DIALER SECTION
+   ════════════════════════════════════════════════════════════ */
+
+.dialer-wrap {
+  margin: 20px;
+  padding: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  flex-shrink: 0;
+  animation: slideUp 0.4s var(--transition-base);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dialer-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(124, 109, 250, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dialer-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.dialer-header-title {
+  font-family: var(--font-family-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dialer-header-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.dialer-mode-toggle {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.dialer-mode-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-family-sans);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-0);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dialer-mode-btn.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 0 15px rgba(124, 109, 250, 0.3);
+}
+
+.dialer-mode-btn:hover:not(.active) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-softer);
+}
+
+.dialer-mode-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── ÉCRAN D'AFFICHAGE ── */
+.dialer-screen {
+  padding: 24px 20px;
+  text-align: center;
+  background: var(--bg-0);
+  border-bottom: 1px solid var(--border-light);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dialer-number {
+  font-family: var(--font-family-mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 4px;
+  min-height: 48px;
+  word-break: break-all;
+  line-height: 1.2;
+  transition: all var(--transition-fast);
+}
+
+.dialer-number.typing {
+  color: var(--color-primary);
+  font-size: 40px;
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.dialer-country {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+}
+
+.dialer-contact-match {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success);
+  font-size: 13px;
+  color: var(--color-success);
+  font-weight: 600;
+  display: none;
+  font-family: var(--font-family-sans);
+  animation: slideDown 0.3s var(--transition-base);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dialer-contact-match.show {
+  display: block;
+}
+
+/* ── CLAVIER NUMÉRIQUE ── */
+.dialer-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg-1);
+}
+
+.dial-key {
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--bg-0);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-family-sans);
+  font-weight: 700;
+  font-size: 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.dial-key::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.dial-key:hover {
+  background: var(--bg-2);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.dial-key:active {
+  transform: scale(0.95);
+  box-shadow: var(--shadow-sm);
+}
+
+.dial-key-digit {
+  font-family: var(--font-family-sans);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.dial-key-letters {
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 1.2px;
+  margin-top: 4px;
+  font-family: var(--font-family-sans);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.dial-key.special {
+  background: linear-gradient(135deg, rgba(124, 109, 250, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dial-key.delete {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  font-size: 18px;
+}
+
+.dial-key.delete:hover {
+  background: var(--color-danger);
+  color: white;
+}
+
+/* ── ACTIONS D'APPEL ── */
+.call-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+
+.call-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.call-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.call-btn:hover::before {
+  opacity: 1;
+}
+
+.call-btn:active {
+  transform: scale(0.92);
+}
+
+.call-btn.green {
+  background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.call-btn.green:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+}
+
+.call-btn.red {
+  background: linear-gradient(135deg, var(--color-danger) 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+}
+
+.call-btn.red:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(239, 68, 68, 0.4);
+}
+
+.call-btn.blue {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(124, 109, 250, 0.3);
+}
+
+.call-btn.blue:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(124, 109, 250, 0.4);
+}
+
+.call-btn.small {
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   APPEL ACTIF — ÉCRAN PLEIN
+   ════════════════════════════════════════════════════════════ */
+
+.active-call-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 30px 50px;
+  color: white;
+  font-family: var(--font-family-sans);
+}
+
+.active-call-screen.show {
+  display: flex;
+  animation: fadeIn 0.4s var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── AVATAR D'APPEL ── */
+.call-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 60px rgba(124, 109, 250, 0.5);
+  animation: avatarPulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes avatarPulse {
+  0%, 100% {
+    box-shadow: 0 0 60px rgba(124, 109, 250, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 80px rgba(124, 109, 250, 0.8), 0 0 100px rgba(6, 182, 212, 0.3);
+    transform: scale(1.05);
+  }
+}
+
+.call-avatar::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(124, 109, 250, 0.3);
+  animation: avatarRing 3s ease-in-out infinite;
+}
+
+@keyframes avatarRing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.call-contact-name {
+  font-family: var(--font-family-sans);
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.call-status {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.call-timer {
+  font-family: var(--font-family-mono);
+  font-size: 24px;
+  color: var(--color-success);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.call-type-badge {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-family-sans);
+  margin-top: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.call-type-badge.webrtc {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-success);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.call-type-badge.twilio {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--color-warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* ── CONTRÔLES D'APPEL ── */
+.call-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 28px;
+}
+
+.call-ctrl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.call-ctrl-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.call-ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.call-ctrl-btn:active {
+  transform: scale(0.92);
+}
+
+.call-ctrl-btn.active-ctrl {
+  background: rgba(124, 109, 250, 0.4);
+  border-color: rgba(124, 109, 250, 0.6);
+}
+
+.call-ctrl-btn.muted {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.call-ctrl-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-family-sans);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── BOUTON RACCROCHER ── */
+.call-end-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, var(--color-danger) 0%, #dc2626 100%);
+  color: white;
+  font-size: 36px;
+  cursor: pointer;
+  box-shadow: 0 15px 50px rgba(239, 68, 68, 0.4);
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.call-end-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.call-end-btn:hover::before {
+  opacity: 1;
+}
+
+.call-end-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.5);
+}
+
+.call-end-btn:active {
+  transform: scale(0.95);
+}
+
+/* ════════════════════════════════════════════════════════════
+   HISTORIQUE & CONTACTS
+   ════════════════════════════════════════════════════════════ */
+
+.call-history,
+.call-contacts {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.call-history-title,
+.call-contacts-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.history-item,
+.call-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-0);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.history-item:hover,
+.call-contact-item:hover {
+  background: var(--bg-1);
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.history-item:active,
+.call-contact-item:active {
+  transform: translateX(2px);
+}
+
+.history-icon,
+.call-contact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-family: var(--font-family-sans);
+}
+
+.history-icon.out {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.history-icon.in {
+  background: var(--color-info-light);
+  color: var(--color-info);
+}
+
+.history-icon.missed {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.call-contact-avatar {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-info) 100%);
+  color: white;
+}
+
+.history-info,
+.call-contact-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-name,
+.call-contact-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-meta,
+.call-contact-num {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  font-family: var(--font-family-mono);
+}
+
+.history-duration {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.call-contact-type {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-family-sans);
+  padding: 3px 8px;
+  border-radius: var(--radius-md);
+}
+
+.call-contact-type.yorro {
+  background: var(--color-primary-softer);
+  color: var(--color-primary);
+}
+
+.call-contact-type.ext {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.recall-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-success-light);
+  color: var(--color-success);
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.recall-btn:hover {
+  background: var(--color-success);
+  color: white;
+}
+
+.recall-btn:active {
+  transform: scale(0.95);
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONFIGURATION TWILIO
+   ════════════════════════════════════════════════════════════ */
+
+.twilio-config {
+  margin: 20px;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-lg);
+  animation: slideUp 0.4s var(--transition-base);
+}
+
+.twilio-config-title {
+  font-family: var(--font-family-sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-warning);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.twilio-input {
+  width: 100%;
+  background: var(--bg-0);
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  margin-bottom: 10px;
+  transition: all var(--transition-fast);
+}
+
+.twilio-input:focus {
+  border-color: var(--color-warning);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.twilio-save-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: linear-gradient(135deg, var(--color-warning) 0%, #d97706 100%);
+  color: white;
+  font-family: var(--font-family-sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.twilio-save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.twilio-save-btn:active {
+  transform: scale(0.98);
+}
+
+.twilio-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 12px;
+  color: var(--text-secondary);
+}
+
+.twilio-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.twilio-dot.ok {
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+.twilio-dot.no {
+  background: var(--color-danger);
+}
+
+.twilio-dot.pending {
+  background: var(--color-warning);
+  animation: pulse 1.5s infinite;
+}
+
+/* ════════════════════════════════════════════════════════════
+   STATUS BAR & INDICATORS
+   ════════════════════════════════════════════════════════════ */
+
+.phone-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.pstatus-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.pstatus-dot.ok {
+  background: var(--color-success);
+  box-shadow: 0 0 6px var(--color-success);
+}
+
+.pstatus-dot.off {
+  background: var(--text-tertiary);
+}
+
+.pstatus-dot.connecting {
+  background: var(--color-warning);
+  animation: pulse 1s infinite;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .phone-view {
+    height: 100%;
+  }
+
+  .dialer-wrap {
+    margin: 12px;
+  }
+
+  .dialer-number {
+    font-size: 28px;
+  }
+
+  .dialer-pad {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .call-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .call-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+  }
+
+  .active-call-screen {
+    padding: 40px 20px 30px;
+  }
+
+  .call-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
+  }
+
+  .call-contact-name {
+    font-size: 22px;
+  }
+
+  .call-controls-grid {
+    max-width: 250px;
+    gap: 12px;
+  }
+
+  .call-ctrl-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .call-end-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .phone-header {
+    padding: 16px 12px;
+  }
+
+  .phone-header-title {
+    font-size: 18px;
+  }
+
+  .dialer-pad {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .dial-key {
+    font-size: 16px;
+  }
+
+  .dialer-number {
+    font-size: 24px;
+  }
+
+  .call-controls-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 200px;
+    gap: 8px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ACCESSIBILITÉ
+   ════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .phone-view {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+
+  .dialer-wrap,
+  .dialer-screen,
+  .phone-tab,
+  .dial-key,
+  .history-item,
+  .call-contact-item {
+    background: var(--dark-bg-2);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--dark-text-primary);
+  }
+
+  .phone-header {
+    background: var(--dark-bg-1);
+  }
+
+  .dialer-header {
+    background: rgba(124, 109, 250, 0.1);
+  }
+
+  .phone-tabs {
+    background: var(--dark-bg-2);
+  }
+
+  .twilio-config {
+    background: rgba(245, 158, 11, 0.08);
+  }
+
+  .twilio-input {
+    background: var(--dark-bg-3);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ════════════════════════════════════════════════════════════ */
+
+@media print {
+  .phone-view {
+    background: white;
+  }
+
+  .call-btn,
+  .dial-key,
+  .phone-tab {
+    box-shadow: none;
+    border: 1px solid #333;
+  }
+
+  .active-call-screen {
+    display: none !important;
+  }
+}
