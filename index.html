@@ -6,26 +6,32 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<title>YORRO Game-architect Studio</title>
+<title>YORRO Studio</title>
 <script src="https://www.paypal.com/sdk/js?client-id=BAA36HWl4FfE_cPg4sZOHzSkBRJOSIY4cYGHtWwwBW5GJgx8yCZUXEc2ll8Ce1GvBh0fwHAEVnEl05mA2g&components=buttons&disable-funding=venmo&currency=USD"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#08080f;--bg2:#0f0f1a;--bg3:#171725;--bg4:#1e1e2c;
-  --border:#252535;--border2:#303048;
-  --accent:#7c6dfa;--accent2:#a594ff;--accent3:#4ade80;--accent4:#fb923c;
-  --gold:#f59e0b;--gold2:#fcd34d;
-  --text:#eaeaf5;--text2:#9090aa;--text3:#50506a;--red:#f87171;
+  --bg:#07070d;--bg2:#0e0e1a;--bg3:#161624;--bg4:#1d1d2e;
+  --border:#26263a;--border2:#34344f;
+  --accent:#8b7cfa;--accent2:#b3a3ff;--accent3:#34d399;--accent4:#fb923c;
+  --gold:#f5a623;--gold2:#ffd782;
+  --text:#f0f0f8;--text2:#9d9db4;--text3:#5a5a76;--red:#f87171;
   --font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
   --font-code:'JetBrains Mono',monospace;
   --radius:12px;--safe-bottom:env(safe-area-inset-bottom,0px);
-  --glow-accent:0 0 20px rgba(124,109,250,.25);
-  --glow-gold:0 0 20px rgba(245,158,11,.2);
+  --glow-accent:0 0 24px rgba(139,124,250,.3);
+  --glow-gold:0 0 24px rgba(245,166,35,.25);
+  --grad-brand:var(--accent);
 }
 html{height:100%;overflow:hidden}
-body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px}
+body{
+  height:100%;overflow:hidden;color:var(--text);font-family:var(--font-body);font-size:15px;
+  background-color:var(--bg);
+  background-image:linear-gradient(180deg,rgba(8,8,15,.94) 0%,rgba(8,8,15,.97) 100%),url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiB2aWV3Qm94PSIwIDAgMTYwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3kiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBhMGExNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iIzE0MTIyNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iIzI0MWIzYSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzYTIzNTAiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9Im1vb24iIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmY2QzNGQiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIiBzdG9wLW9wYWNpdHk9IjAuMzUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJhMjE0MCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYTE1MzAiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE5MTQyOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjBkMWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjMiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBkMGIxOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA3MGYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgoKICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSJ1cmwoI3NreSkiLz4KCiAgPCEtLSBsdW5lIC8gaGFsbyAtLT4KICA8Y2lyY2xlIGN4PSIxMjIwIiBjeT0iMTkwIiByPSIyMjAiIGZpbGw9InVybCgjbW9vbikiLz4KICA8Y2lyY2xlIGN4PSIxMjIwIiBjeT0iMTkwIiByPSI0NiIgZmlsbD0iI2ZlZjNjNyIgb3BhY2l0eT0iMC44NSIvPgoKICA8IS0tIGV0b2lsZXMgLS0+CiAgPGcgZmlsbD0iI2VhZWFmNSIgb3BhY2l0eT0iMC41NSI+CiAgICA8Y2lyY2xlIGN4PSIxMjAiIGN5PSI5MCIgcj0iMS42Ii8+PGNpcmNsZSBjeD0iMjYwIiBjeT0iMTYwIiByPSIxLjIiLz4KICAgIDxjaXJjbGUgY3g9IjQxMCIgY3k9IjcwIiByPSIxLjgiLz48Y2lyY2xlIGN4PSI1NjAiIGN5PSIxNDAiIHI9IjEuMyIvPgogICAgPGNpcmNsZSBjeD0iODAiIGN5PSIyNDAiIHI9IjEuNCIvPjxjaXJjbGUgY3g9IjcwMCIgY3k9IjkwIiByPSIxLjYiLz4KICAgIDxjaXJjbGUgY3g9IjkwMCIgY3k9IjYwIiByPSIxLjIiLz48Y2lyY2xlIGN4PSIzNDAiIGN5PSIyMjAiIHI9IjEuNSIvPgogICAgPGNpcmNsZSBjeD0iMTAwMCIgY3k9IjE1MCIgcj0iMS4zIi8+PGNpcmNsZSBjeD0iMTQ1MCIgY3k9IjEwMCIgcj0iMS41Ii8+CiAgICA8Y2lyY2xlIGN4PSIxNTUwIiBjeT0iMjIwIiByPSIxLjIiLz48Y2lyY2xlIGN4PSIxOTAiIGN5PSIzMzAiIHI9IjEuMSIvPgogIDwvZz4KCiAgPCEtLSBvaXNlYXV4ICh2b2wgc2F1dmFnZSkgLS0+CiAgPGcgc3Ryb2tlPSIjYzhjOGQ0IiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTMwMCAyNjAgcTE0IC0xNCAyOCAwIHExNCAtMTQgMjggMCIvPgogICAgPHBhdGggZD0iTTM2MCAyOTAgcTExIC0xMSAyMiAwIHExMSAtMTEgMjIgMCIvPgogICAgPHBhdGggZD0iTTI1MCAzMDAgcTkgLTkgMTggMCBxOSAtOSAxOCAwIi8+CiAgPC9nPgoKICA8IS0tIG1vbnRhZ25lcyBsb2ludGFpbmVzIC0tPgogIDxwYXRoIGQ9Ik0wIDU2MCBMMTUwIDQzMCBMMzAwIDU0MCBMNDgwIDM4MCBMNjUwIDUyMCBMODIwIDQwMCBMMTAwMCA1NDAgTDExODAgNDIwIEwxMzUwIDU1MCBMMTYwMCA0NjAgTDE2MDAgMTAwMCBMMCAxMDAwIFoiIGZpbGw9InVybCgjbXRuMykiLz4KCiAgPCEtLSBtb250YWduZXMgaW50ZXJtZWRpYWlyZXMgLS0+CiAgPHBhdGggZD0iTTAgNjQwIEwyMjAgNTAwIEw0MDAgNjIwIEw2MDAgNDcwIEw3ODAgNjEwIEw5ODAgNDkwIEwxMTgwIDYzMCBMMTQwMCA1MDAgTDE2MDAgNjAwIEwxNjAwIDEwMDAgTDAgMTAwMCBaIiBmaWxsPSJ1cmwoI210bjIpIi8+CgogIDwhLS0gY29sbGluZXMgLyBmb3JldCBwcmVtaWVyIHBsYW4gLS0+CiAgPHBhdGggZD0iTTAgNzYwIEwxODAgNjgwIEwzNjAgNzUwIEw1NjAgNjYwIEw3NjAgNzQwIEw5NjAgNjcwIEwxMTgwIDc1MCBMMTQwMCA2ODAgTDE2MDAgNzMwIEwxNjAwIDEwMDAgTDAgMTAwMCBaIiBmaWxsPSJ1cmwoI210bjEpIi8+CgogIDwhLS0gc2lsaG91ZXR0ZSBhbmltYWwgc2F1dmFnZSAobG91cCkgc3VyIGxhIGNyZXRlIC0tPgogIDxnIGZpbGw9IiMwYTA4MTAiIG9wYWNpdHk9IjAuOSI+CiAgICA8cGF0aCBkPSJNMTIwIDY5MAogICAgICBxNiAtMTggMTggLTIyIHE0IC0xMCAxMiAtMTAgcTIgLTYgOCAtNiBxNiAwIDYgNgogICAgICBxMTAgMSAxNCAxMCBsNiAxNAogICAgICBxMTAgMCAxNCA4IGw0IDEwCiAgICAgIHEtNCA2IC0xMiA2IGwtNCA4IHEtOCA0IC0xNiAyIGwtNiA2IHEtMTAgNCAtMjAgLTIKICAgICAgcS0xMCAyIC0xOCAtNiBxLTggMiAtMTQgLTYgcS00IC04IDIgLTE0IFoiLz4KICA8L2c+CgogIDwhLS0gcGlucyAoZm9yZXQpIC0tPgogIDxnIGZpbGw9IiMwODA3MGYiPgogICAgPHBhdGggZD0iTTYwIDgwMCBMODAgNzMwIEwxMDAgODAwIFoiLz4KICAgIDxwYXRoIGQ9Ik03NSA4MTUgTDgwIDc2MCBMMTEwIDgxNSBaIi8+CiAgICA8cGF0aCBkPSJNMTQwIDgxMCBMMTYwIDc1MCBMMTgwIDgxMCBaIi8+CiAgICA8cGF0aCBkPSJNMTQyMCA4MDAgTDE0NDUgNzIwIEwxNDcwIDgwMCBaIi8+CiAgICA8cGF0aCBkPSJNMTQ2MCA4MTUgTDE0ODAgNzQ1IEwxNTEwIDgxNSBaIi8+CiAgICA8cGF0aCBkPSJNMTUyMCA4MDUgTDE1NDAgNzQ1IEwxNTYwIDgwNSBaIi8+CiAgICA8cGF0aCBkPSJNMTMwMCA4MzAgTDEzMjAgNzYwIEwxMzQwIDgzMCBaIi8+CiAgPC9nPgoKICA8IS0tIHZvaWxlIHNvbWJyZSBlbiBiYXMgcG91ciBsYSBsaXNpYmlsaXRlIGR1IGNvbnRlbnUgYXUtZGVzc3VzIC0tPgogIDxyZWN0IHg9IjAiIHk9IjcwMCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDgwNzBmIiBvcGFjaXR5PSIwLjM1Ii8+Cjwvc3ZnPgo=');
+  background-size:cover;background-position:center;background-attachment:fixed;
+}
 
 /* ══ APP SHELL ══ */
 .app{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
@@ -34,14 +40,14 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .topbar{
   display:flex;align-items:center;gap:10px;
   padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
-  background:linear-gradient(135deg,rgba(13,13,24,.98),rgba(26,10,46,.95));
+  background:rgba(13,13,24,.98);
   border-bottom:1px solid rgba(124,109,250,.2);
   flex-shrink:0;z-index:50;
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   box-shadow:0 2px 20px rgba(0,0,0,.3);
 }
 .logo{display:flex;align-items:center;gap:7px;font-family:var(--font-head);font-weight:800}
-.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent4));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.logo-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .logo-yorro{color:var(--gold);font-size:18px;letter-spacing:.5px}
 .logo-sub{color:var(--text3);font-size:11px;font-weight:500}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
@@ -52,19 +58,19 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .plan-chip:active{transform:scale(.94)}
 .plan-chip.free{background:rgba(85,85,106,.12);color:var(--text3);border-color:var(--border2)}
 .plan-chip.pro{
-  background:linear-gradient(135deg,rgba(124,109,250,.15),rgba(165,148,255,.1));
+  background:rgba(124,109,250,.15);
   color:var(--accent2);border-color:rgba(124,109,250,.4);
   box-shadow:0 0 12px rgba(124,109,250,.15);
 }
 .plan-chip.elite{
-  background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(251,146,60,.1));
+  background:rgba(245,158,11,.15);
   color:var(--gold);border-color:rgba(245,158,11,.4);
   box-shadow:0 0 12px rgba(245,158,11,.15);
 }
 .sub-btn-top{
   display:flex;align-items:center;gap:4px;padding:6px 14px;border-radius:20px;
   border:1px solid rgba(245,158,11,.5);
-  background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(251,146,60,.08));
+  background:rgba(245,158,11,.15);
   color:var(--gold);font-size:11px;font-weight:700;font-family:var(--font-head);
   cursor:pointer;transition:all .15s;white-space:nowrap;
   box-shadow:0 0 16px rgba(245,158,11,.15);
@@ -73,7 +79,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 
 /* ══ API KEY SETUP BANNER ══ */
 .api-setup{
-  background:linear-gradient(135deg,rgba(124,109,250,.12),rgba(251,146,60,.08));
+  background:rgba(124,109,250,.12);
   border-bottom:1px solid rgba(124,109,250,.25);
   padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;
 }
@@ -96,7 +102,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 /* ══ MOBILE NAV TABS ══ */
 .mobile-nav{
   display:flex;
-  background:linear-gradient(180deg,rgba(13,13,24,.98),rgba(17,17,24,.99));
+  background:rgba(13,13,24,.98);
   border-bottom:1px solid rgba(124,109,250,.15);
   flex-shrink:0;
   box-shadow:0 -1px 0 rgba(124,109,250,.08);
@@ -111,7 +117,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .mobile-nav-btn.active{color:var(--accent2)}
 .mobile-nav-btn.active::after{
   content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  background:var(--accent);
   border-radius:2px;box-shadow:0 0 8px var(--accent);
 }
 .mobile-nav-btn svg{width:20px;height:20px}
@@ -139,7 +145,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{flex-direction:row-reverse}
 .msg-avatar{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
-.msg.agent .msg-avatar{background:linear-gradient(135deg,var(--accent),var(--accent4))}
+.msg.agent .msg-avatar{background:var(--accent)}
 .msg.user .msg-avatar{background:var(--bg4)}
 .msg-body{max-width:84%;display:flex;flex-direction:column}
 .msg.user .msg-body{align-items:flex-end}
@@ -148,12 +154,12 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   word-break:break-word;
 }
 .msg.agent .msg-bubble{
-  background:linear-gradient(135deg,rgba(22,22,35,.95),rgba(18,18,28,.98));
+  background:rgba(22,22,35,.95);
   border:1px solid rgba(124,109,250,.18);border-bottom-left-radius:4px;color:var(--text);
   box-shadow:0 4px 16px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.03);
 }
 .msg.user .msg-bubble{
-  background:linear-gradient(135deg,var(--accent),rgba(124,109,250,.85));
+  background:var(--accent);
   color:#fff;border-bottom-right-radius:4px;
   box-shadow:0 2px 12px rgba(124,109,250,.3);
 }
@@ -202,7 +208,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   flex-shrink:0;display:flex;align-items:center;gap:5px;
   padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;
   cursor:pointer;border:1px solid rgba(54,54,80,.8);
-  background:linear-gradient(135deg,rgba(26,26,37,.9),rgba(22,22,33,.8));
+  background:rgba(26,26,37,.9);
   color:var(--text2);font-family:var(--font-body);transition:all .15s;
   white-space:nowrap;
 }
@@ -234,7 +240,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .chat-input::placeholder{color:var(--text3)}
 .send-btn{
   width:38px;height:38px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  background:var(--accent);
   color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:all .15s;flex-shrink:0;
   box-shadow:0 4px 16px rgba(124,109,250,.45);
@@ -254,14 +260,14 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .view-sub{font-size:12px;color:var(--text3);margin-top:2px}
 .project-grid{padding:14px;display:flex;flex-direction:column;gap:10px}
 .project-card{
-  background:linear-gradient(135deg,rgba(17,17,24,.9),rgba(26,26,37,.8));
+  background:rgba(17,17,24,.9);
   border:1px solid rgba(124,109,250,.15);border-radius:14px;
   padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;
   transition:all .2s;position:relative;overflow:hidden;
 }
 .project-card::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(124,109,250,.05),transparent);
+  background:rgba(124,109,250,.05);
   opacity:0;transition:opacity .2s;
 }
 .project-card:active{transform:scale(.97)}
@@ -307,14 +313,14 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .stat-card-val{font-family:var(--font-head);font-size:28px;font-weight:800;color:var(--accent2)}
 .stat-card-lbl{font-size:12px;color:var(--text3);margin-top:4px}
 .plan-card-big{
-  margin:0 14px 14px;background:linear-gradient(135deg,rgba(124,109,250,.12),rgba(251,146,60,.08));
+  margin:0 14px 14px;background:rgba(124,109,250,.12);
   border:1px solid rgba(124,109,250,.25);border-radius:16px;padding:18px;
 }
 .plan-card-big-title{font-family:var(--font-head);font-size:15px;font-weight:800;color:var(--accent2);margin-bottom:6px}
 .plan-card-big-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
 .plan-upgrade-btn{
   width:100%;padding:13px;border-radius:10px;border:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  background:var(--accent);
   color:#fff;font-family:var(--font-head);font-size:14px;font-weight:700;
   cursor:pointer;transition:all .2s;
 }
@@ -352,7 +358,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .gtd{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:var(--font-head)}
 .gtd.used{background:var(--bg4);color:var(--text3)}
 .gtd.avail{background:rgba(74,222,128,.15);color:var(--accent3);border:2px solid var(--accent3)}
-.gate-btn-main{width:100%;padding:15px;border-radius:13px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent4));color:#fff;font-family:var(--font-head);font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:10px}
+.gate-btn-main{width:100%;padding:15px;border-radius:13px;border:none;background:var(--accent);color:#fff;font-family:var(--font-head);font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:10px}
 .gate-btn-main:active{transform:scale(.97)}
 .gate-btn-sec{width:100%;padding:12px;border-radius:13px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--font-body);font-size:14px;cursor:pointer;transition:all .15s}
 .gate-btn-sec.hidden{display:none}
@@ -397,7 +403,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .plan-select-btn{width:100%;margin-top:12px;padding:11px;border-radius:10px;border:none;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .plan-select-btn.free-s{background:var(--bg4);color:var(--text3)}
 .plan-select-btn.pro-s{background:var(--accent);color:#fff}
-.plan-select-btn.elite-s{background:linear-gradient(135deg,var(--gold),var(--accent4));color:#000}
+.plan-select-btn.elite-s{background:var(--gold);color:#000}
 /* PayPal step */
 .paypal-step{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:18px}
 .paypal-step-title{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--text2);margin-bottom:14px}
@@ -422,7 +428,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 /* ══ LEGAL VIEW ══ */
 .legal-view{background:var(--bg)}
 .legal-hero{
-  background:linear-gradient(135deg,rgba(124,109,250,.15),rgba(245,158,11,.08));
+  background:rgba(124,109,250,.15);
   border-bottom:1px solid var(--border);
   padding:24px 20px;text-align:center;flex-shrink:0;
 }
@@ -462,7 +468,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .legal-card-body .table-row .col-r{color:var(--text);font-weight:600;text-align:right}
 .legal-stamp{
   margin:0 16px 16px;padding:16px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(124,109,250,.08));
+  background:rgba(245,158,11,.1);
   border:1px solid rgba(245,158,11,.25);text-align:center;
 }
 .legal-stamp-sig{font-family:var(--font-head);font-size:18px;font-weight:800;color:var(--gold);margin-bottom:4px}
@@ -534,12 +540,12 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .net-input:focus{border-color:var(--accent)}
 .net-save-btn{
   padding:9px;border-radius:9px;border:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  background:var(--accent);
   color:#fff;font-family:var(--font-head);font-size:12px;font-weight:700;cursor:pointer;
 }
 .net-save-btn:active{transform:scale(.97)}
 
-.loading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent4));z-index:999;transition:width .3s;border-radius:0 3px 3px 0;opacity:0}
+.loading-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:999;transition:width .3s;border-radius:0 3px 3px 0;opacity:0}
 
 /* ══ DOCUMENT VIEW ══ */
 .doc-view{background:var(--bg);flex-direction:column}
@@ -694,7 +700,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .vsurv-ai-report{margin:0 14px 14px;background:var(--bg2);border:1px solid rgba(124,109,250,.3);border-radius:14px;padding:14px}
 .vsurv-ai-report-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .vsurv-ai-report-body{font-size:12px;color:var(--text2);line-height:1.7}
-.vsurv-analyze-btn{width:100%;margin-top:12px;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent4));color:#fff;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.vsurv-analyze-btn{width:100%;margin-top:12px;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
 .vsurv-analyze-btn:active{transform:scale(.97);filter:brightness(1.1)}
 .vsurv-analyze-btn:disabled{background:var(--bg4);color:var(--text3)}
 
@@ -737,12 +743,12 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 
 /* En cours d'appel */
 .call-active-screen{
-  position:fixed;inset:0;background:linear-gradient(135deg,#0a0a1a,#1a1030,#0a1a0a);
+  position:fixed;inset:0;background:#0a0a1a;
   z-index:300;display:none;flex-direction:column;align-items:center;justify-content:space-between;
   padding:60px 20px 40px;
 }
 .call-active-screen.show{display:flex}
-.call-active-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:16px;position:relative}
+.call-active-avatar{width:90px;height:90px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:16px;position:relative}
 .call-active-avatar::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(124,109,250,.3);animation:avatarPulse 2s infinite}
 @keyframes avatarPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.1);opacity:1}}
 .call-active-name{font-family:var(--font-head);font-size:24px;font-weight:800;text-align:center;margin-bottom:6px}
@@ -790,7 +796,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .call-hist-action{padding:6px 12px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--accent2);font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-head)}
 
 /* Twilio setup */
-.twilio-setup{margin:14px;background:linear-gradient(135deg,rgba(251,146,60,.08),rgba(124,109,250,.06));border:1px solid rgba(251,146,60,.25);border-radius:14px;padding:16px}
+.twilio-setup{margin:14px;background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.25);border-radius:14px;padding:16px}
 .twilio-setup-title{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--accent4);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .twilio-setup-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px}
 .twilio-input{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;padding:9px 12px;font-family:var(--font-code);font-size:12px;color:var(--text);outline:none;margin-bottom:7px;transition:border-color .15s}
@@ -857,22 +863,22 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   font-size:28px;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.3);
 }
 .call-btn:active{transform:scale(.9)}
-.call-btn.green{background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 4px 20px rgba(34,197,94,.4)}
-.call-btn.red{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 4px 20px rgba(239,68,68,.4)}
-.call-btn.blue{background:linear-gradient(135deg,var(--accent),#6366f1);box-shadow:0 0 20px rgba(124,109,250,.4)}
+.call-btn.green{background:#22c55e;box-shadow:0 4px 20px rgba(34,197,94,.4)}
+.call-btn.red{background:#ef4444;box-shadow:0 4px 20px rgba(239,68,68,.4)}
+.call-btn.blue{background:var(--accent);box-shadow:0 0 20px rgba(124,109,250,.4)}
 .call-btn.small{width:50px;height:50px;font-size:20px}
 
 /* Écran d'appel actif */
 .active-call-screen{
   display:none;position:fixed;inset:0;z-index:300;
-  background:linear-gradient(180deg,#0f0f1a 0%,#1a0f2e 100%);
+  background:#0f0f1a;
   flex-direction:column;align-items:center;justify-content:space-between;
   padding:60px 30px 50px;
 }
 .active-call-screen.show{display:flex}
 .call-avatar{
   width:100px;height:100px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent4));
+  background:var(--accent);
   display:flex;align-items:center;justify-content:center;
   font-size:44px;margin-bottom:16px;
   box-shadow:0 0 40px rgba(124,109,250,.4);
@@ -894,7 +900,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .call-ctrl-btn:active{transform:scale(.9)}
 .call-ctrl-btn.active-ctrl{background:rgba(255,255,255,.25)}
 .call-ctrl-label{font-size:10px;color:rgba(255,255,255,.5);font-family:var(--font-head);font-weight:600}
-.call-end-btn{width:72px;height:72px;border-radius:50%;border:none;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:30px;cursor:pointer;box-shadow:0 4px 24px rgba(239,68,68,.5);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.call-end-btn{width:72px;height:72px;border-radius:50%;border:none;background:#ef4444;color:#fff;font-size:30px;cursor:pointer;box-shadow:0 4px 24px rgba(239,68,68,.5);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .call-end-btn:active{transform:scale(.9)}
 .call-ripple{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(124,109,250,.4);animation:ripple 2s ease-out infinite}
 .call-ripple:nth-child(2){animation-delay:.6s}
@@ -932,11 +938,11 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .recall-btn:active{background:rgba(74,222,128,.2)}
 
 /* Config Twilio */
-.twilio-config{margin:14px;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(251,146,60,.05));border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:16px}
+.twilio-config{margin:14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:16px}
 .twilio-config-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .twilio-input{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;padding:9px 12px;font-family:var(--font-code);font-size:12px;color:var(--text);outline:none;margin-bottom:8px;transition:border-color .15s}
 .twilio-input:focus{border-color:var(--gold)}
-.twilio-save-btn{width:100%;padding:10px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--gold),var(--accent4));color:#000;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.twilio-save-btn{width:100%;padding:10px;border-radius:9px;border:none;background:var(--gold);color:#000;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .twilio-save-btn:active{transform:scale(.97)}
 
 /* Status indicators */
@@ -956,10 +962,10 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   border-radius:18px;overflow:hidden;flex-shrink:0;
 }
 .dialer-header{
-  padding:14px 16px;background:linear-gradient(135deg,rgba(124,109,250,.15),rgba(251,146,60,.08));
+  padding:14px 16px;background:rgba(124,109,250,.15);
   border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;
 }
-.dialer-header-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent4));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dialer-header-icon{width:38px;height:38px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .dialer-header-title{font-family:var(--font-head);font-size:14px;font-weight:800}
 .dialer-header-sub{font-size:11px;color:var(--text3);margin-top:2px}
 .dialer-mode-toggle{margin-left:auto;display:flex;gap:4px}
@@ -997,9 +1003,9 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .dial-key-num{font-size:22px;font-weight:700;line-height:1}
 .dial-key-sub{font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px}
 .dial-key.special{background:transparent;border:1px solid var(--border2)}
-.dial-key.call-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 4px 16px rgba(34,197,94,.35)}
+.dial-key.call-btn{background:#22c55e;color:#fff;box-shadow:0 4px 16px rgba(34,197,94,.35)}
 .dial-key.call-btn:active{transform:scale(.9)}
-.dial-key.end-btn{background:linear-gradient(135deg,var(--red),#dc2626);color:#fff;display:none;box-shadow:0 4px 16px rgba(248,113,113,.35)}
+.dial-key.end-btn{background:var(--red);color:#fff;display:none;box-shadow:0 4px 16px rgba(248,113,113,.35)}
 .dial-key.backspace{font-size:20px}
 
 /* Barre actions rapides */
@@ -1015,12 +1021,12 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 
 /* ── EN APPEL ── */
 .call-active{
-  margin:14px;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(16,163,127,.08));
+  margin:14px;background:rgba(34,197,94,.12);
   border:1px solid rgba(34,197,94,.25);border-radius:18px;padding:20px;
   text-align:center;display:none;
 }
 .call-active.show{display:block}
-.call-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
+.call-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
 .call-avatar::after{
   content:'';position:absolute;inset:-4px;border-radius:50%;
   border:2px solid rgba(74,222,128,.5);animation:callPulse 1.5s infinite;
@@ -1042,7 +1048,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .call-ctrl-icon{font-size:22px}
 .call-end-big{
   width:64px;height:64px;border-radius:50%;border:none;
-  background:linear-gradient(135deg,var(--red),#dc2626);color:#fff;
+  background:var(--red);color:#fff;
   font-size:26px;cursor:pointer;margin:0 auto;display:flex;align-items:center;
   justify-content:center;box-shadow:0 4px 20px rgba(248,113,113,.4);
   transition:all .15s;
@@ -1052,20 +1058,20 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 /* ── APPEL ENTRANT ── */
 .incoming-call{
   position:fixed;top:0;left:0;right:0;z-index:400;
-  background:linear-gradient(135deg,#0f172a,#1e1b4b);
+  background:#0f172a;
   padding:32px 20px 24px;text-align:center;display:none;
   animation:slideDown .3s ease;
 }
 .incoming-call.show{display:block}
 @keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
-.incoming-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent4));margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;animation:callPulse 1s infinite}
+.incoming-avatar{width:80px;height:80px;border-radius:50%;background:var(--accent);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;animation:callPulse 1s infinite}
 .incoming-name{font-family:var(--font-head);font-size:20px;font-weight:800;margin-bottom:4px}
 .incoming-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
 .incoming-btns{display:flex;gap:20px;justify-content:center}
 .incoming-btn{width:64px;height:64px;border-radius:50%;border:none;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .incoming-btn:active{transform:scale(.9)}
-.incoming-accept{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 4px 20px rgba(34,197,94,.4)}
-.incoming-decline{background:linear-gradient(135deg,var(--red),#dc2626);color:#fff;box-shadow:0 4px 20px rgba(248,113,113,.4)}
+.incoming-accept{background:#22c55e;color:#fff;box-shadow:0 4px 20px rgba(34,197,94,.4)}
+.incoming-decline{background:var(--red);color:#fff;box-shadow:0 4px 20px rgba(248,113,113,.4)}
 
 /* Contacts récents */
 .recent-calls{margin:0 14px 14px}
@@ -1116,7 +1122,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .twilio-field-label{font-size:11px;font-weight:700;color:var(--text3);font-family:var(--font-head);margin-bottom:3px}
 .twilio-input{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;padding:9px 12px;font-family:var(--font-code);font-size:12px;color:var(--text);outline:none;transition:border-color .15s}
 .twilio-input:focus{border-color:var(--accent4)}
-.twilio-save-btn{width:100%;padding:11px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent4),var(--gold));color:#000;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.twilio-save-btn{width:100%;padding:11px;border-radius:10px;border:none;background:var(--accent4);color:#000;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .twilio-save-btn:active{transform:scale(.97)}
 
 /* Permission guide */
@@ -1133,14 +1139,17 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .hero-section{
   position:relative;overflow:hidden;
   padding:28px 20px 24px;
-  background:linear-gradient(180deg,rgba(13,13,26,.98) 0%,rgba(10,10,18,.95) 100%);
+  background:
+    linear-gradient(180deg,rgba(10,10,18,.55) 0%,rgba(10,10,18,.88) 75%,rgba(10,10,18,.98) 100%),
+    url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiB2aWV3Qm94PSIwIDAgMTYwMCAxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3kiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBhMGExNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iIzE0MTIyNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iIzI0MWIzYSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzYTIzNTAiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9Im1vb24iIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmY2QzNGQiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIiBzdG9wLW9wYWNpdHk9IjAuMzUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJhMjE0MCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYTE1MzAiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjIiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE5MTQyOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjBkMWUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im10bjMiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBkMGIxOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA3MGYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgoKICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSJ1cmwoI3NreSkiLz4KCiAgPCEtLSBsdW5lIC8gaGFsbyAtLT4KICA8Y2lyY2xlIGN4PSIxMjIwIiBjeT0iMTkwIiByPSIyMjAiIGZpbGw9InVybCgjbW9vbikiLz4KICA8Y2lyY2xlIGN4PSIxMjIwIiBjeT0iMTkwIiByPSI0NiIgZmlsbD0iI2ZlZjNjNyIgb3BhY2l0eT0iMC44NSIvPgoKICA8IS0tIGV0b2lsZXMgLS0+CiAgPGcgZmlsbD0iI2VhZWFmNSIgb3BhY2l0eT0iMC41NSI+CiAgICA8Y2lyY2xlIGN4PSIxMjAiIGN5PSI5MCIgcj0iMS42Ii8+PGNpcmNsZSBjeD0iMjYwIiBjeT0iMTYwIiByPSIxLjIiLz4KICAgIDxjaXJjbGUgY3g9IjQxMCIgY3k9IjcwIiByPSIxLjgiLz48Y2lyY2xlIGN4PSI1NjAiIGN5PSIxNDAiIHI9IjEuMyIvPgogICAgPGNpcmNsZSBjeD0iODAiIGN5PSIyNDAiIHI9IjEuNCIvPjxjaXJjbGUgY3g9IjcwMCIgY3k9IjkwIiByPSIxLjYiLz4KICAgIDxjaXJjbGUgY3g9IjkwMCIgY3k9IjYwIiByPSIxLjIiLz48Y2lyY2xlIGN4PSIzNDAiIGN5PSIyMjAiIHI9IjEuNSIvPgogICAgPGNpcmNsZSBjeD0iMTAwMCIgY3k9IjE1MCIgcj0iMS4zIi8+PGNpcmNsZSBjeD0iMTQ1MCIgY3k9IjEwMCIgcj0iMS41Ii8+CiAgICA8Y2lyY2xlIGN4PSIxNTUwIiBjeT0iMjIwIiByPSIxLjIiLz48Y2lyY2xlIGN4PSIxOTAiIGN5PSIzMzAiIHI9IjEuMSIvPgogIDwvZz4KCiAgPCEtLSBvaXNlYXV4ICh2b2wgc2F1dmFnZSkgLS0+CiAgPGcgc3Ryb2tlPSIjYzhjOGQ0IiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTMwMCAyNjAgcTE0IC0xNCAyOCAwIHExNCAtMTQgMjggMCIvPgogICAgPHBhdGggZD0iTTM2MCAyOTAgcTExIC0xMSAyMiAwIHExMSAtMTEgMjIgMCIvPgogICAgPHBhdGggZD0iTTI1MCAzMDAgcTkgLTkgMTggMCBxOSAtOSAxOCAwIi8+CiAgPC9nPgoKICA8IS0tIG1vbnRhZ25lcyBsb2ludGFpbmVzIC0tPgogIDxwYXRoIGQ9Ik0wIDU2MCBMMTUwIDQzMCBMMzAwIDU0MCBMNDgwIDM4MCBMNjUwIDUyMCBMODIwIDQwMCBMMTAwMCA1NDAgTDExODAgNDIwIEwxMzUwIDU1MCBMMTYwMCA0NjAgTDE2MDAgMTAwMCBMMCAxMDAwIFoiIGZpbGw9InVybCgjbXRuMykiLz4KCiAgPCEtLSBtb250YWduZXMgaW50ZXJtZWRpYWlyZXMgLS0+CiAgPHBhdGggZD0iTTAgNjQwIEwyMjAgNTAwIEw0MDAgNjIwIEw2MDAgNDcwIEw3ODAgNjEwIEw5ODAgNDkwIEwxMTgwIDYzMCBMMTQwMCA1MDAgTDE2MDAgNjAwIEwxNjAwIDEwMDAgTDAgMTAwMCBaIiBmaWxsPSJ1cmwoI210bjIpIi8+CgogIDwhLS0gY29sbGluZXMgLyBmb3JldCBwcmVtaWVyIHBsYW4gLS0+CiAgPHBhdGggZD0iTTAgNzYwIEwxODAgNjgwIEwzNjAgNzUwIEw1NjAgNjYwIEw3NjAgNzQwIEw5NjAgNjcwIEwxMTgwIDc1MCBMMTQwMCA2ODAgTDE2MDAgNzMwIEwxNjAwIDEwMDAgTDAgMTAwMCBaIiBmaWxsPSJ1cmwoI210bjEpIi8+CgogIDwhLS0gc2lsaG91ZXR0ZSBhbmltYWwgc2F1dmFnZSAobG91cCkgc3VyIGxhIGNyZXRlIC0tPgogIDxnIGZpbGw9IiMwYTA4MTAiIG9wYWNpdHk9IjAuOSI+CiAgICA8cGF0aCBkPSJNMTIwIDY5MAogICAgICBxNiAtMTggMTggLTIyIHE0IC0xMCAxMiAtMTAgcTIgLTYgOCAtNiBxNiAwIDYgNgogICAgICBxMTAgMSAxNCAxMCBsNiAxNAogICAgICBxMTAgMCAxNCA4IGw0IDEwCiAgICAgIHEtNCA2IC0xMiA2IGwtNCA4IHEtOCA0IC0xNiAyIGwtNiA2IHEtMTAgNCAtMjAgLTIKICAgICAgcS0xMCAyIC0xOCAtNiBxLTggMiAtMTQgLTYgcS00IC04IDIgLTE0IFoiLz4KICA8L2c+CgogIDwhLS0gcGlucyAoZm9yZXQpIC0tPgogIDxnIGZpbGw9IiMwODA3MGYiPgogICAgPHBhdGggZD0iTTYwIDgwMCBMODAgNzMwIEwxMDAgODAwIFoiLz4KICAgIDxwYXRoIGQ9Ik03NSA4MTUgTDgwIDc2MCBMMTEwIDgxNSBaIi8+CiAgICA8cGF0aCBkPSJNMTQwIDgxMCBMMTYwIDc1MCBMMTgwIDgxMCBaIi8+CiAgICA8cGF0aCBkPSJNMTQyMCA4MDAgTDE0NDUgNzIwIEwxNDcwIDgwMCBaIi8+CiAgICA8cGF0aCBkPSJNMTQ2MCA4MTUgTDE0ODAgNzQ1IEwxNTEwIDgxNSBaIi8+CiAgICA8cGF0aCBkPSJNMTUyMCA4MDUgTDE1NDAgNzQ1IEwxNTYwIDgwNSBaIi8+CiAgICA8cGF0aCBkPSJNMTMwMCA4MzAgTDEzMjAgNzYwIEwxMzQwIDgzMCBaIi8+CiAgPC9nPgoKICA8IS0tIHZvaWxlIHNvbWJyZSBlbiBiYXMgcG91ciBsYSBsaXNpYmlsaXRlIGR1IGNvbnRlbnUgYXUtZGVzc3VzIC0tPgogIDxyZWN0IHg9IjAiIHk9IjcwMCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMDgwNzBmIiBvcGFjaXR5PSIwLjM1Ii8+Cjwvc3ZnPgo=');
+  background-size:cover;background-position:center 30%;
   border-bottom:1px solid rgba(124,109,250,.15);
   flex-shrink:0;
 }
 .hero-bg-glow{
   position:absolute;top:-60px;left:50%;transform:translateX(-50%);
   width:380px;height:260px;
-  background:radial-gradient(ellipse,rgba(124,109,250,.22) 0%,rgba(245,158,11,.05) 50%,transparent 70%);
+  background:rgba(124,109,250,.22);
   pointer-events:none;animation:heroPulse 4s ease-in-out infinite;
 }
 @keyframes heroPulse{
@@ -1151,7 +1160,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 .hero-logo{margin-bottom:4px;filter:drop-shadow(0 0 20px rgba(124,109,250,.4))}
 .hero-title{
   font-family:var(--font-head);font-size:23px;font-weight:800;
-  background:linear-gradient(135deg,#ffffff 0%,var(--accent2) 50%,var(--gold) 100%);
+  background:#ffffff;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;letter-spacing:-.3px;line-height:1.2;
 }
@@ -1173,7 +1182,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
   padding:14px 14px 0;flex-shrink:0;
 }
 .qs-card{
-  background:linear-gradient(135deg,rgba(17,17,26,.92),rgba(14,14,22,.85));
+  background:rgba(17,17,26,.92);
   border:1px solid rgba(124,109,250,.14);border-radius:13px;
   padding:13px 8px;text-align:center;transition:all .2s;
   box-shadow:0 2px 8px rgba(0,0,0,.2);
@@ -1191,7 +1200,7 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 }
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .feat-card{
-  background:linear-gradient(135deg,rgba(17,17,26,.92),rgba(14,14,22,.85));
+  background:rgba(17,17,26,.92);
   border:1px solid rgba(54,54,80,.7);border-radius:14px;
   padding:14px 10px;cursor:pointer;transition:all .2s;
   display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;
@@ -1199,16 +1208,17 @@ body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-fam
 }
 .feat-card::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(124,109,250,.06),transparent);
+  background:rgba(124,109,250,.06);
   opacity:0;transition:opacity .2s;border-radius:14px;
 }
 .feat-card:active{transform:scale(.93);}
 .feat-card:active::after{opacity:1;}
 .feat-icon{
   width:40px;height:40px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
   transition:transform .18s;
 }
+.feat-icon svg{width:20px;height:20px}
 .feat-card:active .feat-icon{transform:scale(.9)}
 .feat-name{font-family:var(--font-head);font-size:12px;font-weight:700;line-height:1.2}
 .feat-sub{font-size:10px;color:var(--text3);line-height:1.3}
@@ -1233,7 +1243,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .menu-overlay.open{display:block}
 .menu-drawer{
   position:fixed;left:0;top:0;bottom:0;width:82%;max-width:320px;
-  background:linear-gradient(180deg,#0e0e1c 0%,#0a0a14 60%,#08080f 100%);
+  background:#0e0e1c;
   border-right:1px solid rgba(124,109,250,.2);
   z-index:301;display:flex;flex-direction:column;
   transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
@@ -1244,13 +1254,13 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 /* Header du menu */
 .menu-header{
   padding:20px 20px 16px;
-  background:linear-gradient(135deg,rgba(124,109,250,.12),rgba(245,158,11,.06));
+  background:rgba(124,109,250,.12);
   border-bottom:1px solid rgba(124,109,250,.15);flex-shrink:0;
 }
 .menu-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .menu-logo-icon{
   width:44px;height:44px;border-radius:12px;overflow:hidden;flex-shrink:0;
-  background:linear-gradient(135deg,#0d0d18,#1a0a2e);
+  background:#0d0d18;
 }
 .menu-logo-info{flex:1}
 .menu-logo-title{font-family:var(--font-head);font-size:16px;font-weight:800;color:var(--gold);letter-spacing:.5px}
@@ -1262,7 +1272,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .menu-plan-badge{
   display:flex;align-items:center;gap:8px;
   padding:10px 14px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(251,146,60,.07));
+  background:rgba(245,158,11,.12);
   border:1px solid rgba(245,158,11,.25);cursor:pointer;transition:all .15s;
   box-shadow:0 2px 12px rgba(245,158,11,.1);
 }
@@ -1291,11 +1301,11 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
   padding:14px 20px;cursor:pointer;transition:all .15s;
   position:relative;border-bottom:1px solid rgba(255,255,255,.02);
 }
-.menu-item:active{background:linear-gradient(135deg,rgba(124,109,250,.1),rgba(251,146,60,.04))}
+.menu-item:active{background:rgba(124,109,250,.1)}
 .menu-item.active-item{background:rgba(124,109,250,.1)}
 .menu-item.active-item::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--accent),var(--accent4));
+  background:var(--accent);
   border-radius:0 3px 3px 0;
 }
 .menu-item-icon{
@@ -1355,7 +1365,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 <div id="loading-bar" class="loading-bar"></div>
 
 <!-- ÉCRAN DE CONNEXION — affiché tant que l'utilisateur n'est pas authentifié -->
-<div id="auth-screen" style="position:fixed;inset:0;z-index:10000;background:var(--bg1,#0a0a0f);display:flex;align-items:center;justify-content:center;padding:20px">
+<div id="auth-screen" style="position:fixed;inset:0;z-index:10000;background:var(--bg1,#0a0a0f);display:none;align-items:center;justify-content:center;padding:20px">
   <div style="width:100%;max-width:360px">
     <div style="text-align:center;margin-bottom:28px">
       <div style="font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--gold,#f59e0b)">YORRO Studio</div>
@@ -1367,6 +1377,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
     <input id="auth-name-input" type="text" placeholder="Votre nom" class="api-input" style="width:100%;margin-bottom:10px;display:none"/>
     <input id="auth-email-input" type="email" placeholder="Email" class="api-input" style="width:100%;margin-bottom:10px" autocomplete="username"/>
     <input id="auth-password-input" type="password" placeholder="Mot de passe" class="api-input" style="width:100%;margin-bottom:14px" autocomplete="current-password"/>
+    <input id="auth-2fa-input" type="text" inputmode="numeric" maxlength="6" placeholder="Code à 6 chiffres" class="api-input" style="width:100%;margin-bottom:14px;display:none;letter-spacing:4px;text-align:center"/>
 
     <button id="auth-submit-btn" onclick="handleAuthSubmit()" style="width:100%;padding:12px;border:none;border-radius:12px;background:var(--gold,#f59e0b);color:#0a0a0f;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:10px">
       Se connecter
@@ -1391,7 +1402,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
   <!-- TOPBAR -->
   <div class="topbar">
-    <div class="logo" onclick="logoTap()" style="cursor:pointer;user-select:none" title="YORRO Game-architect Studio">
+    <div class="logo" style="user-select:none" title="YORRO Studio">
       <div class="logo-icon" id="logo-svg-wrap" style="width:38px;height:38px;overflow:hidden;border-radius:10px;background:transparent;flex-shrink:0">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="38" height="38">
           <defs>
@@ -1411,7 +1422,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       </div>
       <div>
         <span class="logo-yorro">YORRO</span>
-        <div class="logo-sub">Game-architect Studio</div>
+        <div class="logo-sub">Assistant IA Universel</div>
       </div>
     </div>
     <div class="topbar-right">
@@ -1429,33 +1440,9 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
     </div>
   </div>
 
-  <!-- PANNEAU ADMIN CACHÉ (accessible via code secret) -->
-  <div id="admin-panel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;padding:20px">
-    <div style="background:var(--bg2);border:1px solid var(--gold);border-radius:16px;padding:24px;width:100%;max-width:380px">
-      <div style="font-family:var(--font-head);font-size:16px;font-weight:800;color:var(--gold);margin-bottom:4px">⚙️ Admin YORRO</div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:16px;font-family:var(--font-code)">Panneau propriétaire — Patrick Emessiene Amayna</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Clé API Anthropic (cachée aux utilisateurs)</div>
-      <input id="admin-api-input" type="password" class="api-input" placeholder="sk-ant-api03-..." style="width:100%;margin-bottom:10px"/>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.5">
-        ✅ Utilisée automatiquement pour tous les utilisateurs<br/>
-        ✅ Plan Gratuit : 3 essais couverts par vous<br/>
-        ✅ Abonnés Pro/Elite : accès illimité via votre clé
-      </div>
-      <div style="display:flex;gap:8px">
-        <button onclick="saveAdminKey()" style="flex:1;padding:10px;border-radius:9px;border:none;background:var(--accent);color:#fff;font-family:var(--font-head);font-size:13px;font-weight:700;cursor:pointer">💾 Enregistrer</button>
-        <button onclick="closeAdmin()" style="padding:10px 14px;border-radius:9px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--font-head);font-size:13px;cursor:pointer">Fermer</button>
-      </div>
-      <div style="margin-top:12px;padding:10px;background:var(--bg3);border-radius:8px;font-size:10px;color:var(--text3);font-family:var(--font-code);line-height:1.6">
-        🔒 Clé stockée localement sur VOTRE appareil uniquement.<br/>
-        Jamais visible ni accessible aux utilisateurs.<br/>
-        © Patrick Emessiene Amayna — YORRO Game-architect Studio
-      </div>
-    </div>
-  </div>
-
   <!-- MOBILE NAV -->
   <div class="mobile-nav">
-    <button class="mobile-nav-btn active" id="nav-chat" onclick="switchView('chat')">
+    <button class="mobile-nav-btn active" id="nav-home" onclick="switchView('home')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Accueil
     </button>
@@ -1463,11 +1450,6 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       Menu
       <span class="mobile-nav-badge" id="menu-badge" style="display:none">!</span>
-    </button>
-    <button class="mobile-nav-btn" id="nav-editor" onclick="switchView('editor')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      Éditeur
-      <span class="mobile-nav-badge" id="editor-badge" style="display:none">0</span>
     </button>
     <button class="mobile-nav-btn" onclick="openSub()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1478,8 +1460,8 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
   <!-- VIEWS -->
   <div class="views">
 
-    <!-- ── CHAT VIEW ── -->
-    <div class="view chat-view active" id="view-chat">
+    <!-- ── ACCUEIL (léger — juste la bannière et l'accès rapide) ── -->
+    <div class="view home-view active" id="view-home">
 
       <!-- ══ HERO SECTION ══ -->
       <div class="hero-section">
@@ -1508,8 +1490,8 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
               <text x="200" y="203" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">Y</text>
             </svg>
           </div>
-          <div class="hero-title" data-i18n="welcome_title">YORRO Game-architect</div>
-          <div class="hero-sub" data-i18n="welcome_sub">Votre studio de création de jeux IA</div>
+          <div class="hero-title" data-i18n="welcome_title">YORRO Studio</div>
+          <div class="hero-sub" data-i18n="welcome_sub">Votre assistant IA généraliste</div>
           <div class="hero-owner">par <strong>Patrick Emessiene Amayna</strong></div>
 
           <!-- Badges hero -->
@@ -1543,41 +1525,58 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
       <!-- ══ FONCTIONNALITÉS RAPIDES ══ -->
       <div class="features-section">
-        <div class="features-title">⚡ Accès rapide</div>
+        <div class="features-title">Accès rapide</div>
         <div class="features-grid">
           <div class="feat-card" onclick="openMenu()">
-            <div class="feat-icon" style="background:rgba(124,109,250,.15)">📋</div>
+            <div class="feat-icon" style="background:rgba(139,124,250,.12)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            </div>
             <div class="feat-name">Menu complet</div>
             <div class="feat-sub">Toutes les fonctions</div>
           </div>
-          <div class="feat-card" onclick="switchView('editor')">
-            <div class="feat-icon" style="background:rgba(74,222,128,.1)">💻</div>
-            <div class="feat-name" data-i18n="menu_editor">Éditeur</div>
-            <div class="feat-sub" id="feat-files-count">0 fichier ouvert</div>
+          <div class="feat-card" onclick="switchView('chat')">
+            <div class="feat-icon" style="background:rgba(139,124,250,.12)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="feat-name">Assistant IA</div>
+            <div class="feat-sub">Toujours disponible</div>
           </div>
           <div class="feat-card" onclick="switchView('docs')">
-            <div class="feat-icon" style="background:rgba(165,148,255,.1)">📄</div>
+            <div class="feat-icon" style="background:rgba(139,124,250,.12)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
             <div class="feat-name" data-i18n="menu_docs">Documents</div>
             <div class="feat-sub">IA · Traduction</div>
           </div>
           <div class="feat-card" onclick="switchView('vsurv')">
-            <div class="feat-icon" style="background:rgba(248,113,113,.1)">📹</div>
+            <div class="feat-icon" style="background:rgba(139,124,250,.12)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
             <div class="feat-name" data-i18n="menu_video">Vidéo IA</div>
             <div class="feat-sub">Surveillance live</div>
           </div>
           <div class="feat-card" onclick="switchView('phone')">
-            <div class="feat-icon" style="background:rgba(34,197,94,.1)">📞</div>
+            <div class="feat-icon" style="background:rgba(139,124,250,.12)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
             <div class="feat-name" data-i18n="menu_phone">Appels</div>
             <div class="feat-sub">5 réseaux</div>
           </div>
-          <div class="feat-card" onclick="openSub()">
-            <div class="feat-icon" style="background:rgba(245,158,11,.1)">✦</div>
+          <div class="feat-card" onclick="openSub()" style="border:1px solid rgba(245,166,35,.25)">
+            <div class="feat-icon" style="background:rgba(245,166,35,.14)">
+              <svg viewBox="0 0 24 24" fill="var(--gold)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
             <div class="feat-name" style="color:var(--gold)">Passer Pro</div>
             <div class="feat-sub">Accès illimité</div>
           </div>
         </div>
       </div>
 
+    </div>
+    <!-- ── FIN ACCUEIL ── -->
+
+    <!-- ── CHAT IA (page dédiée, séparée de l'accueil) ── -->
+    <div class="view" id="view-chat">
       <!-- ══ QUOTA BARRE ══ -->
       <div class="quota-bar" id="quota-bar">
         <div class="quota-track"><div class="quota-fill" id="quota-fill" style="width:0%"></div></div>
@@ -1585,14 +1584,14 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       </div>
 
       <!-- ══ MESSAGES CHAT ══ -->
-      <div class="chat-section-label">💬 Chat IA — Création de jeux</div>
+      <div class="chat-section-label">💬 Assistant IA</div>
       <div class="chat-messages" id="chat-messages">
         <div class="msg agent">
-          <div class="msg-avatar">🎮</div>
+          <div class="msg-avatar">🤖</div>
           <div class="msg-body">
             <div class="msg-bubble">
-              Bienvenue sur <strong>YORRO Game-architect v2.0</strong> par <strong>Patrick Emessiene Amayna</strong>.<br/><br/>
-              🎁 <strong>3 essais gratuits</strong> par fonctionnalité. Choisissez un template ou décrivez votre jeu ! 🚀
+              Bienvenue sur <strong>YORRO</strong>, votre assistant IA par <strong>Patrick Emessiene Amayna</strong>.<br/><br/>
+              🎁 <strong>3 essais gratuits</strong> par catégorie. Choisissez un modèle de démarrage ou posez-moi n'importe quelle question ! 🚀
             </div>
             <div class="msg-time">maintenant</div>
           </div>
@@ -1615,13 +1614,17 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
           style="flex:1;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--text3,#8a8a99);cursor:pointer">
           🟢 MiniMax (NVIDIA)
         </button>
+        <button class="model-pick" id="model-pick-glm" onclick="setAiProvider('glm')"
+          style="flex:1;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--text3,#8a8a99);cursor:pointer">
+          🔵 GLM-5.1
+        </button>
       </div>
 
       <!-- ══ INPUT ══ -->
       <div class="chat-input-wrap">
         <div class="input-row">
           <textarea class="chat-input" id="chat-input"
-            placeholder="Décrivez votre jeu React... (Entrée = envoyer)"
+            placeholder="Posez votre question... (Entrée = envoyer)"
             rows="1"
             onkeydown="handleKey(event)"
             oninput="autoResize(this)"></textarea>
@@ -1634,36 +1637,6 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       </div>
 
     </div>
-    <!-- ── PROJECTS VIEW ── -->
-    <div class="view projects-view" id="view-projects">
-      <div class="view-header">
-        <div class="view-title">🎮 Mes Projets</div>
-        <div class="view-sub">YORRO Game-architect Studio</div>
-      </div>
-      <div class="project-grid" id="project-grid"></div>
-      <button class="new-proj-btn" onclick="newProject()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nouveau jeu
-      </button>
-    </div>
-
-    <!-- ── EDITOR VIEW ── -->
-    <div class="view editor-view" id="view-editor">
-      <div class="editor-tabs" id="editor-tabs">
-        <button class="add-tab-btn" onclick="addFile()">+ Fichier</button>
-      </div>
-      <div class="editor-empty" id="editor-empty">
-        <div class="big">💻</div>
-        <div style="font-family:var(--font-head);font-size:15px;font-weight:700">Aucun fichier ouvert</div>
-        <div style="font-size:13px;line-height:1.5">Générez du code via le Chat IA<br/>ou créez un nouveau fichier</div>
-        <button onclick="addFile()" style="padding:10px 20px;border-radius:10px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font-head);font-size:13px;cursor:pointer;margin-top:4px">+ Créer un fichier</button>
-      </div>
-      <div class="code-wrap" id="code-wrap" style="display:none">
-        <div class="line-nums" id="line-nums"></div>
-        <div class="code-body" id="code-body" contenteditable="true" spellcheck="false"></div>
-      </div>
-    </div>
-
     <!-- ── STATS VIEW ── -->
     <div class="view" id="view-stats" style="background:var(--bg)">
       <div class="view-header">
@@ -1676,6 +1649,44 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
         <div class="stat-card"><div class="stat-card-val" id="s-lines">0</div><div class="stat-card-lbl">Lignes de code</div></div>
         <div class="stat-card"><div class="stat-card-val" id="s-sessions">1</div><div class="stat-card-lbl">Sessions</div></div>
       </div>
+
+      <!-- ══ SÉCURITÉ DU COMPTE ══ -->
+      <div class="trials-section" id="security-section" style="display:none">
+        <div class="trials-title">🔒 Sécurité du compte</div>
+
+        <div id="email-verify-row" style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--bg3);border-radius:10px;margin-bottom:8px">
+          <div>
+            <div style="font-size:13px;font-weight:600" id="email-verify-status">Email non vérifié</div>
+            <div style="font-size:11px;color:var(--text3)" id="email-verify-addr"></div>
+          </div>
+          <button id="email-verify-btn" onclick="resendVerificationEmail()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;cursor:pointer">Renvoyer</button>
+        </div>
+
+        <div style="padding:12px;background:var(--bg3);border-radius:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div>
+              <div style="font-size:13px;font-weight:600">Authentification à deux facteurs</div>
+              <div style="font-size:11px;color:var(--text3)" id="twofa-status">Désactivée</div>
+            </div>
+            <button id="twofa-toggle-btn" onclick="toggle2FA()" style="padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:12px;font-weight:600;cursor:pointer">Activer</button>
+          </div>
+
+          <!-- Formulaire d'activation (masqué par défaut) -->
+          <div id="twofa-setup-form" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+            <div style="font-size:11px;color:var(--text2);margin-bottom:8px">Ajoutez ce code dans Google Authenticator (ou équivalent), puis entrez le code à 6 chiffres généré :</div>
+            <div id="twofa-secret-display" style="font-family:var(--font-code);font-size:12px;background:var(--bg2);padding:10px;border-radius:8px;margin-bottom:8px;word-break:break-all;color:var(--gold)"></div>
+            <input id="twofa-confirm-input" type="text" inputmode="numeric" maxlength="6" placeholder="Code à 6 chiffres" class="api-input" style="width:100%;margin-bottom:8px;text-align:center;letter-spacing:4px"/>
+            <button onclick="confirm2FA()" style="width:100%;padding:10px;border-radius:8px;border:none;background:var(--accent3);color:#0a0a0f;font-weight:700;font-size:13px;cursor:pointer">Confirmer et activer</button>
+          </div>
+
+          <!-- Désactivation (masqué par défaut) -->
+          <div id="twofa-disable-form" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+            <input id="twofa-disable-password" type="password" placeholder="Votre mot de passe" class="api-input" style="width:100%;margin-bottom:8px"/>
+            <button onclick="disable2FA()" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--red);background:transparent;color:var(--red);font-weight:700;font-size:13px;cursor:pointer">Désactiver la 2FA</button>
+          </div>
+        </div>
+      </div>
+
       <button onclick="logout()" style="width:100%;margin:12px 0;padding:12px;border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.08);color:#f87171;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer">
         🚪 Se déconnecter
       </button>
@@ -1695,7 +1706,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
     <div class="view legal-view" id="view-legal">
       <div class="legal-hero">
         <div class="legal-hero-seal">⚖️</div>
-        <div class="legal-hero-title">YORRO Game-architect Studio</div>
+        <div class="legal-hero-title">YORRO Studio</div>
         <div class="legal-hero-sub">Mentions légales, droits de propriété intellectuelle<br/>et conditions générales d'utilisation</div>
         <div class="legal-hero-date">En vigueur depuis le 1er juin 2026 · Version 2.0</div>
       </div>
@@ -1711,14 +1722,14 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
           </div>
           <div class="legal-card-body open">
             <div class="highlight">
-              <strong>YORRO Game-architect Studio</strong> est une création originale exclusive de <strong>Patrick Emessiene Amayna</strong>, protégée par les lois internationales sur la propriété intellectuelle et le droit d'auteur.
+              <strong>YORRO Studio</strong> est une création originale exclusive de <strong>Patrick Emessiene Amayna</strong>, protégée par les lois internationales sur la propriété intellectuelle et le droit d'auteur.
             </div>
             <p>L'ensemble des éléments constitutifs de cette plateforme — incluant sans s'y limiter le code source, l'architecture logicielle, le design de l'interface, la marque YORRO, les systèmes de génération de jeux, les algorithmes de gestion des abonnements, et la documentation — sont la propriété exclusive de <strong>Patrick Emessiene Amayna</strong>.</p>
             <p>Toute reproduction, distribution, modification, transmission ou exploitation commerciale, totale ou partielle, sans l'autorisation écrite préalable de Patrick Emessiene Amayna est strictement interdite et constitue une violation des droits d'auteur passible de poursuites judiciaires.</p>
             <ul>
               <li>La marque <strong>YORRO</strong> est une marque déposée appartenant à Patrick Emessiene Amayna</li>
               <li>Le logo, les couleurs, et l'identité visuelle sont protégés</li>
-              <li>L'agent IA YORRO Game-architect v2.0 et sa méthodologie sont la propriété de Patrick Emessiene Amayna</li>
+              <li>L'agent IA YORRO Studio et sa méthodologie sont la propriété de Patrick Emessiene Amayna</li>
               <li>Les revenus générés par les abonnements appartiennent exclusivement à Patrick Emessiene Amayna</li>
             </ul>
           </div>
@@ -1733,7 +1744,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
           </div>
           <div class="legal-card-body">
             <div class="table-row"><span class="col-l">Propriétaire & Éditeur</span><span class="col-r">Patrick Emessiene Amayna</span></div>
-            <div class="table-row"><span class="col-l">Plateforme</span><span class="col-r">YORRO Game-architect Studio</span></div>
+            <div class="table-row"><span class="col-l">Plateforme</span><span class="col-r">YORRO Studio</span></div>
             <div class="table-row"><span class="col-l">Version</span><span class="col-r">2.0 — Juin 2026</span></div>
             <div class="table-row"><span class="col-l">Statut</span><span class="col-r">Plateforme SaaS propriétaire</span></div>
             <div class="table-row"><span class="col-l">Modèle économique</span><span class="col-r">Freemium + Abonnements</span></div>
@@ -1751,10 +1762,10 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
             <span class="legal-card-arrow">▼</span>
           </div>
           <div class="legal-card-body">
-            <p><strong>Acceptation des conditions</strong><br/>En accédant à YORRO Game-architect Studio, vous acceptez les présentes conditions générales d'utilisation dans leur intégralité. Ces conditions constituent un contrat légalement contraignant entre vous et Patrick Emessiene Amayna.</p>
+            <p><strong>Acceptation des conditions</strong><br/>En accédant à YORRO Studio, vous acceptez les présentes conditions générales d'utilisation dans leur intégralité. Ces conditions constituent un contrat légalement contraignant entre vous et Patrick Emessiene Amayna.</p>
             <p><strong>Accès gratuit (Plan Freemium)</strong><br/>Le plan gratuit offre 3 essais par fonctionnalité à titre de démonstration. L'accès peut être modifié, suspendu ou supprimé à tout moment par Patrick Emessiene Amayna sans préavis.</p>
             <p><strong>Abonnements payants</strong><br/>Les plans Pro (9,99 $/mois) et Elite (24,99 $/mois) sont facturés mensuellement via PayPal. Les paiements sont traités de façon sécurisée et virés directement sur le compte de Patrick Emessiene Amayna. Tout abonnement peut être annulé depuis l'espace PayPal de l'utilisateur.</p>
-            <p><strong>Utilisation autorisée</strong><br/>La plateforme est conçue pour la création de jeux web React à usage personnel ou commercial pour l'utilisateur. Il est interdit de revendre l'accès à la plateforme ou de l'utiliser pour concurrencer directement YORRO Game-architect Studio.</p>
+            <p><strong>Utilisation autorisée</strong><br/>La plateforme est conçue pour la création de jeux web React à usage personnel ou commercial pour l'utilisateur. Il est interdit de revendre l'accès à la plateforme ou de l'utiliser pour concurrencer directement YORRO Studio.</p>
             <ul>
               <li>Usage personnel et professionnel autorisé pour les abonnés</li>
               <li>Le code généré appartient à l'utilisateur qui l'a commandé</li>
@@ -1772,7 +1783,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
             <span class="legal-card-arrow">▼</span>
           </div>
           <div class="legal-card-body">
-            <p><strong>Données stockées localement</strong><br/>YORRO Game-architect Studio stocke vos données (projets, fichiers, statistiques, clé API, plan d'abonnement) exclusivement sur votre appareil via le localStorage de votre navigateur. Aucune donnée personnelle n'est envoyée aux serveurs de Patrick Emessiene Amayna.</p>
+            <p><strong>Données stockées localement</strong><br/>YORRO Studio stocke vos données (projets, fichiers, statistiques, clé API, plan d'abonnement) exclusivement sur votre appareil via le localStorage de votre navigateur. Aucune donnée personnelle n'est envoyée aux serveurs de Patrick Emessiene Amayna.</p>
             <p><strong>Clé API Anthropic</strong><br/>Votre clé API Anthropic est stockée uniquement sur votre appareil. Elle est transmise directement aux serveurs d'Anthropic lors de chaque requête IA. Patrick Emessiene Amayna n'a jamais accès à votre clé API.</p>
             <p><strong>Paiements PayPal</strong><br/>Les transactions financières sont gérées exclusivement par PayPal. Patrick Emessiene Amayna reçoit les paiements via son compte PayPal Business. Aucune donnée bancaire n'est traitée ou stockée par la plateforme YORRO.</p>
             <ul>
@@ -1793,7 +1804,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
           </div>
           <div class="legal-card-body">
             <div class="highlight">
-              <strong>Anthropic est un prestataire de service tiers.</strong> Patrick Emessiene Amayna est le seul et unique propriétaire de la plateforme YORRO Game-architect Studio. Anthropic n'a aucun droit sur cette plateforme, sa marque, ses revenus ou ses utilisateurs.
+              <strong>Anthropic est un prestataire de service tiers.</strong> Patrick Emessiene Amayna est le seul et unique propriétaire de la plateforme YORRO Studio. Anthropic n'a aucun droit sur cette plateforme, sa marque, ses revenus ou ses utilisateurs.
             </div>
             <div class="table-row"><span class="col-l">YORRO (Patrick Emessiene Amayna)</span><span class="col-r">Propriétaire de la plateforme ✓</span></div>
             <div class="table-row"><span class="col-l">Anthropic</span><span class="col-r">Fournisseur d'IA (prestataire)</span></div>
@@ -1813,7 +1824,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
             <span class="legal-card-arrow">▼</span>
           </div>
           <div class="legal-card-body">
-            <p>YORRO Game-architect Studio est fourni "tel quel". Patrick Emessiene Amayna ne garantit pas que le service sera ininterrompu, exempt d'erreurs ou que les résultats obtenus seront exacts ou fiables.</p>
+            <p>YORRO Studio est fourni "tel quel". Patrick Emessiene Amayna ne garantit pas que le service sera ininterrompu, exempt d'erreurs ou que les résultats obtenus seront exacts ou fiables.</p>
             <p>Le code généré par l'IA est fourni à titre d'assistance. L'utilisateur est seul responsable de la vérification, du test et de l'utilisation du code généré dans ses projets.</p>
             <p>Patrick Emessiene Amayna ne pourra être tenu responsable de tout dommage direct, indirect, accessoire ou consécutif résultant de l'utilisation ou de l'impossibilité d'utiliser la plateforme.</p>
             <ul>
@@ -1835,7 +1846,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
             <p>Patrick Emessiene Amayna se réserve le droit de modifier les présentes mentions légales à tout moment. Les utilisateurs seront informés de toute modification substantielle. La poursuite de l'utilisation de la plateforme après modification vaut acceptation des nouvelles conditions.</p>
             <p>Les présentes mentions légales sont régies par le droit applicable dans le pays de résidence de Patrick Emessiene Amayna. Tout litige sera soumis à la juridiction compétente de ce ressort.</p>
             <div class="table-row"><span class="col-l">Dernière mise à jour</span><span class="col-r">Juin 2026</span></div>
-            <div class="table-row"><span class="col-l">Version plateforme</span><span class="col-r">YORRO Game-architect v2.0</span></div>
+            <div class="table-row"><span class="col-l">Version plateforme</span><span class="col-r">YORRO Studio</span></div>
           </div>
         </div>
 
@@ -1844,9 +1855,9 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       <!-- CACHET / SIGNATURE OFFICIELLE -->
       <div class="legal-stamp">
         <div class="legal-stamp-sig">Patrick Emessiene Amayna</div>
-        <div class="legal-stamp-role">Propriétaire & Fondateur · YORRO Game-architect Studio</div>
+        <div class="legal-stamp-role">Propriétaire & Fondateur · YORRO Studio</div>
         <div class="legal-stamp-seal">
-          © 2026 YORRO Game-architect Studio · Tous droits réservés<br/>
+          © 2026 YORRO Studio · Tous droits réservés<br/>
           Marque YORRO · Code source · Architecture · Design · Propriété exclusive<br/>
           Toute reproduction interdite sans autorisation écrite
         </div>
@@ -2134,7 +2145,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
           <span class="vsurv-live-dot"></span>
           Video Surveillance IA
         </div>
-        <div class="vsurv-header-sub">YORRO Game-architect - Detection IA temps reel par Patrick Emessiene Amayna</div>
+        <div class="vsurv-header-sub">YORRO Studio - Detection IA temps reel par Patrick Emessiene Amayna</div>
       </div>
 
       <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch">
@@ -2162,7 +2173,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
             <button class="vsurv-ctrl-btn" onclick="toggleFullscreen()" title="Plein ecran">⛶</button>
           </div>
           <!-- Placeholder si pas de camera -->
-          <div id="vsurv-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#0a0a1a,#111130)">
+          <div id="vsurv-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#0a0a1a">
             <div style="font-size:40px;opacity:.3">📹</div>
             <div style="font-family:var(--font-head);font-size:13px;color:var(--text3);text-align:center;line-height:1.5">
               Cliquez sur 📷 pour activer la camera<br/>
@@ -2584,7 +2595,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
   <div class="sig-bar">
     <span>© 2026</span><span class="sig-dot">·</span>
     <span class="sig-name">PATRICK EMESSIENE AMAYNA</span><span class="sig-dot">·</span>
-    <span>YORRO Game-architect Studio</span>
+    <span>YORRO Studio</span>
   </div>
 
 </div><!-- /app -->
@@ -2602,7 +2613,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       <button class="gate-btn-main" onclick="gateSubscribe()">✦ S'abonner — Accès illimité</button>
       <button class="gate-btn-sec hidden" id="g-skip" onclick="gateSkip()">Utiliser mon essai gratuit</button>
     </div>
-    <div class="gate-legal">YORRO Game-architect · © Patrick Emessiene Amayna · 2026</div>
+    <div class="gate-legal">YORRO Studio · © Patrick Emessiene Amayna · 2026</div>
   </div>
 </div>
 
@@ -2630,7 +2641,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
       </div>
       <div class="menu-logo-info">
         <div class="menu-logo-title">YORRO</div>
-        <div class="menu-logo-sub">Game-architect Studio</div>
+        <div class="menu-logo-sub">Assistant IA Universel</div>
       </div>
       <button class="menu-close" onclick="closeMenu()">✕</button>
     </div>
@@ -2653,27 +2664,8 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
     <div class="menu-item active-item" onclick="menuGo('chat')">
       <div class="menu-item-icon" style="background:rgba(124,109,250,.15)">💬</div>
       <div class="menu-item-text">
-        <div class="menu-item-title" data-i18n="menu_chat">Chat IA</div>
-        <div class="menu-item-sub" data-i18n="menu_chat_sub">Créer des jeux avec l'IA</div>
-      </div>
-      <span class="menu-item-arrow">›</span>
-    </div>
-
-    <div class="menu-item" onclick="menuGo('editor')">
-      <div class="menu-item-icon" style="background:rgba(74,222,128,.1)">💻</div>
-      <div class="menu-item-text">
-        <div class="menu-item-title" data-i18n="menu_editor">Éditeur de code</div>
-        <div class="menu-item-sub" data-i18n="menu_editor_sub">Voir et modifier les fichiers</div>
-      </div>
-      <span class="mobile-nav-badge" id="menu-editor-badge" style="display:none;margin-left:auto">0</span>
-      <span class="menu-item-arrow">›</span>
-    </div>
-
-    <div class="menu-item" onclick="menuGo('projects')">
-      <div class="menu-item-icon" style="background:rgba(251,146,60,.1)">🎮</div>
-      <div class="menu-item-text">
-        <div class="menu-item-title" data-i18n="menu_projects">Mes Projets</div>
-        <div class="menu-item-sub" data-i18n="menu_projects_sub">Historique de vos jeux</div>
+        <div class="menu-item-title" data-i18n="menu_chat">Assistant IA</div>
+        <div class="menu-item-sub" data-i18n="menu_chat_sub">Discuter avec l'IA</div>
       </div>
       <span class="menu-item-arrow">›</span>
     </div>
@@ -2798,7 +2790,7 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
   <div class="menu-footer">
     <div class="menu-footer-sig">
       © 2026 <strong>Patrick Emessiene Amayna</strong><br/>
-      YORRO Game-architect Studio
+      YORRO Studio
     </div>
     <div class="menu-version">
       <span class="menu-ver-badge">v2.0</span>
@@ -2905,16 +2897,13 @@ body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 // ═══════════════════════════════════════
 const FEATURES = {
   chat:      {label:'Chat IA',      icon:'💬', max:3, proOnly:false},
-  solitaire: {label:'Solitaire',    icon:'🃏', max:3, proOnly:false},
-  sudoku:    {label:'Sudoku',       icon:'🔢', max:3, proOnly:false},
-  chess:     {label:'Chess+IA',     icon:'♟️', max:3, proOnly:false},
-  snake:     {label:'Snake',        icon:'🐍', max:3, proOnly:false},
-  tetris:    {label:'Tetris',       icon:'🧱', max:0, proOnly:true},
-  poker:     {label:'Poker',        icon:'🎰', max:0, proOnly:true},
-  debug:     {label:'Déboguer',     icon:'🐛', max:3, proOnly:false},
-  upgrade:   {label:'Améliorer',    icon:'⬆️', max:3, proOnly:false},
-  export:    {label:'Export ZIP',   icon:'📦', max:0, proOnly:true},
-  newfile:   {label:'Nouveau fichier',icon:'📄',max:3, proOnly:false},
+  redaction: {label:'Rédaction',    icon:'✍️', max:3, proOnly:false},
+  traduction:{label:'Traduction',   icon:'🌍', max:3, proOnly:false},
+  code:      {label:'Code',         icon:'💻', max:3, proOnly:false},
+  analyse:   {label:'Analyse',      icon:'🔍', max:0, proOnly:true},
+  conseil:   {label:'Conseil',      icon:'💡', max:3, proOnly:false},
+  resume:    {label:'Résumé',       icon:'📝', max:3, proOnly:false},
+  brainstorm:{label:'Brainstorm',   icon:'🧠', max:0, proOnly:true},
 };
 
 function getTrials(){return JSON.parse(localStorage.getItem('ga_trials')||'{}')}
@@ -2959,49 +2948,9 @@ const S = {
 // Les utilisateurs ne voient jamais la clé
 // ═══════════════════════════════════════
 
-// Clé admin (propriétaire YORRO)  -  cachée aux utilisateurs
-function getOwnerKey(){
-  // Priorité : clé admin sauvegardée > variable d'env (si hébergé)
-  return localStorage.getItem('ga_owner_key') || '';
-}
-
-function saveAdminKey(){
-  const v = document.getElementById('admin-api-input').value.trim();
-  if(!v.startsWith('sk-ant') && !v.startsWith('sk-')){
-    showNotif('error','❌','Clé invalide  -  doit commencer par sk-ant...');return;
-  }
-  localStorage.setItem('ga_owner_key', v);
-  showNotif('success','✅','Clé YORRO enregistrée  -  IA active pour tous !');
-  closeAdmin();
-  applyApiStatus(true);
-}
-
-function closeAdmin(){
-  document.getElementById('admin-panel').style.display='none';
-}
-
-// Code secret pour ouvrir le panneau admin : tap logo 5 fois
-let logoTaps=0,logoTimer=null;
-function logoTap(){
-  logoTaps++;
-  clearTimeout(logoTimer);
-  logoTimer=setTimeout(()=>logoTaps=0,2000);
-  if(logoTaps>=5){
-    logoTaps=0;
-    const k=getOwnerKey();
-    if(k)document.getElementById('admin-api-input').value=k;
-    document.getElementById('admin-panel').style.display='flex';
-  }
-}
-
-function applyApiStatus(ok){
-  document.getElementById('api-dot').className='api-dot '+(ok?'ok':'no');
-  document.getElementById('api-banner').className='api-setup'+(ok?'hidden':'');
-}
-
-// Vérifie si l'IA est disponible (clé présente)
+// L'IA est désormais toujours gérée par le backend (clé API côté serveur, jamais côté client)
 function isAIReady(){
-  return !!getOwnerKey();
+  return true;
 }
 
 // Compatibilité ancienne clé utilisateur (migration)
@@ -3010,29 +2959,52 @@ function isAIReady(){
 // ═══════════════════════════════════════
 // URL fixe de votre backend — les utilisateurs n'ont RIEN à configurer.
 // Remplacez cette valeur par l'URL réelle de votre service Render/Railway.
-const YORRO_BACKEND = 'https://yorro-backend-production.up.railway.app';
+const YORRO_BACKEND = 'https://yorro-backend-production-97de.up.railway.app';
 const GOOGLE_CLIENT_ID = ''; // à remplir avec votre Client ID depuis console.cloud.google.com
 
 let authMode = 'login'; // 'login' | 'register'
 
-function getAuthToken(){ return localStorage.getItem('yorro_jwt') || ''; }
-function isLoggedIn(){ return !!getAuthToken(); }
+// Le jeton de session vit desormais dans un cookie httpOnly (invisible en JS,
+// donc impossible a voler par une faille XSS — faille #1 corrigee).
+// isLoggedIn() est verifie via un vrai appel serveur, pas juste localStorage.
+let currentUser = null;
+function isLoggedIn(){ return !!currentUser; }
+
+async function checkSession(){
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/auth/me', { credentials: 'include' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    currentUser = data.user;
+    return currentUser;
+  } catch (err) {
+    return null;
+  }
+}
 
 let aiProvider = localStorage.getItem('yorro_ai_provider') || 'anthropic';
+const AI_PROVIDER_STYLES = {
+  anthropic: { bg:'rgba(124,109,250,.15)' },
+  nvidia:    { bg:'rgba(74,222,128,.15)' },
+  glm:       { bg:'rgba(96,165,250,.15)' },
+};
 function setAiProvider(p){
   aiProvider = p;
   localStorage.setItem('yorro_ai_provider', p);
-  document.getElementById('model-pick-anthropic').classList.toggle('active', p==='anthropic');
-  document.getElementById('model-pick-nvidia').classList.toggle('active', p==='nvidia');
-  document.getElementById('model-pick-anthropic').style.background = p==='anthropic' ? 'rgba(124,109,250,.15)' : 'transparent';
-  document.getElementById('model-pick-nvidia').style.background = p==='nvidia' ? 'rgba(74,222,128,.15)' : 'transparent';
-  document.getElementById('model-pick-anthropic').style.color = p==='anthropic' ? 'var(--text2,#c8c8d4)' : 'var(--text3,#8a8a99)';
-  document.getElementById('model-pick-nvidia').style.color = p==='nvidia' ? 'var(--text2,#c8c8d4)' : 'var(--text3,#8a8a99)';
+  Object.keys(AI_PROVIDER_STYLES).forEach(key=>{
+    const btn = document.getElementById('model-pick-'+key);
+    if(!btn) return;
+    const active = key===p;
+    btn.classList.toggle('active', active);
+    btn.style.background = active ? AI_PROVIDER_STYLES[key].bg : 'transparent';
+    btn.style.color = active ? 'var(--text2,#c8c8d4)' : 'var(--text3,#8a8a99)';
+  });
 }
 
 function showAuthScreen(){
   document.getElementById('auth-screen').style.display = 'flex';
-  document.querySelector('.app').style.display = 'none';
+  // L'interface reste visible en dessous — on ne bloque plus tout l'écran,
+  // seule l'action demandée est empêchée tant qu'on n'est pas connecté.
   if (GOOGLE_CLIENT_ID && typeof google !== 'undefined') {
     try {
       google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
@@ -3045,13 +3017,22 @@ function showAuthScreen(){
 
 function hideAuthScreen(){
   document.getElementById('auth-screen').style.display = 'none';
-  document.querySelector('.app').style.display = '';
+}
+
+// Ouvre la fenêtre de connexion si besoin, avant une action qui nécessite un compte.
+// Retourne true si déjà connecté (l'action peut continuer), false sinon (on bloque l'action).
+function requireAuth(){
+  if (isLoggedIn()) return true;
+  showAuthScreen();
+  showNotif('info', '🔒', 'Créez un compte pour utiliser cette fonctionnalité');
+  return false;
 }
 
 function toggleAuthMode(){
   authMode = authMode === 'login' ? 'register' : 'login';
   const isRegister = authMode === 'register';
   document.getElementById('auth-name-input').style.display = isRegister ? 'block' : 'none';
+  document.getElementById('auth-2fa-input').style.display = 'none';
   document.getElementById('auth-submit-btn').textContent = isRegister ? "S'inscrire" : 'Se connecter';
   document.getElementById('auth-toggle-text').textContent = isRegister ? 'Déjà un compte ?' : 'Pas encore de compte ?';
   document.getElementById('auth-toggle-link').textContent = isRegister ? 'Se connecter' : "S'inscrire";
@@ -3064,10 +3045,13 @@ function showAuthError(msg){
   el.style.display = 'block';
 }
 
+let pendingAuthCredential = null; // stocke idToken Google en attente de code 2FA, si besoin
+
 async function handleAuthSubmit(){
   const email = document.getElementById('auth-email-input').value.trim();
   const password = document.getElementById('auth-password-input').value;
   const displayName = document.getElementById('auth-name-input').value.trim();
+  const code = document.getElementById('auth-2fa-input').value.trim();
 
   if (!email || !password) { showAuthError('Email et mot de passe requis'); return; }
 
@@ -3078,13 +3062,20 @@ async function handleAuthSubmit(){
     const endpoint = authMode === 'register' ? '/api/auth/register' : '/api/auth/login';
     const res = await fetch(YORRO_BACKEND + endpoint, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, displayName }),
+      body: JSON.stringify({ email, password, displayName, code: code || undefined }),
     });
     const data = await res.json();
+
+    if (data.requires2FA) {
+      document.getElementById('auth-2fa-input').style.display = 'block';
+      showAuthError('Entrez le code à 6 chiffres de votre application d\'authentification');
+      return;
+    }
     if (!res.ok) { showAuthError(data.error || 'Erreur de connexion'); return; }
 
-    onAuthSuccess(data.token, data.user);
+    onAuthSuccess(data.user);
   } catch (err) {
     showAuthError('Impossible de joindre le serveur. Réessayez plus tard.');
   } finally {
@@ -3097,28 +3088,146 @@ async function handleGoogleCredential(response){
   try {
     const res = await fetch(YORRO_BACKEND + '/api/auth/google', {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idToken: response.credential }),
     });
     const data = await res.json();
+
+    if (data.requires2FA) {
+      pendingAuthCredential = response.credential;
+      document.getElementById('auth-2fa-input').style.display = 'block';
+      document.getElementById('auth-email-input').style.display = 'none';
+      document.getElementById('auth-password-input').style.display = 'none';
+      showAuthError('Entrez votre code de vérification à 6 chiffres, puis cliquez sur Se connecter');
+      document.getElementById('auth-submit-btn').onclick = handleGoogle2FA;
+      return;
+    }
     if (!res.ok) { showAuthError(data.error || 'Connexion Google échouée'); return; }
-    onAuthSuccess(data.token, data.user);
+    onAuthSuccess(data.user);
   } catch (err) {
     showAuthError('Impossible de joindre le serveur.');
   }
 }
 
-function onAuthSuccess(token, user){
-  localStorage.setItem('yorro_jwt', token);
+async function handleGoogle2FA(){
+  const code = document.getElementById('auth-2fa-input').value.trim();
+  const res = await fetch(YORRO_BACKEND + '/api/auth/google', {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: pendingAuthCredential, code }),
+  });
+  const data = await res.json();
+  if (!res.ok) { showAuthError(data.error || 'Code incorrect'); return; }
+  onAuthSuccess(data.user);
+}
+
+function onAuthSuccess(user){
+  currentUser = user;
   localStorage.setItem('yorro_peer_id', user.yorroId); // reutilise le meme ID pour appels/paiements
   S.plan = user.plan || 'free';
   localStorage.setItem('ga_plan', S.plan);
   hideAuthScreen();
   init();
+  if (user.isAdmin) showNotif('gold', '👑', 'Connecté en tant qu\'administrateur — accès illimité');
+  else if (!user.emailVerified) showEmailVerifyBanner();
 }
 
-function logout(){
-  localStorage.removeItem('yorro_jwt');
+function showEmailVerifyBanner(){
+  showNotif('info', '✉️', 'Pensez à vérifier votre email — regardez votre boîte de réception');
+}
+
+async function resendVerificationEmail(){
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/auth/resend-verification', { method: 'POST', credentials: 'include' });
+    const data = await res.json();
+    if (data.emailSent) showNotif('success', '✅', 'Email de vérification renvoyé');
+    else showNotif('info', 'ℹ️', 'Vérification email non configurée côté serveur pour le moment');
+  } catch (err) {
+    showNotif('error', '❌', 'Erreur lors de l\'envoi');
+  }
+}
+
+// ── SÉCURITÉ DU COMPTE : affichage du statut (appelé quand la page Statistiques s'ouvre) ──
+function renderSecuritySection(){
+  const section = document.getElementById('security-section');
+  if (!isLoggedIn() || !currentUser) { if(section) section.style.display='none'; return; }
+  if(section) section.style.display='block';
+
+  document.getElementById('email-verify-status').textContent = currentUser.emailVerified ? '✅ Email vérifié' : '⚠️ Email non vérifié';
+  document.getElementById('email-verify-addr').textContent = currentUser.email || '';
+  document.getElementById('email-verify-btn').style.display = currentUser.emailVerified ? 'none' : 'block';
+
+  const enabled = currentUser.twoFactorEnabled;
+  document.getElementById('twofa-status').textContent = enabled ? '✅ Activée' : 'Désactivée';
+  const btn = document.getElementById('twofa-toggle-btn');
+  btn.textContent = enabled ? 'Désactiver' : 'Activer';
+  btn.style.background = enabled ? 'transparent' : 'var(--accent)';
+  btn.style.border = enabled ? '1px solid var(--red)' : 'none';
+  btn.style.color = enabled ? 'var(--red)' : '#fff';
+  document.getElementById('twofa-setup-form').style.display = 'none';
+  document.getElementById('twofa-disable-form').style.display = 'none';
+}
+
+// Lance l'activation OU ouvre le formulaire de désactivation, selon l'état actuel
+async function toggle2FA(){
+  if (currentUser.twoFactorEnabled) {
+    document.getElementById('twofa-disable-form').style.display = 'block';
+    return;
+  }
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/auth/2fa/setup', { method: 'POST', credentials: 'include' });
+    const data = await res.json();
+    if (!res.ok) { showNotif('error', '❌', data.error || 'Erreur'); return; }
+    document.getElementById('twofa-secret-display').textContent = data.secret;
+    document.getElementById('twofa-setup-form').style.display = 'block';
+  } catch (err) {
+    showNotif('error', '❌', 'Impossible de contacter le serveur');
+  }
+}
+
+async function confirm2FA(){
+  const code = document.getElementById('twofa-confirm-input').value.trim();
+  if (!code) { showNotif('error', '⚠️', 'Entrez le code à 6 chiffres'); return; }
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/auth/2fa/confirm', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showNotif('error', '❌', data.error || 'Code incorrect'); return; }
+    currentUser.twoFactorEnabled = true;
+    showNotif('success', '✅', 'Authentification à deux facteurs activée');
+    renderSecuritySection();
+  } catch (err) {
+    showNotif('error', '❌', 'Impossible de contacter le serveur');
+  }
+}
+
+async function disable2FA(){
+  const password = document.getElementById('twofa-disable-password').value;
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/auth/2fa/disable', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showNotif('error', '❌', data.error || 'Mot de passe incorrect'); return; }
+    currentUser.twoFactorEnabled = false;
+    showNotif('info', 'ℹ️', 'Authentification à deux facteurs désactivée');
+    document.getElementById('twofa-disable-password').value = '';
+    renderSecuritySection();
+  } catch (err) {
+    showNotif('error', '❌', 'Impossible de contacter le serveur');
+  }
+}
+
+async function logout(){
+  try { await fetch(YORRO_BACKEND + '/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch(e) {}
+  currentUser = null;
   showNotif('info', '👋', 'Déconnecté');
   location.reload();
 }
@@ -3127,10 +3236,8 @@ function logout(){
 async function callYorroAI({ messages, system, max_tokens, provider }){
   const res = await fetch(YORRO_BACKEND + '/api/ai/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getAuthToken(),
-    },
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ messages, system, max_tokens, provider: provider || aiProvider }),
   });
   const data = await res.json();
@@ -3143,10 +3250,8 @@ async function callYorroAI({ messages, system, max_tokens, provider }){
 async function callYorroVision({ image, mediaType, prompt, max_tokens }){
   const res = await fetch(YORRO_BACKEND + '/api/ai/vision', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getAuthToken(),
-    },
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ image, mediaType, prompt, max_tokens }),
   });
   const data = await res.json();
@@ -3155,10 +3260,9 @@ async function callYorroVision({ image, mediaType, prompt, max_tokens }){
   return data;
 }
 
-const SYSTEM = `Tu es YORRO Game-architect v2.0 by YORRO (Patrick Emessiene Amayna). Réponds toujours en français.
-Génère du code React complet avec JSDoc. Après chaque fichier: {"file":"nom","lines":N,"next":"..."}
-Enveloppe le code dans: \`\`\`jsx filename:NomFichier.js\n...\`\`\`
-Ne jamais écrire TODO. Sépare moteur (Engine) et UI (Component). Code production-ready.`;
+const SYSTEM = `Tu es YORRO, un assistant IA généraliste créé par Patrick Emessiene Amayna. Réponds toujours en français, sauf si on te parle dans une autre langue.
+Tu aides sur tout : rédaction, traduction, analyse, conseils, code (tous langages), résumés, brainstorming, questions générales.
+Sois clair, concis et utile. Utilise le format Markdown pour structurer tes réponses (titres, listes, blocs de code) quand c'est pertinent.`;
 
 // ═══════════════════════════════════════
 // INIT
@@ -3169,9 +3273,7 @@ function init(){
   updatePlanUI();
   renderChips();
   updateQuota();
-  renderProjects();
   renderTrialsList();
-  updateEditorBadge();
   initDocView();
   initVsurv();
   initPhone();
@@ -3180,51 +3282,83 @@ function init(){
   setAiProvider(aiProvider);
   document.getElementById('s-sessions').textContent=S.stats.sessions;
   document.getElementById('s-games').textContent=S.stats.games||0;
+
+  // Ouvre directement la fonctionnalité correspondant à l'URL visitée
+  // (lien partagé, favori, ou rechargement de page) au lieu de toujours revenir à l'accueil.
+  const initialView = ROUTE_VIEWS[location.pathname] || 'home';
+  switchView(initialView, { fromPopState: true }); // fromPopState:true = ne pousse pas une 2e entrée d'historique
 }
 
 // ═══════════════════════════════════════
 // VIEW NAVIGATION
 // ═══════════════════════════════════════
-function switchView(v){
+// Chaque fonctionnalité a sa propre URL, sur un seul site (pas de rechargement
+// de page — juste l'affichage qui change, comme une vraie appli).
+const VIEW_ROUTES = { home:'/', chat:'/chat', docs:'/redaction-traduction', vsurv:'/vision', phone:'/appels', stats:'/statistiques', legal:'/mentions-legales' };
+const ROUTE_VIEWS = Object.fromEntries(Object.entries(VIEW_ROUTES).map(([v,p])=>[p,v]));
+
+function switchView(v, opts){
+  opts = opts || {};
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.mobile-nav-btn').forEach(el=>el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  document.getElementById('nav-'+v).classList.add('active');
-  if(v==='stats'){renderTrialsList();updateStatsView()}
+  document.getElementById('view-'+v)?.classList.add('active');
+  document.getElementById('nav-'+v)?.classList.add('active');
+  if(v==='stats'){renderTrialsList();updateStatsView();renderSecuritySection()}
+
+  // Met à jour l'URL du navigateur (sauf si on répond juste au bouton précédent/suivant).
+  // Certains environnements restreints (aperçu en bac à sable, iframe) bloquent
+  // pushState — on l'ignore silencieusement plutôt que de planter l'application.
+  const path = VIEW_ROUTES[v] || '/';
+  if(!opts.fromPopState && location.pathname !== path){
+    try{ history.pushState({ view: v }, '', path); }catch(e){ /* origine restreinte : on continue sans changer l'URL */ }
+  }
+  document.title = v==='chat' ? 'YORRO Studio' : 'YORRO Studio — ' + document.getElementById('nav-'+v)?.textContent?.trim() || v;
 }
+
+// Bouton précédent/suivant du navigateur : on rejoue la vue correspondant à l'URL
+window.addEventListener('popstate', (e)=>{
+  const v = (e.state && e.state.view) || ROUTE_VIEWS[location.pathname] || 'home';
+  switchView(v, { fromPopState: true });
+});
 
 // ═══════════════════════════════════════
 // QUOTA BAR
 // ═══════════════════════════════════════
-function updateQuota(){
+async function updateQuota(){
   const wrap=document.getElementById('chat-quota');
-  if(S.plan!=='free'){
+  if(!isLoggedIn()){
     if(wrap) wrap.className='chat-quota hidden';
     return;
   }
-  if(wrap) wrap.className='chat-quota';
-  const freeKeys=Object.keys(FEATURES).filter(k=>!FEATURES[k].proOnly);
-  const totalMax=freeKeys.reduce((s,k)=>s+FEATURES[k].max,0);
-  const totalUsed=freeKeys.reduce((s,k)=>s+Math.min(usedCount(k),FEATURES[k].max),0);
-  const pct=totalMax>0?Math.round(totalUsed/totalMax*100):0;
-  const cls=pct<50?'g':pct<85?'o':'r';
-  const fill=document.getElementById('quota-fill');
-  if(fill){fill.className='quota-fill '+cls;fill.style.width=pct+'%';}
-  const ql=document.getElementById('quota-lbl'); if(ql)ql.textContent=totalUsed+'/'+totalMax+' essais';
+  try{
+    const res = await fetch(YORRO_BACKEND + '/api/ai/quota', { credentials:'include' });
+    if(!res.ok) return;
+    const q = await res.json();
+    if(q.isAdmin || q.plan!=='free'){
+      if(wrap) wrap.className='chat-quota hidden';
+      return;
+    }
+    if(wrap) wrap.className='chat-quota';
+    const used = q.chat.used, max = q.chat.limit;
+    const pct = max>0 ? Math.round(used/max*100) : 0;
+    const cls = pct<50?'g':pct<85?'o':'r';
+    const fill=document.getElementById('quota-fill');
+    if(fill){fill.className='quota-fill '+cls;fill.style.width=pct+'%';}
+    const ql=document.getElementById('quota-lbl'); if(ql)ql.textContent=used+'/'+max+' messages aujourd\'hui';
+  }catch(e){ /* pas grave si le quota ne peut pas être affiché — n'empêche pas d'utiliser l'app */ }
 }
 
 // ═══════════════════════════════════════
 // CHIPS
 // ═══════════════════════════════════════
 const CHIP_DEFS=[
-  {k:'solitaire',l:'🃏 Solitaire'},
-  {k:'sudoku',   l:'🔢 Sudoku'},
-  {k:'chess',    l:'♟️ Chess+IA'},
-  {k:'snake',    l:'🐍 Snake'},
-  {k:'tetris',   l:'🧱 Tetris'},
-  {k:'poker',    l:'🎰 Poker'},
-  {k:'debug',    l:'🐛 Déboguer'},
-  {k:'upgrade',  l:'⬆️ Améliorer'},
+  {k:'redaction',  l:'✍️ Rédaction'},
+  {k:'traduction', l:'🌍 Traduction'},
+  {k:'code',       l:'💻 Code'},
+  {k:'resume',     l:'📝 Résumé'},
+  {k:'conseil',    l:'💡 Conseil'},
+  {k:'analyse',    l:'🔍 Analyse'},
+  {k:'brainstorm', l:'🧠 Brainstorm'},
 ];
 
 function renderChips(){
@@ -3290,40 +3424,13 @@ function guarded(k,action){
 // TEMPLATES
 // ═══════════════════════════════════════
 const TEMPLATES={
-  solitaire:`YORRO Game-architect, crée un Solitaire Klondike complet :
-- SolitaireEngine.js : moteur (52 cartes, Draw-1/3, undo 50 coups)
-- useSolitaire.js : hook React avec historique
-- Solitaire.js : composant principal responsive
-- Solitaire.css : thème vert feutrine + dark mode
-Valide 0 erreur avant de passer à l'UI.`,
-  sudoku:`YORRO Game-architect, crée un Sudoku complet :
-- SudokuEngine.js : génération backtracking, 1 solution unique
-- useSudoku.js : timer, hints 3 niveaux
-- Sudoku.js : grille 9x9 clavier + souris
-- Sudoku.css : design minimaliste`,
-  chess:`YORRO Game-architect, crée Chess complet :
-- ChessEngine.js : tous mouvements légaux (roque, en passant, promotion)
-- ChessAI.js : minimax alpha-beta 3 niveaux
-- ChessBoard.js + ChessPiece.js SVG
-- Chess.css : design premium`,
-  snake:`YORRO Game-architect, crée Snake moderne :
-- SnakeEngine.js : collision, croissance, niveaux
-- useSnake.js : game loop requestAnimationFrame
-- Snake.css : thème néon rétro-futuriste`,
-  tetris:`YORRO Game-architect, crée Tetris complet :
-- TetrisEngine.js : pièces, rotation, gravity, line clear
-- useTetris.js : game loop
-- Tetris.css : thème rétro`,
-  poker:`YORRO Game-architect, crée Poker Texas Holdem :
-- PokerEngine.js : hands ranking, betting rounds
-- usePoker.js : etat de jeu complet`,
-  debug:`YORRO Game-architect, corrige ce bug :
-[Décrivez le bug, fichier, ligne, message d'erreur exact]
-Processus : lis le fichier → identifie cause racine → corrige → valide.`,
-  upgrade:`YORRO Game-architect, améliore mon jeu existant :
-1. Leaderboard localStorage top 10
-2. Statistiques détaillées (parties, victoires, temps moyen)
-3. Dark mode complet`
+  redaction:`Aide-moi à rédiger [un email professionnel / une lettre de motivation / un article]. Sujet : `,
+  traduction:`Traduis ce texte en [langue cible], en gardant le ton et le style d'origine :\n\n`,
+  code:`Aide-moi avec ce code [langage] :\n\n[colle ton code ou décris ce que tu veux créer]`,
+  analyse:`Analyse ce texte/document et donne-moi les points clés, forces et faiblesses :\n\n`,
+  conseil:`J'ai besoin de conseils sur : [décris ta situation]`,
+  resume:`Résume ce texte en quelques points essentiels :\n\n`,
+  brainstorm:`Aide-moi à brainstormer des idées sur le thème : `,
 };
 
 function useTemplate(k){
@@ -3335,7 +3442,7 @@ function useTemplate(k){
   autoResize(inp);inp.focus();
   // Switch to chat view
   switchView('chat');
-  showNotif('info',f?.icon||'💡',`Template ${f?.label||k} chargé`);
+  showNotif('info',f?.icon||'💡',`Modèle ${f?.label||k} chargé`);
 }
 
 // ═══════════════════════════════════════
@@ -3351,7 +3458,7 @@ async function sendMsg(){
   const text=inp.value.trim();
   if(!text||S.isGen)return;
 
-  if(!isLoggedIn()){ showAuthScreen(); return; }
+  if(!requireAuth())return;
 
   // Check trial local (nudge cote client — la vraie limite est appliquee par le serveur)
   if(!canUse('chat')){triggerGate('chat',null);return;}
@@ -3370,12 +3477,14 @@ async function sendMsg(){
     removeTyping();setBar(95);
     S.history.push({role:'assistant',content:reply});
     addMsg('agent',reply);
-    parseFiles(reply);
     setBar(100);setTimeout(()=>setBar(0),400);
-    // Warn if almost out
-    const left=leftCount('chat');
-    if(S.plan==='free'&&left===1)showNotif('gold','⚡',`Plus qu'1 essai chat gratuit !`);
-    if(S.plan==='free'&&left===0)showNotif('gold','🔒','Essais chat épuisés  -  Abonnez-vous');
+    updateQuota(); // rafraîchit la barre avec le vrai chiffre serveur
+    // Avertir si on approche de la limite (chiffres réels renvoyés par le serveur)
+    if(data.quota && Number.isFinite(data.quota.limit)){
+      const left = data.quota.limit - data.quota.used;
+      if(left===1)showNotif('gold','⚡',`Plus qu'1 message gratuit aujourd'hui !`);
+      if(left<=0)showNotif('gold','🔒','Quota du jour atteint — Abonnez-vous pour continuer');
+    }
   }catch(err){
     removeTyping();setBar(0);
     let errMsg=err.message||'Erreur inconnue';
@@ -3385,11 +3494,6 @@ async function sendMsg(){
     showNotif('error','❌',errMsg.substring(0,80));
   }
   setGen(false);
-}
-
-function parseFiles(text){
-  const re=/```(?:\w+)?\s*filename:([\w./\-]+)\n([\s\S]*?)```/g;
-  let m;while((m=re.exec(text))!==null)addCodeFile(m[1],m[2].trim());
 }
 
 function addMsg(role,text){
@@ -3408,20 +3512,14 @@ function addMsg(role,text){
 
 function fmtMsg(t){
   return t
-    .replace(/```(?:\w+)?\s*filename:([\w./\-]+)\n([\s\S]*?)```/g,(_,fn,code)=>`
-      <div class="file-card">
-        <div class="file-card-hd">
-          <span style="opacity:.5">📄</span>
-          <span class="file-card-name">${fn}</span>
-          <span class="file-card-lines">${code.trim().split('\n').length} lignes</span>
-          <span class="file-card-ok">✅</span>
-        </div>
-        <div class="file-card-hint">Ouvert dans Éditeur →</div>
-      </div>`)
-    .replace(/```[\w]*\n([\s\S]*?)```/g,'<pre>$1</pre>')
+    .replace(/```(\w*)\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre><code>${escapeHtml(code.trim())}</code></pre>`)
     .replace(/`([^`]+)`/g,'<code>$1</code>')
     .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
     .replace(/\n/g,'<br/>');
+}
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 function showTyping(){
@@ -3432,142 +3530,6 @@ function showTyping(){
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
 function removeTyping(){document.getElementById('typing-ind')?.remove()}
-
-// ═══════════════════════════════════════
-// EDITOR
-// ═══════════════════════════════════════
-function addCodeFile(name,code){
-  if(!S.openFiles.find(f=>f.name===name)){
-    S.openFiles.push({name,code});
-    updateStats();saveProject(name);
-    updateEditorBadge();
-  }
-  renderTabs();openFile(name);
-  // Switch to editor
-  switchView('editor');
-}
-
-function renderTabs(){
-  const tabs=document.getElementById('editor-tabs');
-  const existing=S.openFiles.map(f=>`
-    <button class="e-tab ${S.activeFile===f.name?'active':''}" onclick="openFile('${f.name}')">
-      ${f.name}
-      <span class="close-x" onclick="closeFile(event,'${f.name}')">✕</span>
-    </button>`).join('');
-  tabs.innerHTML=existing+`<button class="add-tab-btn" onclick="addFile()">+ Fichier</button>`;
-}
-
-function openFile(name){
-  S.activeFile=name;
-  const file=S.openFiles.find(f=>f.name===name);
-  if(!file){showEditorEmpty();return;}
-  document.getElementById('editor-empty').style.display='none';
-  document.getElementById('code-wrap').style.display='flex';
-  const lines=file.code.split('\n');
-  document.getElementById('line-nums').textContent=lines.map((_,i)=>i+1).join('\n');
-  document.getElementById('code-body').innerHTML=hlCode(file.code);
-  renderTabs();
-}
-
-function showEditorEmpty(){
-  document.getElementById('editor-empty').style.display='flex';
-  document.getElementById('code-wrap').style.display='none';
-}
-
-function closeFile(e,name){
-  e.stopPropagation();
-  S.openFiles=S.openFiles.filter(f=>f.name!==name);
-  if(S.activeFile===name)S.activeFile=S.openFiles[0]?.name||null;
-  updateEditorBadge();
-  if(S.openFiles.length===0){showEditorEmpty();document.getElementById('editor-tabs').innerHTML=`<button class="add-tab-btn" onclick="addFile()">+ Fichier</button>`;}
-  else{renderTabs();openFile(S.activeFile);}
-}
-
-function addFile(){
-  guarded('newfile',()=>{
-    const n=prompt('Nom du fichier (ex: MyGame.js):');
-    if(n?.trim()){addCodeFile(n.trim(),`// ${n}\n// YORRO Game-architect v2.0\n// © Patrick Emessiene Amayna\n\n`);}
-  });
-}
-
-function updateEditorBadge(){
-  const b=document.getElementById('editor-badge');
-  const n=S.openFiles.length;
-  if(b){b.style.display=n>0?'flex':'none';b.textContent=n;}
-  const mb=document.getElementById('menu-editor-badge');
-  if(mb){mb.style.display=n>0?'flex':'none';mb.textContent=n;}
-}
-
-function hlCode(code){
-  return code
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/(\/\/.*$)/gm,'<span class="cmt">$1</span>')
-    .replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)/g,'<span class="str">$1</span>')
-    .replace(/\b(import|export|default|from|const|let|var|function|class|return|if|else|for|while|async|await|try|catch|throw|extends|new|this)\b/g,'<span class="kw">$1</span>')
-    .replace(/\b([A-Z][a-zA-Z]*)\b(?=\s*[({])/g,'<span class="cls">$1</span>')
-    .replace(/\b(\d+\.?\d*)\b/g,'<span class="num">$1</span>');
-}
-
-// ═══════════════════════════════════════
-// PROJECTS
-// ═══════════════════════════════════════
-function renderProjects(){
-  const grid=document.getElementById('project-grid');
-  const badge=document.getElementById('projects-badge');
-  if(badge){badge.style.display=S.projects.length>0?'flex':'none';badge.textContent=S.projects.length;}
-  if(!S.projects.length){
-    grid.innerHTML=`<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px;line-height:1.6">Aucun projet.<br/>Générez du code via le Chat IA !</div>`;
-    return;
-  }
-  grid.innerHTML=S.projects.map((p,i)=>`
-    <div class="project-card" onclick="openProjectChat(${i})">
-      <div class="project-card-icon">${p.icon}</div>
-      <div class="project-card-info">
-        <div class="project-card-name">${p.name}</div>
-        <div class="project-card-meta">${p.files} fichier${p.files>1?'s':''} · ${p.date}</div>
-      </div>
-      <span class="status-pill ${p.status}">${p.status==='done'?'Terminé':p.status==='wip'?'En cours':'Nouveau'}</span>
-    </div>`).join('');
-}
-
-function openProjectChat(i){
-  showNotif('info','📁',`Projet "${S.projects[i].name}"  -  continuez dans le Chat`);
-  switchView('chat');
-}
-
-function newProject(){
-  switchView('chat');
-  document.getElementById('chat-input').focus();
-  showNotif('info','💡','Décrivez votre jeu dans le chat !');
-}
-
-function saveProject(name){
-  const proj={
-    name:detectName(name),icon:detectIcon(name),
-    files:S.openFiles.length,date:new Date().toLocaleDateString('fr-FR'),status:'wip'
-  };
-  const i=S.projects.findIndex(p=>p.name===proj.name);
-  if(i>=0)S.projects[i]={...S.projects[i],...proj};
-  else{S.projects.unshift(proj);S.stats.games=(S.stats.games||0)+1;}
-  localStorage.setItem('ga_projects',JSON.stringify(S.projects));
-  saveStats();renderProjects();
-}
-function detectName(f){
-  if(/solitaire/i.test(f))return'Solitaire Klondike';
-  if(/sudoku/i.test(f))return'Sudoku';
-  if(/chess/i.test(f))return'Chess';
-  if(/snake/i.test(f))return'Snake';
-  if(/tetris/i.test(f))return'Tetris';
-  return f.replace(/Engine\.js|\.js|\.css/,'').split('/').pop()||'Nouveau jeu';
-}
-function detectIcon(f){
-  if(/solitaire|card/i.test(f))return'🃏';
-  if(/sudoku/i.test(f))return'🔢';
-  if(/chess/i.test(f))return'♟️';
-  if(/snake/i.test(f))return'🐍';
-  if(/tetris/i.test(f))return'🧱';
-  return'🎮';
-}
 
 // ═══════════════════════════════════════
 // STATS
@@ -3662,6 +3624,7 @@ function showSubStep(s){
 
 function selectPlan(pid){
   if(pid==='free'){closeSub();showNotif('info','ℹ️','Vous êtes sur le plan Gratuit');return;}
+  if(!requireAuth())return;
   S.selectedPlan={id:pid,name:pid==='pro'?'Pro':'Elite',price:pid==='pro'?'9,99':'24,99',priceNum:pid==='pro'?9.99:24.99};
   const icons={pro:'⚡',elite:'👑'};
   document.getElementById('sel-badge').innerHTML=`
@@ -3696,7 +3659,7 @@ function initPP(){
         const plan = S.selectedPlan || {id:'pro', priceNum:9.99};
         return actions.order.create({
           purchase_units: [{
-            description: 'YORRO Game-architect Studio — Abonnement ' + (plan.id==='elite'?'Elite':'Pro'),
+            description: 'YORRO Studio — Abonnement ' + (plan.id==='elite'?'Elite':'Pro'),
             amount: { value: plan.priceNum.toFixed(2), currency_code: 'USD' }
           }]
         });
@@ -3735,11 +3698,11 @@ async function onPPSuccess(data){
   if(container) container.innerHTML = '<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">⏳ Vérification du paiement...</div>';
 
   try{
-    const yorroId = generateMyId(); // identifiant YORRO persistant de l'utilisateur
     const res = await fetch(backendUrl + '/api/paypal/verify-order', {
       method:'POST',
+      credentials: 'include',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ orderID, planId: plan.id, yorroId })
+      body: JSON.stringify({ orderID, planId: plan.id })
     });
     const result = await res.json();
 
@@ -4142,9 +4105,9 @@ function initDocView(){
 
 
 // ════════════════════════════════════════════
-// MODULE VIDEO SURVEILLANCE IA — YORRO Game-architect
+// MODULE VIDEO SURVEILLANCE IA — YORRO Studio
 // Detection mouvement, personnes, analyse IA
-// (c) Patrick Emessiene Amayna — YORRO Game-architect
+// (c) Patrick Emessiene Amayna — YORRO Studio
 // ════════════════════════════════════════════
 
 const VS = {
@@ -4348,7 +4311,7 @@ function drawFrame() {
   // Watermark YORRO
   ctx.fillStyle = 'rgba(245,158,11,0.7)';
   ctx.font = 'bold 10px Syne, sans-serif';
-  ctx.fillText('YORRO Game-architect', 10, H - 8);
+  ctx.fillText('YORRO Studio', 10, H - 8);
 }
 
 // ── DETECTION MOUVEMENT ──
@@ -4519,7 +4482,7 @@ function toggleFullscreen() {
 
 function connectStream() {
   showNotif('info','🔗','Les flux RTSP necessitent un backend proxy. Fonctionnalite Pro.');
-  addVAlert('warning', 'warning', 'Connexion flux RTSP necessite backend - contactez YORRO Game-architect');
+  addVAlert('warning', 'warning', 'Connexion flux RTSP necessite backend - contactez YORRO Studio');
 }
 
 // ── ANALYSE IA CLAUDE ──
@@ -4543,28 +4506,19 @@ async function analyzeWithClaude() {
       imageData = VS.canvasEl.toDataURL('image/jpeg', 0.6).split(',')[1];
     }
 
-    const messages = imageData ? [
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'image',
-            source: { type: 'base64', media_type: 'image/jpeg', data: imageData }
-          },
-          {
-            type: 'text',
-            text: 'Tu es un systeme de videosurveillance IA professionnel pour YORRO Game-architect par Patrick Emessiene Amayna. Analyse cette capture video et fournis un rapport detaille incluant: 1) Nombre de personnes detectees et leur position 2) Objets identifies 3) Mouvements suspects 4) Niveau de risque (Faible/Moyen/Eleve) 5) Recommandations de securite. Reponds en francais de maniere concise et professionnelle.'
-          }
-        ]
-      }
-    ] : [
-      {
-        role: 'user',
-        content: 'Tu es un systeme de videosurveillance IA pour YORRO Game-architect. La camera est active mais aucune image nest disponible. Genere un rapport de surveillance type avec les elements habituels a verifier: perimetres, points dacces, zones sensibles. Reponds en francais.'
-      }
-    ];
+    const visionPrompt = 'Tu es un systeme de videosurveillance IA professionnel pour YORRO Studio par Patrick Emessiene Amayna. Analyse cette capture video et fournis un rapport detaille incluant: 1) Nombre de personnes detectees et leur position 2) Objets identifies 3) Mouvements suspects 4) Niveau de risque (Faible/Moyen/Eleve) 5) Recommandations de securite. Reponds en francais de maniere concise et professionnelle.';
 
-    const data = await callYorroAI({ messages, max_tokens: 800 });
+    let data;
+    if (imageData) {
+      // Vraie analyse d'image -> passe par l'endpoint Vision (et son quota dédié)
+      data = await callYorroVision({ image: imageData, mediaType: 'image/jpeg', prompt: visionPrompt, max_tokens: 800 });
+    } else {
+      // Pas d'image disponible -> rapport générique textuel (endpoint Chat, pas de quota Vision consommé)
+      data = await callYorroAI({
+        messages: [{ role: 'user', content: 'Tu es un systeme de videosurveillance IA pour YORRO Studio. La camera est active mais aucune image nest disponible. Genere un rapport de surveillance type avec les elements habituels a verifier: perimetres, points dacces, zones sensibles. Reponds en francais.' }],
+        max_tokens: 400,
+      });
+    }
     const report = data.content?.map(b => b.text||'').join('') || 'Analyse indisponible.';
 
     document.getElementById('vsurv-ai-body').textContent = report;
@@ -4603,7 +4557,7 @@ function addVAlert(type, cssClass, message) {
 // ════════════════════════════════════════════
 // MODULE TÉLÉPHONIE YORRO — WebRTC + Twilio
 // Appels internes gratuits + appels mobiles
-// © Patrick Emessiene Amayna — YORRO Game-architect Studio
+// © Patrick Emessiene Amayna — YORRO Studio
 // ════════════════════════════════════════════
 
 const PHONE = {
@@ -4776,6 +4730,26 @@ const SIGNAL = {
   pendingIce: [],       // candidats ICE reçus avant setRemoteDescription
 };
 
+let cachedIceServers = null;
+let cachedIceServersAt = 0;
+
+async function getIceServers() {
+  // Cache 30 min — les identifiants Twilio TURN ont une duree de vie de 1h
+  if (cachedIceServers && Date.now() - cachedIceServersAt < 30 * 60 * 1000) {
+    return cachedIceServers;
+  }
+  try {
+    const res = await fetch(YORRO_BACKEND + '/api/phone/turn-credentials', { credentials: 'include' });
+    const data = await res.json();
+    cachedIceServers = data.iceServers || RTC_CONFIG.iceServers;
+    cachedIceServersAt = Date.now();
+    return cachedIceServers;
+  } catch (err) {
+    return RTC_CONFIG.iceServers; // repli sur STUN public si le backend est injoignable
+  }
+}
+
+// Repli si le backend est injoignable au tout premier appel (avant tout cache)
 const RTC_CONFIG = {
   iceServers: [
     { urls: 'stun:stun.l.google.com:19302' },
@@ -4874,8 +4848,9 @@ function updateWebRTCStatus(state, label) {
   el.className = 'webrtc-status ' + (state === 'ready' ? 'connected' : state === 'connected' ? 'connected' : 'disconnected');
 }
 
-function createPeerConnection() {
-  const pc = new RTCPeerConnection(RTC_CONFIG);
+async function createPeerConnection() {
+  const iceServers = await getIceServers();
+  const pc = new RTCPeerConnection({ iceServers });
   pc.onicecandidate = (e) => {
     if (e.candidate && SIGNAL.peerId) {
       sendSignal({ type: 'ice', to: SIGNAL.peerId, from: PHONE.myId, candidate: e.candidate });
@@ -4886,16 +4861,38 @@ function createPeerConnection() {
     if (audio) audio.srcObject = event.streams[0];
     document.getElementById('webrtc-audio-wrap').classList.add('show');
     updateWebRTCStatus('connected', 'Connecté');
+    clearRingTimeout(); // le pair a repondu, plus besoin du timeout de sonnerie
   };
   pc.onconnectionstatechange = () => {
-    if (['disconnected', 'failed', 'closed'].includes(pc.connectionState)) {
-      updateWebRTCStatus('offline', pc.connectionState === 'failed' ? 'Échec de connexion' : 'Déconnecté');
+    if (pc.connectionState === 'failed') {
+      // Tentative de recuperation automatique (ex: changement de reseau, wifi -> 4G)
+      updateWebRTCStatus('offline', 'Reconnexion...');
+      try { pc.restartIce(); } catch(e) { /* pas supporte, tant pis */ }
+    } else if (pc.connectionState === 'disconnected') {
+      updateWebRTCStatus('offline', 'Connexion instable...');
+    } else if (pc.connectionState === 'closed') {
+      updateWebRTCStatus('offline', 'Déconnecté');
     }
   };
   return pc;
 }
 
+// ── Timeout de sonnerie pour les appels sortants (30s sans reponse = on annule) ──
+let ringTimeoutId = null;
+function startRingTimeout() {
+  clearRingTimeout();
+  ringTimeoutId = setTimeout(() => {
+    showNotif('info', '📵', 'Pas de réponse — appel annulé');
+    if (SIGNAL.peerId) sendSignal({ type: 'hangup', to: SIGNAL.peerId, from: PHONE.myId });
+    endWebRTCCall(false);
+  }, 30000);
+}
+function clearRingTimeout() {
+  if (ringTimeoutId) { clearTimeout(ringTimeoutId); ringTimeoutId = null; }
+}
+
 async function startWebRTCCall() {
+  if (!requireAuth()) return;
   const peerId = document.getElementById('peer-id-input').value.trim();
   if (!peerId) { showNotif('error', '⚠️', 'Entrez ID utilisateur YORRO'); return; }
   if (peerId === PHONE.myId) { showNotif('error', '⚠️', 'Vous ne pouvez pas vous appeler vous-même'); return; }
@@ -4903,7 +4900,7 @@ async function startWebRTCCall() {
 
   try {
     PHONE.localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    PHONE.peerConnection = createPeerConnection();
+    PHONE.peerConnection = await createPeerConnection();
     PHONE.localStream.getTracks().forEach(track => PHONE.peerConnection.addTrack(track, PHONE.localStream));
 
     SIGNAL.peerId = peerId;
@@ -4916,6 +4913,7 @@ async function startWebRTCCall() {
     showCallUI(peerId, peerId, 'WebRTC YORRO');
     addRecentCall(peerId, peerId, 'webrtc', 'outgoing');
     showNotif('success', '🌐', 'Appel envoyé à ' + peerId + ' — en attente de réponse...');
+    startRingTimeout();
   } catch(err) {
     if (err.name === 'NotAllowedError') {
       showNotif('error', '🎤', 'Accès micro refusé — autorisez le micro dans votre navigateur');
@@ -4926,6 +4924,7 @@ async function startWebRTCCall() {
 }
 
 async function endWebRTCCall(notifyPeer = true) {
+  clearRingTimeout();
   if (notifyPeer && SIGNAL.peerId) {
     sendSignal({ type: 'hangup', to: SIGNAL.peerId, from: PHONE.myId });
   }
@@ -5123,7 +5122,7 @@ async function acceptCall() {
 
   try {
     PHONE.localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    PHONE.peerConnection = createPeerConnection();
+    PHONE.peerConnection = await createPeerConnection();
     PHONE.localStream.getTracks().forEach(track => PHONE.peerConnection.addTrack(track, PHONE.localStream));
 
     await PHONE.peerConnection.setRemoteDescription(new RTCSessionDescription(SIGNAL.pendingOffer));
@@ -5297,6 +5296,7 @@ function updateActiveNetworkDisplay(){
 // Override startPhoneCall pour utiliser le réseau sélectionné
 const _origStartPhoneCall = startPhoneCall;
 function startPhoneCall(){
+  if(!requireAuth())return;
   if(!PHONE.number || PHONE.number.length < 3){
     showNotif('error','⚠️','Entrez un numéro valide');
     return;
@@ -5321,8 +5321,9 @@ async function makeSmartCall(to, backendUrl){
     showCallUI(to, to, NET_LABELS[selectedNet]);
     const res = await fetch(backendUrl + '/api/phone/smart-call', {
       method:'POST',
+      credentials: 'include',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ to, preferredNetwork: selectedNet, yorroId: PHONE.myId })
+      body: JSON.stringify({ to, preferredNetwork: selectedNet })
     });
     const data = await res.json();
     if(!res.ok) throw new Error(data.error);
@@ -5342,8 +5343,9 @@ async function startLiveKitCall(roomName){
   try{
     const res = await fetch(backendUrl + '/api/phone/livekit/token', {
       method:'POST',
+      credentials: 'include',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ roomName: roomName||'yorro-'+Date.now(), participantName: PHONE.myId, participantId: PHONE.myId })
+      body: JSON.stringify({ roomName: roomName||'yorro-'+Date.now() })
     });
     const data = await res.json();
     if(!res.ok) throw new Error(data.error);
@@ -5401,7 +5403,7 @@ const I18N = {
     menu_sub:"S'abonner Pro / Elite", menu_sub_sub:"Accès illimité à tout",
     menu_legal:"Mentions légales", menu_legal_sub:"Droits · CGU · Propriété",
     lang_select:"Langue de l'interface",
-    welcome_title:"Bienvenue sur YORRO Game-architect",
+    welcome_title:"Bienvenue sur YORRO Studio",
     welcome_sub:"Votre studio de création de jeux IA",
     welcome_chat:"Chat IA",
     welcome_desc:"Décrivez votre jeu et l'IA le génère pour vous",
@@ -5422,7 +5424,7 @@ const I18N = {
     menu_sub:"Subscribe Pro / Elite", menu_sub_sub:"Unlimited access to everything",
     menu_legal:"Legal notices", menu_legal_sub:"Rights · TOS · Property",
     lang_select:"Interface language",
-    welcome_title:"Welcome to YORRO Game-architect",
+    welcome_title:"Welcome to YORRO Studio",
     welcome_sub:"Your AI game creation studio",
     welcome_chat:"AI Chat",
     welcome_desc:"Describe your game and AI generates it for you",
@@ -5443,7 +5445,7 @@ const I18N = {
     menu_sub:"Suscribirse Pro / Elite", menu_sub_sub:"Acceso ilimitado a todo",
     menu_legal:"Avisos legales", menu_legal_sub:"Derechos · TOS · Propiedad",
     lang_select:"Idioma de la interfaz",
-    welcome_title:"Bienvenido a YORRO Game-architect",
+    welcome_title:"Bienvenido a YORRO Studio",
     welcome_sub:"Tu estudio de creación de juegos IA",
     welcome_chat:"Chat IA",
     welcome_desc:"Describe tu juego y la IA lo genera para ti",
@@ -5464,7 +5466,7 @@ const I18N = {
     menu_sub:"Assinar Pro / Elite", menu_sub_sub:"Acesso ilimitado a tudo",
     menu_legal:"Avisos legais", menu_legal_sub:"Direitos · TOS · Propriedade",
     lang_select:"Idioma da interface",
-    welcome_title:"Bem-vindo ao YORRO Game-architect",
+    welcome_title:"Bem-vindo ao YORRO Studio",
     welcome_sub:"Seu estúdio de criação de jogos IA",
     welcome_chat:"Chat IA",
     welcome_desc:"Descreva seu jogo e a IA gera para você",
@@ -5485,7 +5487,7 @@ const I18N = {
     menu_sub:"الاشتراك Pro / Elite", menu_sub_sub:"وصول غير محدود لكل شيء",
     menu_legal:"الإشعارات القانونية", menu_legal_sub:"الحقوق · الشروط · الملكية",
     lang_select:"لغة الواجهة",
-    welcome_title:"مرحباً في YORRO Game-architect",
+    welcome_title:"مرحباً في YORRO Studio",
     welcome_sub:"استوديو إنشاء الألعاب بالذكاء الاصطناعي",
     welcome_chat:"دردشة الذكاء الاصطناعي",
     welcome_desc:"صف لعبتك وسيولد الذكاء الاصطناعي لك",
@@ -5506,7 +5508,7 @@ const I18N = {
     menu_sub:"订阅Pro / Elite", menu_sub_sub:"无限访问一切",
     menu_legal:"法律声明", menu_legal_sub:"权利 · 条款 · 财产",
     lang_select:"界面语言",
-    welcome_title:"欢迎来到YORRO游戏架构师",
+    welcome_title:"欢迎来到YORRO Studio",
     welcome_sub:"您的AI游戏创作工作室",
     welcome_chat:"AI聊天",
     welcome_desc:"描述您的游戏，AI为您生成",
@@ -5527,7 +5529,7 @@ const I18N = {
     menu_sub:"Pro / Elite abonnieren", menu_sub_sub:"Unbegrenzter Zugang zu allem",
     menu_legal:"Rechtliche Hinweise", menu_legal_sub:"Rechte · AGB · Eigentum",
     lang_select:"Schnittstellensprache",
-    welcome_title:"Willkommen bei YORRO Game-architect",
+    welcome_title:"Willkommen bei YORRO Studio",
     welcome_sub:"Ihr KI-Spielentwicklungsstudio",
     welcome_chat:"KI-Chat",
     welcome_desc:"Beschreiben Sie Ihr Spiel und die KI generiert es",
@@ -5548,7 +5550,7 @@ const I18N = {
     menu_sub:"Abbonati Pro / Elite", menu_sub_sub:"Accesso illimitato a tutto",
     menu_legal:"Note legali", menu_legal_sub:"Diritti · TOS · Proprietà",
     lang_select:"Lingua dell'interfaccia",
-    welcome_title:"Benvenuto in YORRO Game-architect",
+    welcome_title:"Benvenuto in YORRO Studio",
     welcome_sub:"Il tuo studio di creazione giochi IA",
     welcome_chat:"Chat IA",
     welcome_desc:"Descrivi il tuo gioco e l'IA lo genera per te",
@@ -5569,7 +5571,7 @@ const I18N = {
     menu_sub:"Подписаться Pro / Elite", menu_sub_sub:"Неограниченный доступ ко всему",
     menu_legal:"Юридические уведомления", menu_legal_sub:"Права · Условия · Собственность",
     lang_select:"Язык интерфейса",
-    welcome_title:"Добро пожаловать в YORRO Game-architect",
+    welcome_title:"Добро пожаловать в YORRO Studio",
     welcome_sub:"Ваша студия создания игр с ИИ",
     welcome_chat:"ИИ-Чат",
     welcome_desc:"Опишите игру и ИИ создаст её для вас",
@@ -5590,7 +5592,7 @@ const I18N = {
     menu_sub:"Jisajili Pro / Elite", menu_sub_sub:"Ufikiaji usio na kikomo kwa kila kitu",
     menu_legal:"Arifa za Kisheria", menu_legal_sub:"Haki · Masharti · Mali",
     lang_select:"Lugha ya kiolesura",
-    welcome_title:"Karibu YORRO Game-architect",
+    welcome_title:"Karibu YORRO Studio",
     welcome_sub:"Studio yako ya uundaji michezo ya AI",
     welcome_chat:"Mazungumzo ya AI",
     welcome_desc:"Elezea mchezo wako na AI itakuunda",
@@ -5737,8 +5739,8 @@ function toggleCard(header){
   body.classList.toggle('open');
 }
 function contactOwner(){
-  const subject=encodeURIComponent('Contact - YORRO Game-architect Studio');
-  const body=encodeURIComponent('Bonjour Patrick Emessiene Amayna,\n\nJe vous contacte au sujet de YORRO Game-architect Studio.\n\n');
+  const subject=encodeURIComponent('Contact - YORRO Studio');
+  const body=encodeURIComponent('Bonjour Patrick Emessiene Amayna,\n\nJe vous contacte au sujet de YORRO Studio.\n\n');
   window.open('mailto:contact@yorro.dev?subject='+subject+'&body='+body);
   showNotif('info','✉️','Ouverture de votre client email...');
 }
@@ -5746,12 +5748,10 @@ function contactOwner(){
 // ═══════════════════════════════════════
 // START
 // ═══════════════════════════════════════
-if (isLoggedIn()) {
-  hideAuthScreen();
-  init();
-} else {
-  showAuthScreen();
-}
+// L'interface est toujours visible, même sans compte — seule l'utilisation
+// réelle des fonctionnalités (envoyer un message, appeler, etc.) exige un compte.
+init();
+checkSession(); // verifie en silence si une session existe deja (reconnexion automatique)
 </script>
 <script>
 // Service Worker uniquement activé en production (pas sur claudeusercontent)
